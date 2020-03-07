@@ -1,0 +1,76 @@
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color:blue;
+  color: red;
+  text-align: center;
+}
+
+.logo{ 
+    display:inline-block;
+    text-align: center;
+}
+.columna{
+    width: 24%;
+    display: inline-block
+}
+.columna img{
+    text-align: center;
+}
+.columnadoble{
+    width: 50%;
+    display: inline-block
+}
+
+.fila{
+    width: 100%; 
+}
+
+body{
+    background:  url(../images/background.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.tipoCambio{
+  
+   font-size: 32px;
+   text-align:  center;
+}
+
+.hr{
+    height: 50px;
+    border: 0;
+    background-color: red;
+    margin:0;
+}
+.Anuncios {
+ text-align: center;
+}
+
+.EspacioLogin{
+    width: 33%;
+    height: auto;
+    display:  inline-block;
+    position: relative;
+    background-color: aqua;
+}
+.EspacioLogin[id="loginP"]{
+    
+    border-radius:20px;
+    margin-top:30px;
+}
+.login{
+    position: relative;
+    width:165px;
+    top:-50px;
+    height: 50px;
+    margin:31%;
+}
+.login[id="id"]{
+    text-align:center;
+    top:-130px;
+   
+}
