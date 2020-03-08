@@ -18,22 +18,27 @@
     </header>
     <body>
         <div class="fila">
+             <p>Presione
+                <a href="/BancoUNA/presentation/Index.jsp"> AQUI </a> para volver a la página principal
+                </p>
             <div class="EspacioLogin"></div>
             <div class="EspacioLogin" id="loginP">
                 <div class="login">
                      <img src="/BancoUNA/images/logoenlinea.png">
                 </div>
                 <div id="id" class="login">
-                    CEDULA <br>
-                    <input id="Cedula" >   
+                    <p>CEDULA : 
+                    <input id="Cedula" ><br> 
+                     CONTRASEÑA : 
+                    <input type="password" id="password"><br>
+                    </p>
                        <a href="/BancoUNA/presentation/login/login">
-                           <button type="button">login!</button>
+                           <button type="button">LOGIN</button>
                         </a>
-                        
                    
-                </div>
-                
+                </div> 
             </div>
+            <div> Si no posee una cuenta y desea regístrarse ingrese al siguiente link:</div><br> 
             <div class="EspacioLogin"></div>
         </div>
     </body>
