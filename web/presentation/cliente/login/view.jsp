@@ -32,9 +32,7 @@
                      CONTRASEÑA : 
                     <input type="password" id="password"><br>
                     </p>
-                       <a href="/BancoUNA/presentation/login/login">
-                           <button type="button">LOGIN</button>
-                        </a>
+                       <a href="/BancoUNA/presentation/login/login">Login</a>
                    
                 </div> 
             </div>

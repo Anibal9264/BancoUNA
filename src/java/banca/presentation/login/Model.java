@@ -1,8 +1,5 @@
-
 package banca.presentation.login;
-
 import banca.logic.Usuario;
-
 public class Model {
     Usuario user;
 

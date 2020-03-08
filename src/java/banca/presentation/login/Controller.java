@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package banca.presentation.login;
 import banca.logic.Usuario;
 import java.io.IOException;
@@ -16,15 +11,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/login","/presentation/login/logout"})
 public class Controller extends HttpServlet {
 
-  protected void processRequest(HttpServletRequest request, 
-                                HttpServletResponse response)
+  protected void processRequest(HttpServletRequest request,HttpServletResponse response)
          throws ServletException, IOException {
       
-        request.setAttribute("model", new Model()); 
+        request.setAttribute("model",new Model()); 
         
         String viewUrl="";
         switch(request.getServletPath()){
             case "/presentation/login/login":
+                System.out.print("entro a controller");
                 viewUrl=this.login(request);
                 break;               
             case "/presentation/login/logout":
@@ -40,22 +35,27 @@ public class Controller extends HttpServlet {
          u.setCedula("604040087");
          u.setContraseña("1509");
          model.setUser(u);
+         System.out.print(u.toString());
          return this.loginAction(request);  
         
     }
         
     public String loginAction(HttpServletRequest request) {
+        
         Model model= (Model) request.getAttribute("model");
-        banca.logic.Model  domainModel = banca.logic.Model.instance();
+        System.out.print("Login Action1");
+        banca.logic.Model domainModel = banca.logic.Model.instance();
+        System.out.print("Login Action2");
         HttpSession session = request.getSession(true);
         try {
+            System.out.print("Login Action3");
             Usuario real = domainModel.usuarioFind(model.getUser().getCedula(),model.getUser().getContraseña());
             System.out.print(real.toString());
             session.setAttribute("usuario", real);
             String viewUrl="";
             
             if(!real.getIs()){
-            viewUrl="/presentation/cliente/cuentas/show";
+            viewUrl="/presentation/Index.jsp";
             }else{
             viewUrl="";
             }

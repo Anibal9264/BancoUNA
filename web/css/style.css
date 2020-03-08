@@ -1,12 +1,21 @@
 
 footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  position: relative;
+  left: -8px;
+  bottom:-22px;
   width: 100%;
-  background-color:blue;
-  color: red;
+  color:blue;
+  background-color:red;
   text-align: center;
+}
+body {
+   position: relative;
+   width: 100%;
+}
+
+header{
+   position: relative;
+   width: 100%;
 }
 
 .logo{ 
@@ -35,16 +44,16 @@ body{
     background-size: cover;
 }
 .tipoCambio{
-  
+   position: relative;
    font-size: 32px;
    text-align:  center;
 }
 
-.hr{
+.Toolbar {
     height: 50px;
-    border: 0;
-    background-color: red;
-    margin:0;
+    background-color:red;
+    position: relative;
+    left:-8px;
 }
 .Anuncios {
  text-align: center;
@@ -55,12 +64,12 @@ body{
     height: auto;
     display:  inline-block;
     position: relative;
-    background-color: aqua;
+   
 }
 .EspacioLogin[id="loginP"]{
-    
     border-radius:20px;
     margin-top:30px;
+    background-color: antiquewhite;
 }
 .login{
     position: relative;
@@ -73,4 +82,7 @@ body{
     text-align:center;
     top:-130px;
    
+}
+.Toolbar li {
+    display: inline-block;
 }

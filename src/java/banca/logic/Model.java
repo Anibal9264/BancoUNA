@@ -1,17 +1,11 @@
-
 package banca.logic;
-
 import banca.data.Dao;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class Model {
     Dao base;
     public Model() {
       base = new Dao();
   }
    private static Model uniqueInstance;
-   
    
    public static Model instance(){
        if (uniqueInstance == null) {
@@ -23,6 +17,7 @@ public class Model {
     public Usuario usuarioFind(String cedula,String clave) {
         Usuario u;
         try {
+            System.out.print("UsuarioFind");
             u = base.GetUsuario(cedula);
             if (clave.equals(u.getContraseña())) {
                 return u;

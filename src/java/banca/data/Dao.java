@@ -1,5 +1,4 @@
 package banca.data;
-
 import banca.logic.Cuenta;
 import banca.logic.CuentaFavorita;
 import banca.logic.Deposito;
@@ -277,6 +276,7 @@ public class Dao {
     }
 
     public Usuario GetUsuario(String cedula) throws Exception {
+         System.out.print("Dao");
      String sql="select * from "+
                     "Usuario u where u.cedula like '%%%s%%'";
         sql = String.format(sql,cedula);

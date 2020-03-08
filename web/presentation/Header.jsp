@@ -1,4 +1,5 @@
-
+<%@page import="banca.logic.Usuario"%>
+<% Usuario user = (Usuario)session.getAttribute("usuario"); %>
 <header>
     <div class="columna">
          <div class="logo">
@@ -11,12 +12,11 @@
         <div class="tipoCambio">Tipo de cambio de dolar</div> 
     </div>
     <div class="columna">
-        <%if(true){ %>
+        <%if(user==null){ %>
         <a href="/BancoUNA/presentation/cliente/login/view.jsp">
         <img id="online" src="/BancoUNA/images/logoenlinea.png">
         </a>
         <%}%>
     </div>
-    <div class="hr"></div>
-</header>          
+</header>            
 

@@ -1,5 +1,4 @@
 package banca.logic;
-
 public class Usuario {
    String cedula;
    String nombre;
