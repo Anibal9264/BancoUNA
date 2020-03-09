@@ -86,7 +86,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", contrase\u00f1a=" + contraseña + ", is=" + is + ", telefono=" + telefono + '}';
+        return nombre +" "+ apellido1 +" "+ apellido2 ;
     }
     
     

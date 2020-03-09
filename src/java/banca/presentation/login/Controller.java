@@ -13,9 +13,7 @@ public class Controller extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
          throws ServletException, IOException {
-      
         request.setAttribute("model",new Model()); 
-        
         String viewUrl="";
         switch(request.getServletPath()){
             case "/presentation/login/login":
@@ -32,8 +30,8 @@ public class Controller extends HttpServlet {
     private String login(HttpServletRequest request) { 
          Model model = (Model) request.getAttribute("model");
          Usuario u = new Usuario();
-         u.setCedula("604040087");
-         u.setContraseña("1509");
+         u.setCedula(request.getParameter("cedula"));
+         u.setContraseña(request.getParameter("password"));
          model.setUser(u);
          System.out.print(u.toString());
          return this.loginAction(request);  

@@ -7,7 +7,7 @@
                   <ul>  <!--submenu --> </ul>
                 </li>                        
                 <li class="toolbar">
-                  <a  href="#">User:<%=user.getCedula()%></a>
+                  <a  href="#">User:<%=user.toString()%></a>
                   <ul>  <!--submenu --> </ul>
                 </li> 
                 <li class="toolbar">

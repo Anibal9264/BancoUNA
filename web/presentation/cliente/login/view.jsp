@@ -1,4 +1,4 @@
-
+<%@page import="banca.logic.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,14 +27,13 @@
                      <img src="/BancoUNA/images/logoenlinea.png">
                 </div>
                 <div id="id" class="login">
-                    <p>CEDULA : 
-                    <input id="Cedula" ><br> 
-                     CONTRASEÑA : 
-                    <input type="password" id="password"><br>
-                    </p>
-                       <a href="/BancoUNA/presentation/login/login">Login</a>
-                   
-                </div> 
+                    <form action="/BancoUNA/presentation/login/login" method="GET">
+                        Cedula: <input type="text" name="cedula">
+                         <br />
+                        Contraseña: <input type="password" name="password" />
+                          <input type="submit" value="Ingresar" />
+                         </form>
+            </div> 
             </div>
             <div> Si no posee una cuenta y desea regístrarse ingrese al siguiente link:</div><br> 
             <div class="EspacioLogin"></div>
