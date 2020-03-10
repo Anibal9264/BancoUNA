@@ -164,8 +164,17 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
  display: block;
  cursor:pointer;
 }
-.Tabla-cuestas{
- margin: auto;
+.Tabla-cuentas{
+ margin:auto;
  width:50%;
- background-color:#58D68D;
+ height:200px;
+ text-align: center;
+}
+.Tabla-in td{
+    width:10%;
+    text-align: center;
+    background-color: #EBF5FB;
+}
+.Tabla-in[id="cabeza"] td{
+    background-color: aqua;
 }

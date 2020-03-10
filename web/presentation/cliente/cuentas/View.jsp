@@ -15,16 +15,16 @@
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>
  <body>
-     <div class="Tabla-cuestas">
+     <div class="Tabla-cuentas">
         <h1>Listado de Cuentas del Cliente</h1>     
     
         <table>
-            <thead>
-                <tr> <td>Numero</td> <td>Saldo</td>  </tr>
+            <thead class="Tabla-in" id="cabeza">
+                <tr> <td>Cuenta Numero</td><td>Nombre</td><td>Saldo</td><td>Moneda</td><td>Estado</td>   </tr>
             </thead>
-            <tbody>
+            <tbody class="Tabla-in">
                         <% for(Cuenta c:cuentas){%>
-                <tr> <td><%=c.getNumero()%> </td>  <td><%=c.getSaldo()%></td></tr>
+                <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=c.getSaldo()%></td> <td><%=c.getMoneda().getId()%></td><td><%=c.getEstado()%></td>  </tr>
                         <%}%>
             </tbody>
         </table>          

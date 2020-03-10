@@ -95,7 +95,12 @@ public class Cuenta {
     public void setMoneda(Moneda moneda) {
         this.moneda = moneda;
     }
-    
+    public String getEstado() {
+       if(estado){
+       return "Activa";
+       }
+       return "Inactiva";
+    }
     
     
 }
