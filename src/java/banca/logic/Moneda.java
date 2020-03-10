@@ -1,6 +1,4 @@
-
 package banca.logic;
-
 public class Moneda {
    String id;
    double tipo_cambio;

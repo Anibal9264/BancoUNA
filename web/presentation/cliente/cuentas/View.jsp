@@ -13,8 +13,9 @@
      <title>Login</title>
     </head>
      <%@ include file="/presentation/Header.jsp" %>
+     <%@ include file="/presentation/Toolbar.jsp" %>
  <body>
-    <div style="width:50%;margin:auto;">
+     <div class="Tabla-cuestas">
         <h1>Listado de Cuentas del Cliente</h1>     
     
         <table>
@@ -27,7 +28,7 @@
                         <%}%>
             </tbody>
         </table>          
-    </div> 
+    </div>
      <%@ include file="/presentation/Footer.jsp" %>
 </body>
 </html>

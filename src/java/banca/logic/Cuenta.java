@@ -1,6 +1,4 @@
-
 package banca.logic;
-
 public class Cuenta {
 
     

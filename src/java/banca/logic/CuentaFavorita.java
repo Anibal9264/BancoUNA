@@ -1,9 +1,6 @@
-
 package banca.logic;
 
 import static java.sql.Types.NULL;
-
-
 public class CuentaFavorita {
   private int id;
   private Cuenta cuenta;

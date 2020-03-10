@@ -1,6 +1,6 @@
 
 footer {
-  position: relative;
+  position:relative;
   left: -8px;
   bottom:-22px;
   width: 100%;
@@ -93,7 +93,7 @@ input[type=text].is-invalid,input[type=password].is-invalid{
     padding-right: 20px;
     background-repeat: no-repeat;
     background-position: center right;
-    background-size: 12 12;
+    background-size: 12px 12px;
     background-color:red;
 }
 
@@ -163,4 +163,9 @@ ul#menu li:hover ul ul,ul#menu li:hover ul ul ul,ul#menu li.iehover ul ul,ul#men
 ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.iehover ul,ul#menu ul li.iehover ul,ul#menu ul ul li.iehover ul {
  display: block;
  cursor:pointer;
+}
+.Tabla-cuestas{
+ margin: auto;
+ width:50%;
+ background-color:#58D68D;
 }

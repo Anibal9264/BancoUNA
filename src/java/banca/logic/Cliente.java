@@ -2,11 +2,6 @@ package banca.logic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-/**
- *
- * @author Escinf
- */
 public class Cliente {
     String cedula;
     String nombre;

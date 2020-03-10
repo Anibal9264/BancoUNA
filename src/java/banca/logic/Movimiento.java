@@ -1,6 +1,4 @@
-
 package banca.logic;
-
 import static java.sql.Types.NULL;
 
 public class Movimiento {
