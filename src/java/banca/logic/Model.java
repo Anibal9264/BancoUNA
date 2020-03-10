@@ -45,17 +45,15 @@ public class Model {
     } 
     
     public Cliente clienteFind(Usuario usuario) throws Exception{
-//        if (clientes.get(usuario.getCedula())!=null) return clientes.get(usuario.getCedula());
-//        else throw new Exception("Cliente no existe");
-     return null;
+        Usuario u = base.GetUsuario(usuario.getCedula());
+        if (u!=null){
+            Cliente c = new Cliente(u.getCedula(),u.getNombre()+" "+u.getApellido1()+" "+u.getApellido2(),u);
+            return c;
+        }
+        else
+          return null;
     }
      public List<Cuenta> cuentasFind(Cliente cliente) throws Exception{
-        List<Cuenta> result = new ArrayList();
-//        for(Cuenta c: cuentas.values()){
-//            if(c.getCliente().equals(cliente)){
-//                result.add(c);
-//            }
-//        }
-        return result;
-    }
+        return base.ListaCuentas(cliente.getCedula());
+     }
 }

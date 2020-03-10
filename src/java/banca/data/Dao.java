@@ -136,18 +136,19 @@ public class Dao {
      
      // GETS LISTAS 
      
-     public List<Cuenta> ListaCuentas(Usuario p) throws Exception{
+     public List<Cuenta> ListaCuentas(String cedula) throws Exception{
         List<Cuenta> resultado = new ArrayList<Cuenta>();
         try {
-            String sql="select * from "+
-                    "Cuenta c "+
+            String sql="select * from Cuenta c "+
                     "where c.Usuario_cedula like '%%%s%%'";
-            sql=String.format(sql,p.getCedula());
+            sql=String.format(sql,cedula);
             ResultSet rs =  db.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(CuentaRender(rs));
             }
-        } catch (SQLException ex) { }
+        } catch (SQLException ex) {
+        
+        }
         return resultado;
     }
 
@@ -175,7 +176,7 @@ public class Dao {
             cuenta.setNumero(rs.getInt("numero"));
             cuenta.setSaldo(rs.getDouble("saldo"));
             cuenta.setEstado(rs.getBoolean("estado"));
-            cuenta.setDescripcion(rs.getString("descripcioin"));
+            cuenta.setDescripcion(rs.getString("descripcion"));
             cuenta.setInteresesG(rs.getDouble("interesesG"));
             cuenta.setLimite(rs.getDouble("limite"));
             cuenta.setUsuario(GetUsuario(rs.getString("Usuario_cedula")));
@@ -284,7 +285,7 @@ public class Dao {
             return UsuarioRender(rs);
         }
         else{
-            throw new Exception ("Usuario no Existe");
+            return null;   
         }
     }
 
