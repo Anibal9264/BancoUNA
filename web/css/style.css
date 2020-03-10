@@ -69,7 +69,7 @@ body{
 .EspacioLogin[id="loginP"]{
     border-radius:20px;
     margin-top:30px;
-    background-color: antiquewhite;
+    background-color:#EBF5FB;
 }
 .login{
     position: relative;
@@ -87,4 +87,80 @@ body{
     display: inline-block;
     text-align: center;
     width:20%;
+}
+input[type=text].is-invalid,input[type=password].is-invalid{
+    border-color: #dc3545;
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 12 12;
+    background-color:red;
+}
+
+
+ul#menu {
+ background:#1F618D;
+ width:100%;
+ height:80%;
+ float: top;
+ padding: 5px;
+}
+  
+ul#menu li {
+ color: #58D68D;
+ float: left;
+ list-style: none;
+}
+  
+ul#menu li:hover{
+ color: #aaa073;
+ cursor:pointer;
+}
+
+ul#menu ul{
+ display: none;
+ position:absolute;
+ background:#1F618D;
+ color:#58D68D;
+ padding: 5px 0px 5px 5px;
+ margin: 0;
+ border-radius:5px;
+ opacity:0.9;
+ filter:alpha(opacity=90);
+ top:21px;
+}
+ul#menu ul[id="Cuenta_ul"]{
+ left:22%;
+}
+ul#menu ul[id="User_ul"]{
+ left:4.2%;
+}
+ul#menu ul[id="Transferencia_ul"]{
+ left:43%;
+} 
+ul#menu ul li{
+ float: left;
+ color: #58D68D;
+ width:100%;
+ margin:5% 0%;
+}
+ 
+ 
+ul#menu ul li a{
+ color: #fff;
+}
+  
+ul#menu ul li a:hover{
+ color: #aaa073;
+ cursor:pointer;
+}
+  
+ul#menu li:hover ul ul,ul#menu li:hover ul ul ul,ul#menu li.iehover ul ul,ul#menu li.iehover ul ul ul {
+ display: none;
+ cursor:pointer;
+}
+  
+ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.iehover ul,ul#menu ul li.iehover ul,ul#menu ul ul li.iehover ul {
+ display: block;
+ cursor:pointer;
 }

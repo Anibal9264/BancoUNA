@@ -34,10 +34,10 @@ public class Dao {
     }
      
      public void CuentaAdd(Cuenta c) throws Exception{
-        String sql="insert into Cuenta (numero,saldo,estado,descripcioin,"
+        String sql="insert into Cuenta (saldo,estado,descripcioin,"
                 + "interesesG,limite,Usuario_cedula,Moneda_id) "
-                + "values('%s','%s','%s','%s','%s','%s','%s','%s')";
-        sql=String.format(sql,c.getNumero(),c.getSaldo(),c.isEstado(),
+                + "values(%s,%s,'%s','%s',%s,%s,'%s')";
+        sql=String.format(sql,c.getSaldo(),c.isEstado(),
                 c.getDescripcion(),c.getInteresesG(),c.getLimite(),
                 c.getUsuario().getCedula(),c.getMoneda().getId());
         int count=db.executeUpdate(sql);
@@ -47,10 +47,10 @@ public class Dao {
      }
      
      public void Depositoadd(Deposito d) throws Exception{
-        String sql="insert into Moneda (id,monto,motivo,fecha,nombreDepositante,"
+        String sql="insert into Moneda (monto,motivo,fecha,nombreDepositante,"
                 + "Centa_numero,Usuario_cedula) "
-                + "values('%s','%s','%s','%s','%s','%s','%s')";
-        sql=String.format(sql,d.getId(),d.getMonto(),d.getMotivo(),
+                + "values(%s,'%s','%s','%s','%s','%s')";
+        sql=String.format(sql,d.getMonto(),d.getMotivo(),
                 d.getNombreDepositante(),d.getCuenta().getNumero(),
                 d.getUser().getCedula());
         int count=db.executeUpdate(sql);
@@ -276,7 +276,6 @@ public class Dao {
     }
 
     public Usuario GetUsuario(String cedula) throws Exception {
-         System.out.print("Dao");
      String sql="select * from "+
                     "Usuario u where u.cedula like '%%%s%%'";
         sql = String.format(sql,cedula);

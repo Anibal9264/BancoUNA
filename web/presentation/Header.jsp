@@ -13,7 +13,7 @@
     </div>
     <div class="columna">
         <%if(user==null){ %>
-        <a href="/BancoUNA/presentation/cliente/login/view.jsp">
+        <a href="/BancoUNA/presentation/login/show">
         <img id="online" src="/BancoUNA/images/logoenlinea.png">
         </a>
         <%}%>

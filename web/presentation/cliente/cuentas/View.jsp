@@ -1,11 +1,8 @@
-
-
 <%@page import="banca.logic.Cuenta"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%
     List<Cuenta> cuentas= new ArrayList();
-   
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

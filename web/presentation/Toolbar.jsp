@@ -1,22 +1,30 @@
 <div class="Toolbar">
-    <hr>
-
-             <% if (user!=null){ %>
-             <li class="toolbar">
-                  <a href="/Guia/presentation/cliente/cuentas/show">Cuentas</a>
-                  <ul>  <!--submenu --> </ul>
-                </li>                        
-                <li class="toolbar">
-                  <a  href="#">User:<%=user.toString()%></a>
-                  <ul>  <!--submenu --> </ul>
-                </li> 
-                <li class="toolbar">
-                  <a  href="/BancoUNA/presentation/login/logout">Logout</a>
-                  <ul>  <!--submenu --> </ul>
-                </li>                
-                        <% } %>
-                        <% if (user==null){%>
-                               
-                        <% }%>             
- 
+    <% if (user!=null){ %>
+    <ul id="menu">
+        <li><%=user.toString()%>
+            <ul id="User_ul">
+                <li>Actualizar datos</li>
+                <li>ver datos</li>
+            </ul>
+        </li>
+        <li>Cuentas
+            <ul id="Cuenta_ul">
+                <a href="/BancoUNA/presentation/cliente/cuentas/show">
+                    <li>Posición Cliente</li>
+                </a>
+                <li>Lista cuentas favoritas</li>
+            </ul>
+        </li>
+        <li>Transferencia
+            <ul id="Transferencia_ul">
+               <li>cuenta propia</li>
+               <li>cuentas favoritas</li>
+            </ul>
+        </li>
+        <a href="/BancoUNA/presentation/login/logout">
+          <li>Logout</li></a>
+        
+    </ul>    
+   <% } %>
 </div>
+
