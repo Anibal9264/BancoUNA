@@ -55,8 +55,9 @@ body{
     position: relative;
     left:-8px;
 }
-.Anuncios {
+.Anuncios{
  text-align: center;
+  
 }
 
 .EspacioLogin{
@@ -64,14 +65,17 @@ body{
     height: auto;
     display:  inline-block;
     position: relative;
+
    
 }
 .EspacioLogin[id="loginP"]{
     border-radius:20px;
     margin-top:30px;
-    background-color:#EBF5FB;
+    background-color: gainsboro;
+   
 }
 .login{
+    
     position: relative;
     width:165px;
     top:-50px;

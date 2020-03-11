@@ -19,6 +19,7 @@
     <div class="hr"></div>
     </header>
    <body>
+ 
         <% Model model= (Model) request.getAttribute("model"); %>
         <% Map<String,String> errores = (Map<String,String>) request.getAttribute("errores"); %>
         <% Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();%>
@@ -30,7 +31,7 @@
                 </div>
                 <div id="id" class="login">
                      <form action="/BancoUNA/presentation/login/login" method="post">
-                         <div class="fila encabezado">Login</div>
+                         <div class="fila encabezado"><b><p>Login</b></p></div>
                          <div class="fila">
                        <div class="etiqueta">Cedula</div>
                        <div class="campo"><input class="<%=erroneo("cedula_login",errores)%>" placeholder="Cedula" type="text" name="cedula_login" value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login",errores)%>"></div>
