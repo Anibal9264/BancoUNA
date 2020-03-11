@@ -14,21 +14,29 @@
     </head>
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>
- <body>
+<%if(!model.getCuentas().isEmpty()){%>
+<body>
      <div class="Tabla-cuentas">
         <h1>Listado de Cuentas del Cliente</h1>     
     
         <table>
             <thead class="Tabla-in" id="cabeza">
-                <tr> <td>Cuenta Numero</td><td>Nombre</td><td>Saldo</td><td>Moneda</td><td>Estado</td>   </tr>
+                <tr> <td>Cuenta Numero</td><td>Nombre</td><td>Saldo</td><td>Moneda</td><td>Estado</td><td>Detalle</td>   </tr>
             </thead>
             <tbody class="Tabla-in">
                         <% for(Cuenta c:cuentas){%>
-                <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=c.getSaldo()%></td> <td><%=c.getMoneda().getId()%></td><td><%=c.getEstado()%></td>  </tr>
+                        <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=c.getSaldo()%></td>
+                             <td><%=c.getMoneda().getId()%></td><td><%=c.getEstado()%></td>
+                             <td><a href="/BancoUNA/presentation/cliente/cuentas/detalles"  onclick="<% 
+                               session.setAttribute("CuentaFila",c);
+                             %>">ver</a></td></tr>
                         <%}%>
             </tbody>
         </table>          
     </div>
      <%@ include file="/presentation/Footer.jsp" %>
 </body>
+<%}%>
+
+
 </html>

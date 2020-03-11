@@ -52,8 +52,12 @@ public class Model {
         }
         else
           return null;
-    }
+     }
      public List<Cuenta> cuentasFind(Cliente cliente) throws Exception{
         return base.ListaCuentas(cliente.getCedula());
      }
+
+    public List<Movimiento> MovimientosFind(Cuenta c) {
+       return base.ListaMovimientos(c.getNumero());
+    }
 }

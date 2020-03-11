@@ -1,7 +1,9 @@
 package banca.presentation.cuentas;
 import banca.logic.Cliente;
+import banca.logic.Cuenta;
 import banca.logic.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "ClienteCuentasController", urlPatterns = {"/presentation/cliente/cuentas/show"})
+@WebServlet(name = "ClienteCuentasController", urlPatterns = {"/presentation/cliente/cuentas/show","/presentation/cliente/cuentas/detalles"})
 public class Controller extends HttpServlet {
     
   protected void processRequest(HttpServletRequest request, 
@@ -24,6 +26,9 @@ public class Controller extends HttpServlet {
           case "/presentation/cliente/cuentas/show":
               viewUrl = this.show(request);
               break;
+          case "/presentation/cliente/cuentas/detalles":
+              viewUrl = this.detalles(request);
+              break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
@@ -31,12 +36,15 @@ public class Controller extends HttpServlet {
     public String show(HttpServletRequest request) {
         return this.showAction(request);
     }
+    private String detalles(HttpServletRequest request) {
+        this.cleanAction(request);
+        return this.detallesAction(request);
+    }
     
     public String showAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
- 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Cliente cliente;
         try {
@@ -50,6 +58,21 @@ public class Controller extends HttpServlet {
         } catch (Exception ex) {
             return "";
         }
+    }
+    
+    private void cleanAction(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        HttpSession session = request.getSession(true);
+        model.setSeleccionado((Cuenta) session.getAttribute("CuentaFila"));
+        model.setCuentas(new ArrayList());    
+    }
+    
+    private String detallesAction(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        banca.logic.Model domainModel = banca.logic.Model.instance();
+        Cuenta c = model.getSeleccionado();
+        model.setMovimientos(domainModel.MovimientosFind(c));
+        return "/presentation/cliente/cuentas/View.jsp";
     }
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -90,5 +113,11 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
+
+    
+
+    
     
 }

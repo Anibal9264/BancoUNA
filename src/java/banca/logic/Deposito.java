@@ -7,18 +7,14 @@ public class Deposito {
    private String motivo;
    private String fecha;
    private String NombreDepositante;
-   Cuenta cuenta;
-   Usuario user;
 
-    public Deposito(int id, double monto, String motivo, String fecha, String NombreDepositante, Cuenta cuenta, Usuario user) {
+    public Deposito(int id, double monto, String motivo, String fecha, String NombreDepositante) {
         this.id = NULL;
         this.monto = monto;
         this.motivo = motivo;
         this.fecha = fecha;
         this.NombreDepositante = NombreDepositante;
-        this.cuenta = cuenta;
-        this.user = user;
-    }
+}
 
     public Deposito() {
         this.id = 0;
@@ -26,8 +22,6 @@ public class Deposito {
         this.motivo = "";
         this.fecha = "";
         this.NombreDepositante = "";
-        this.cuenta = new Cuenta();
-        this.user = new Usuario();
     }
     
     public int getId() {
@@ -68,26 +62,5 @@ public class Deposito {
 
     public void setNombreDepositante(String NombreDepositante) {
         this.NombreDepositante = NombreDepositante;
-    }
-
-    public Cuenta getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
-    }
-
-    public Usuario getUser() {
-        return user;
-    }
-
-    public void setUser(Usuario user) {
-        this.user = user;
-    }
-   
-   
-   
-   
-   
+    } 
 }

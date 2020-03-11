@@ -7,13 +7,15 @@ public class Movimiento {
   String detalle;
   Deposito deposito;
   Retiro retiro;
+  Cuenta cuenta;
 
-    public Movimiento(int id, String fecha, String detalle, Deposito deposito, Retiro retiro) {
+    public Movimiento(int id, String fecha, String detalle, Deposito deposito, Retiro retiro,Cuenta cuenta) {
         this.id = id;
         this.fecha = fecha;
         this.detalle = detalle;
         this.deposito = deposito;
         this.retiro = retiro;
+        this.cuenta = cuenta;
     }
    public Movimiento() {
         this.id = NULL;
@@ -21,6 +23,15 @@ public class Movimiento {
         this.detalle = "";
         this.deposito = new Deposito();
         this.retiro = new Retiro();
+        this.cuenta= new Cuenta();
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
     public int getId() {
