@@ -101,6 +101,11 @@ public class Cuenta {
        }
        return "Inactiva";
     }
+
+    @Override
+    public String toString() {
+        return "Cuenta" + " Numero: " + numero + ", Saldo: " + saldo + ", Estado: " + estado;
+    }
     
     
 }

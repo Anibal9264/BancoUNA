@@ -12,7 +12,9 @@
                 <a href="/BancoUNA/presentation/cliente/cuentas/show">
                     <li>Posición Cliente</li>
                 </a>
-                <li>Lista cuentas favoritas</li>
+                <a href="/BancoUNA/presentation/cliente/cuentas/vincular">
+                    <li>Vincular Cuenta</li>
+                </a>
             </ul>
         </li>
         <li>Transferencia

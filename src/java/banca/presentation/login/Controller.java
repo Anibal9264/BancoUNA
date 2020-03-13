@@ -76,15 +76,15 @@ public class Controller extends HttpServlet {
             Usuario real = domainModel.usuarioFind(model.getUser().getCedula(),model.getUser().getContraseña());
             session.setAttribute("usuario",real);
             String viewUrl="";
-            if(!real.getIs() && !real.getContraseña().isEmpty()){     
-                    viewUrl="/presentation/Index.jsp";       
-            }else if(real.getContraseña().isEmpty()){  
+           if(!real.equals(null)){     
+            return viewUrl="/presentation/Index.jsp";       
+            }else{  
             Map<String,String> errores = new HashMap<>();
             request.setAttribute("errores", errores);
             errores.put("pass_login","Clave incorrecta");
             return "/presentation/cliente/login/view.jsp";                  
             }
-            return viewUrl;
+           
         } catch (Exception ex) {
             Map<String,String> errores = new HashMap<>();
             request.setAttribute("errores", errores);

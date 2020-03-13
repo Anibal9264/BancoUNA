@@ -159,7 +159,7 @@ public class Dao {
                 resultado.add(MovimientoRender(rs));
             }
         } catch (SQLException ex) {
-        
+          return resultado;
         }
         return resultado;
      }
@@ -191,8 +191,9 @@ public class Dao {
             cuenta.setDescripcion(rs.getString("descripcion"));
             cuenta.setInteresesG(rs.getDouble("interesesG"));
             cuenta.setLimite(rs.getDouble("limite"));
+            cuenta.setMoneda(GetMoneda(rs.getString("Moneda_id")));
             return cuenta;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
