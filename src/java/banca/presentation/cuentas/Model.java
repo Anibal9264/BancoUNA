@@ -7,6 +7,7 @@ package banca.presentation.cuentas;
 
 import banca.logic.Cuenta;
 import banca.logic.Movimiento;
+import banca.logic.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class Model{
     private List<Cuenta> cuentas;
     private Cuenta seleccionado;
+    private Usuario Uselect;
     private List<Movimiento> movimientos;
     public Model() {
         this.reset();
@@ -25,7 +27,8 @@ public class Model{
     public void reset(){ 
         List<Cuenta> rows = new ArrayList<>();
         List<Movimiento> movi = new ArrayList<>();
-        seleccionado=null;  
+        seleccionado=new Cuenta();
+        Uselect = null;
         this.setCuentas(rows);
         this.setMovimientos(movi);
     }
@@ -53,5 +56,14 @@ public class Model{
     public void setSeleccionado(Cuenta seleccionado) {
         this.seleccionado = seleccionado;
     }
+
+    public Usuario getUselect() {
+        return Uselect;
+    }
+
+    public void setUselect(Usuario Uselect) {
+        this.Uselect = Uselect;
+    }
+    
     
 }

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ClienteCuentasController", urlPatterns = {
     "/presentation/cliente/cuentas/show",
     "/presentation/cliente/cuentas/detalles",
+    "/presentation/cliente/cuentas/vincularBuscar",
+    "/presentation/cliente/cuentas/vincularshow",
     "/presentation/cliente/cuentas/vincular"})
 public class Controller extends HttpServlet {
     
@@ -26,8 +28,7 @@ public class Controller extends HttpServlet {
                                 HttpServletResponse response)
          throws ServletException, IOException {
 
-        request.setAttribute("model", new Model());
-        
+        request.setAttribute("model",new Model());
         String viewUrl="";     
         switch (request.getServletPath()) {
           case "/presentation/cliente/cuentas/show":
@@ -36,9 +37,15 @@ public class Controller extends HttpServlet {
           case "/presentation/cliente/cuentas/detalles":
               viewUrl = this.detalles(request);
               break;
-          case "/presentation/cliente/cuentas/vincular":
+          case "/presentation/cliente/cuentas/vincularBuscar":
               viewUrl = this.vincularBuscar(request);
               break;
+          case "/presentation/cliente/cuentas/vincularshow":
+              viewUrl = this.vincularShow(request);
+          break;
+          case "/presentation/cliente/cuentas/vincular":
+              viewUrl = this.vincular(request);
+          break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
@@ -97,14 +104,30 @@ public class Controller extends HttpServlet {
     }
    
     //VINCULAR CUENTAS------------------------------------------------------
-     private String vincularBuscar(HttpServletRequest request) {
+    private String vincularShow(HttpServletRequest request) {
+         return this.VincularshowAction(request);
+    }
+     private String VincularshowAction(HttpServletRequest request) {
+       banca.presentation.cuentas.Model model= (banca.presentation.cuentas.Model) request.getAttribute("model");
+       model.setSeleccionado(new Cuenta());
+       model.getSeleccionado().setNumero(0);
+        return "/presentation/cliente/cuentas/vincular.jsp";
+     }
+
+      void updateModel(HttpServletRequest request){
+       Model model= (Model) request.getAttribute("model");
+       model.getSeleccionado().setNumero(Integer.parseInt(request.getParameter("cuenta_vincular")));  
+     }
+    
+    
+    private String vincularBuscar(HttpServletRequest request) {
         try{
         Map<String,String> errores =  this.validar(request);
         if(errores.isEmpty()){
                 return this.VincularBuscarAction(request);
         }
         else{
-        request.setAttribute("errores", errores);
+         request.setAttribute("errores", errores);
          return "/presentation/cliente/cuentas/vincular.jsp"; 
         }   
        }catch(Exception e){
@@ -117,17 +140,40 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
       try {
-          model.setSeleccionado(domainModel.CuentaFind(Integer.parseInt(request.getParameter("numeroFld"))));
+          String n = request.getParameter("cuenta_vincular");
+          model.setSeleccionado(domainModel.CuentaFind(Integer.parseInt(n)));
       } catch (Exception ex) {
           model.setSeleccionado(null);
       }
         return "/presentation/cliente/cuentas/vincular.jsp";
      }
+     
+     private String vincular(HttpServletRequest request) {
+       return this.vincularAction(request);
+    
+    }
+
+     private String vincularAction(HttpServletRequest request) {
+       banca.logic.Model domainModel = banca.logic.Model.instance();
+       HttpSession session = request.getSession(true);
+       Usuario user = (Usuario)session.getAttribute("usuario");
+       int n = (int) session.getAttribute("Ncuenta");
+      try {
+          domainModel.AgregarFavorita(n,user.getCedula());
+      } catch (Exception ex) {
+        return "/presentation/cliente/cuentas/vincular.jsp";  
+      }
+        return "/presentation/Index.jsp";
+     }
+     
+     
+     
+     
      // COMPARTIDOS------------------------------------------------------------
      Map<String,String> validar(HttpServletRequest request){
         Map<String,String> errores = new HashMap<>();
-        if (request.getParameter("numeroFld").isEmpty()){
-            errores.put("numeroFld","Cuenta requerida");
+        if (request.getParameter("cuenta_vincular").isEmpty()){
+            errores.put("cuenta_vincular","Cuenta no valida");
         }
         return errores;
     }
@@ -170,6 +216,11 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
+
+   
+    
 
     
 

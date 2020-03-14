@@ -64,4 +64,8 @@ public class Model {
     public Cuenta CuentaFind(int c) throws Exception {
        return base.GetCuenta(c);
     }
+
+    public void AgregarFavorita(int numero, String cedula) throws Exception {
+        base.CuentaFavoritadd(numero,cedula);    
+    }
 }

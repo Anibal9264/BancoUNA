@@ -106,6 +106,10 @@ public class Cuenta {
     public String toString() {
         return "Cuenta" + " Numero: " + numero + ", Saldo: " + saldo + ", Estado: " + estado;
     }
-    
-    
-}
+    public String toStringValor0() {
+        if(numero == 0){
+        return "";
+        }
+        return String.valueOf(numero);
+    }
+    }

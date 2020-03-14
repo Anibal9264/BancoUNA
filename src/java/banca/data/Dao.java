@@ -79,10 +79,10 @@ public class Dao {
         }
     }
      
-    public void CuentaFavoritadd(CuentaFavorita cf) throws Exception{
-        String sql="insert into CuentaFavorita (numero,Cuenta_numero,Usuario_cedula) "
-                + "values('%s','%s','%s')";
-        sql=String.format(sql,cf.getId(),cf.getCuenta().getNumero(),cf.getUser().getCedula());
+    public void CuentaFavoritadd(int numero, String cedula) throws Exception{
+        String sql="insert into CuentaFavorita (Cuenta_numero,Usuario_cedula) "
+                + "values('%s','%s')";
+        sql=String.format(sql,numero,cedula);
         int count=db.executeUpdate(sql);
         if (count==0){
             throw new Exception("CuentaFavorita ya existe");
@@ -192,6 +192,7 @@ public class Dao {
             cuenta.setInteresesG(rs.getDouble("interesesG"));
             cuenta.setLimite(rs.getDouble("limite"));
             cuenta.setMoneda(GetMoneda(rs.getString("Moneda_id")));
+            cuenta.setUsuario(GetUsuario(rs.getString("Usuario_cedula")));
             return cuenta;
         } catch (Exception ex) {
             return null;
@@ -334,6 +335,8 @@ public class Dao {
             throw new Exception ("Cuenta no Existe");
         }
     }
+
+    
 
    
     
