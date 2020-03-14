@@ -62,7 +62,11 @@
                         <br />
                         <div class="fila">
                             <div class="etiqueta">Nombre Depositante</div>
-                            <div class="campo"><input class="<%=erroneo("Depocitante_t", errores)%>" placeholder="Depositante" type="text" name="Depocitante_t" value="<%=form.get("Depocitante_t")[0]%>" title="<%=title("Depocitante_t", errores)%>"required></div>
+                            <div class="campo"><input class="<%=erroneo("depocitante_t", errores)%>" placeholder="Depositante" type="text" name="depocitante_t" value="<%=form.get("depocitante_t")[0]%>" title="<%=title("depocitante_t", errores)%>"required></div>
+                        </div>
+                        <div class="fila">
+                            <div class="etiqueta">Motivo</div>
+                            <div class="campo"><input class="<%=erroneo("motivo_t", errores)%>" placeholder="Motivo" type="text" name="motivo_t" value="<%=form.get("motivo_t")[0]%>" title="<%=title("motivo_t", errores)%>"required></div>
                         </div>
                         <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
                     </form>
@@ -89,8 +93,11 @@
 
     private Map<String,String[]> getForm(Model model){
        Map<String,String[]> values = new HashMap<>();
-       values.put("cedula_login", new String[]{model.getUser().getCedula()});
-       values.put("pass_login", new String[]{model.getUser().getContraseña()});
+       values.put("cedula_t", new String[]{model.getUser().getCedula()});
+       values.put("numero_t", new String[]{model.getUser().getContraseña()});
+       values.put("monto_t", new String[]{model.getUser().getCedula()});
+       values.put("Depocitante_t", new String[]{model.getUser().getContraseña()});
+       values.put("motivo_t", new String[]{model.getUser().getCedula()});
        return values;
     }
     
