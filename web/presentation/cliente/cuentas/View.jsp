@@ -12,7 +12,7 @@
 <html>
     <head>
     <%@ include file="/presentation/Head.jsp" %>
-     <title>Login</title>
+     <title>Cuentas</title>
     </head>
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>

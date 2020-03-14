@@ -13,7 +13,7 @@
 <html>
     <head>
     <%@ include file="/presentation/Head.jsp" %>
-     <title>Login</title>
+     <title>Vincular</title>
     </head>
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>

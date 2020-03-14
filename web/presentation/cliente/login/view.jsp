@@ -34,12 +34,12 @@
                          <div class="fila encabezado"><b><p>Login</b></p></div>
                          <div class="fila">
                        <div class="etiqueta">Cedula</div>
-                       <div class="campo"><input class="<%=erroneo("cedula_login",errores)%>" placeholder="Cedula" type="text" name="cedula_login" value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login",errores)%>"></div>
+                       <div class="campo"><input class="<%=erroneo("cedula_login",errores)%>" placeholder="Cedula" type="text" name="cedula_login" value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login",errores)%>"required></div>
                         </div>
                         <br />
                          <div class="fila">
                          <div class="etiqueta">Contraseña</div>
-                         <div class="campo"><input class="<%=erroneo("pass_login",errores)%>" placeholder="Contraseña" type="password" name="pass_login" value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login",errores)%>"></div>
+                         <div class="campo"><input class="<%=erroneo("pass_login",errores)%>" placeholder="Contraseña" type="password" name="pass_login" value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login",errores)%>"required></div>
                          </div>
                          <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
                     </form>

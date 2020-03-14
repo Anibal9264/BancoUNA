@@ -182,3 +182,7 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
 .Tabla-in[id="cabeza"] td{
     background-color: aqua;
 }
+
+input:valid {
+  border: 2px solid greenyellow;
+}
