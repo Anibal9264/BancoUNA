@@ -101,6 +101,15 @@ public class Cuenta {
        }
        return "Inactiva";
     }
-    
-    
-}
+
+    @Override
+    public String toString() {
+        return "Cuenta" + " Numero: " + numero + ", Saldo: "+moneda.getId()+" : "+ saldo ;
+    }
+    public String toStringValor0() {
+        if(numero == 0){
+        return "";
+        }
+        return String.valueOf(numero);
+    }
+    }

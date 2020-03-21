@@ -73,6 +73,15 @@ public class Movimiento {
     public void setRetiro(Retiro retiro) {
         this.retiro = retiro;
     }
+
+    public String toStringTipo() {
+        if(retiro.getId() != 0){
+            return "Retiro";
+        }else{
+            return "Deposito";
+        }
+        
+    }
    
    
   

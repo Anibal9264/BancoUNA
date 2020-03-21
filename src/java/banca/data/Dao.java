@@ -79,10 +79,10 @@ public class Dao {
         }
     }
      
-    public void CuentaFavoritadd(CuentaFavorita cf) throws Exception{
-        String sql="insert into CuentaFavorita (numero,Cuenta_numero,Usuario_cedula) "
-                + "values('%s','%s','%s')";
-        sql=String.format(sql,cf.getId(),cf.getCuenta().getNumero(),cf.getUser().getCedula());
+    public void CuentaFavoritadd(int numero, String cedula) throws Exception{
+        String sql="insert into CuentaFavorita (Cuenta_numero,Usuario_cedula) "
+                + "values('%s','%s')";
+        sql=String.format(sql,numero,cedula);
         int count=db.executeUpdate(sql);
         if (count==0){
             throw new Exception("CuentaFavorita ya existe");
@@ -159,7 +159,7 @@ public class Dao {
                 resultado.add(MovimientoRender(rs));
             }
         } catch (SQLException ex) {
-        
+          return resultado;
         }
         return resultado;
      }
@@ -191,8 +191,10 @@ public class Dao {
             cuenta.setDescripcion(rs.getString("descripcion"));
             cuenta.setInteresesG(rs.getDouble("interesesG"));
             cuenta.setLimite(rs.getDouble("limite"));
+            cuenta.setMoneda(GetMoneda(rs.getString("Moneda_id")));
+            cuenta.setUsuario(GetUsuario(rs.getString("Usuario_cedula")));
             return cuenta;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -304,8 +306,8 @@ public class Dao {
             return CuentaRender(rs);
         }
         else{
-            throw new Exception ("Cuenta no Existe");
-        }
+            return null;
+        } 
     }
 
     public Deposito GetDeposito(int dep) throws Exception {
@@ -333,6 +335,33 @@ public class Dao {
             throw new Exception ("Cuenta no Existe");
         }
     }
+
+    public CuentaFavorita GetFavoritaxCed(String cedF, String cedC) throws Exception{
+       String sql="select * from CuentaFavorita f inner join Cuenta c on c.numero = f.Cuenta_numero" +
+        "  where f.Usuario_cedula like '%%%s%%' and c.Usuario_cedula like '%%%s%%'";
+        sql = String.format(sql,cedC,cedF);
+        ResultSet rs =  db.executeQuery(sql);
+        if (rs.next()) {
+            return CuentaFavoritaRender(rs);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Object GetFavorita(String ced, String num) throws Exception {
+      String sql="select * from CuentaFavorita f where f.Usuario_cedula like '%%%s%%' and f.Cuenta_numero like '%%%s%%'";
+        sql = String.format(sql,ced,num);
+        ResultSet rs =  db.executeQuery(sql);
+        if (rs.next()) {
+            return CuentaFavoritaRender(rs);
+        }
+        else{
+            return null;
+        }
+    }
+
+    
 
    
     

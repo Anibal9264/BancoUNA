@@ -1,6 +1,5 @@
 package banca.presentation.cuentas;
 import banca.logic.Cliente;
-import banca.logic.Cuenta;
 import banca.logic.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,15 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "ClienteCuentasController", urlPatterns = {"/presentation/cliente/cuentas/show","/presentation/cliente/cuentas/detalles"})
+@WebServlet(name = "ClienteCuentasController", urlPatterns = {
+    "/presentation/cliente/cuentas/show",
+    "/presentation/cliente/cuentas/detalles"})
 public class Controller extends HttpServlet {
     
   protected void processRequest(HttpServletRequest request, 
                                 HttpServletResponse response)
          throws ServletException, IOException {
 
-        request.setAttribute("model", new Model());
-        
+        request.setAttribute("model",new Model());
         String viewUrl="";     
         switch (request.getServletPath()) {
           case "/presentation/cliente/cuentas/show":
@@ -32,49 +32,42 @@ public class Controller extends HttpServlet {
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
-
+    //===================CUENTAS SHOW========================
     public String show(HttpServletRequest request) {
         return this.showAction(request);
     }
-    private String detalles(HttpServletRequest request) {
-        this.cleanAction(request);
-        return this.detallesAction(request);
-    }
-    
     public String showAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente;
-        try {
-            cliente = domainModel.clienteFind(usuario);
-        } catch (Exception ex) {
-            cliente=null;
-        }
-        try {        
-            model.setCuentas(domainModel.cuentasFind(cliente));
+try {        
+            model.setCuentas(domainModel.cuentasFind(new Cliente(usuario.getCedula(),usuario.toString(),usuario)));
             return "/presentation/cliente/cuentas/View.jsp";
         } catch (Exception ex) {
-            return "";
+            model.setCuentas(new ArrayList<>());
+            return "/presentation/cliente/cuentas/View.jsp";
         }
     }
-    
+    //==================DETALLES DE CUENTAS=====================
+    private String detalles(HttpServletRequest request) {
+        this.cleanAction(request);
+        return this.detallesAction(request);
+   
+    }
     private void cleanAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         HttpSession session = request.getSession(true);
-        model.setSeleccionado((Cuenta) session.getAttribute("CuentaFila"));
-        model.setCuentas(new ArrayList());    
+        model.setCuentas(new ArrayList<>());    
     }
     
     private String detallesAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
-        Cuenta c = model.getSeleccionado();
-        model.setMovimientos(domainModel.MovimientosFind(c));
+        model.setMovimientos(domainModel.MovimientosFind(Integer.parseInt(request.getParameter("numeroFld"))));
         return "/presentation/cliente/cuentas/View.jsp";
     }
-   
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -113,11 +106,5 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
-
-    
-
-    
-    
+ 
 }

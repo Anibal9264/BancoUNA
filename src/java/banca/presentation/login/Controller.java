@@ -30,33 +30,42 @@ public class Controller extends HttpServlet {
         }
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
-
-    private String login(HttpServletRequest request) { 
-        try{
-            Map<String,String> errores =  this.validar(request);
-            if(errores.isEmpty()){
-                this.updateModel(request);          
+  
+  //================= Show menu=================
+   public String show(HttpServletRequest request){
+        return this.showAction(request);
+    }
+    public String showAction(HttpServletRequest request){
+        return "/presentation/cliente/login/view.jsp"; 
+    } 
+// ==================MENU LOGIN================
+    private String login(HttpServletRequest request) {
+        try {
+            Map<String, String> errores = this.validar(request);
+            if (errores.isEmpty()) {
+                this.updateModel(request);
                 return this.loginAction(request);
+            } else {
+                return "/presentation/cliente/login/view.jsp";
             }
-            else{
-                request.setAttribute("errores", errores);
-                return "/presentation/cliente/login/view.jsp"; 
-            }            
+        } catch (Exception e) {
+                return "/presentation/cliente/login/view.jsp";
         }
-        catch(Exception e){
-            return "/presentation/Error.jsp";             
-        } 
-        
     }
     
     Map<String,String> validar(HttpServletRequest request){
         Map<String,String> errores = new HashMap<>();
-        if (request.getParameter("cedula_login").isEmpty()){
-            errores.put("cedula_login","Cedula requerida");
+        banca.logic.Model domainModel = banca.logic.Model.instance();
+        Usuario real = domainModel.usuarioFind(request.getParameter("cedula_login"),request.getParameter("pass_login"));
+        
+        if (real == null){
+            errores.put("cedula_login","Cliente no Existe");
+            request.setAttribute("errores",errores);
         }
 
-        if (request.getParameter("pass_login").isEmpty()){
-            errores.put("pass_login","Clave requerida");
+        if (real.getContraseña().isEmpty()){
+            errores.put("pass_login","Clave Incorrecta");
+            request.setAttribute("errores",errores);
         }
         return errores;
     }
@@ -65,32 +74,15 @@ public class Controller extends HttpServlet {
        Model model= (Model) request.getAttribute("model");
        model.getUser().setCedula(request.getParameter("cedula_login"));
        model.getUser().setContraseña(request.getParameter("pass_login"));
-   }
+      }
         
     public String loginAction(HttpServletRequest request) {
-        
-        Model model= (Model) request.getAttribute("model");
+        Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
-        try {
-            Usuario real = domainModel.usuarioFind(model.getUser().getCedula(),model.getUser().getContraseña());
-            session.setAttribute("usuario",real);
-            String viewUrl="";
-            if(!real.getIs() && !real.getContraseña().isEmpty()){     
-                    viewUrl="/presentation/Index.jsp";       
-            }else if(real.getContraseña().isEmpty()){  
-            Map<String,String> errores = new HashMap<>();
-            request.setAttribute("errores", errores);
-            errores.put("pass_login","Clave incorrecta");
-            return "/presentation/cliente/login/view.jsp";                  
-            }
-            return viewUrl;
-        } catch (Exception ex) {
-            Map<String,String> errores = new HashMap<>();
-            request.setAttribute("errores", errores);
-            errores.put("cedula_login","Usuario no existe");
-            return "/presentation/cliente/login/view.jsp"; 
-        }        
+        Usuario real = domainModel.usuarioFind(model.getUser().getCedula(), model.getUser().getContraseña());
+        session.setAttribute("usuario",real);
+        return "/presentation/Index.jsp";
     }   
 
     public String logout(HttpServletRequest request){
@@ -103,15 +95,7 @@ public class Controller extends HttpServlet {
         session.invalidate();
         return "/presentation/Index.jsp";   
     }
-    public String show(HttpServletRequest request){
-        return this.showAction(request);
-    }
-    public String showAction(HttpServletRequest request){
-        Model model= (Model) request.getAttribute("model");
-        model.getUser().setCedula("");
-        model.getUser().setContraseña("");
-        return "/presentation/cliente/login/view.jsp"; 
-    } 
+   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
