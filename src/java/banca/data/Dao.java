@@ -306,8 +306,8 @@ public class Dao {
             return CuentaRender(rs);
         }
         else{
-            throw new Exception ("Cuenta no Existe");
-        }
+            return null;
+        } 
     }
 
     public Deposito GetDeposito(int dep) throws Exception {
@@ -333,6 +333,31 @@ public class Dao {
         }
         else{
             throw new Exception ("Cuenta no Existe");
+        }
+    }
+
+    public CuentaFavorita GetFavoritaxCed(String cedF, String cedC) throws Exception{
+       String sql="select * from CuentaFavorita f inner join Cuenta c on c.numero = f.Cuenta_numero" +
+        "  where f.Usuario_cedula like '%%%s%%' and c.Usuario_cedula like '%%%s%%'";
+        sql = String.format(sql,cedC,cedF);
+        ResultSet rs =  db.executeQuery(sql);
+        if (rs.next()) {
+            return CuentaFavoritaRender(rs);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Object GetFavorita(String ced, String num) throws Exception {
+      String sql="select * from CuentaFavorita f where f.Usuario_cedula like '%%%s%%' and f.Cuenta_numero like '%%%s%%'";
+        sql = String.format(sql,ced,num);
+        ResultSet rs =  db.executeQuery(sql);
+        if (rs.next()) {
+            return CuentaFavoritaRender(rs);
+        }
+        else{
+            return null;
         }
     }
 

@@ -12,7 +12,7 @@
                 <a href="/BancoUNA/presentation/cliente/cuentas/show">
                     <li>Posición Cliente</li>
                 </a>
-                <a href="/BancoUNA/presentation/cliente/cuentas/vincularshow">
+                <a href="/BancoUNA/presentation/cliente/vincular/show">
                     <li>Vincular Cuenta</li>
                 </a>
             </ul>
@@ -20,7 +20,9 @@
         <li>Transferencia
             <ul id="Transferencia_ul">
                <li>cuenta propia</li>
+          <a href="/BancoUNA/presentation/transferencia/show">
                <li>cuentas favoritas</li>
+          </a>
             </ul>
         </li>
         <a href="/BancoUNA/presentation/login/logout">

@@ -104,7 +104,7 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return "Cuenta" + " Numero: " + numero + ", Saldo: " + saldo + ", Estado: " + estado;
+        return "Cuenta" + " Numero: " + numero + ", Saldo: "+moneda.getId()+" : "+ saldo ;
     }
     public String toStringValor0() {
         if(numero == 0){

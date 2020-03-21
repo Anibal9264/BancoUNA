@@ -1,13 +1,8 @@
 package banca.presentation.cuentas;
 import banca.logic.Cliente;
-import banca.logic.Cuenta;
 import banca.logic.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +13,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ClienteCuentasController", urlPatterns = {
     "/presentation/cliente/cuentas/show",
-    "/presentation/cliente/cuentas/detalles",
-    "/presentation/cliente/cuentas/vincularBuscar",
-    "/presentation/cliente/cuentas/vincularshow",
-    "/presentation/cliente/cuentas/vincular"})
+    "/presentation/cliente/cuentas/detalles"})
 public class Controller extends HttpServlet {
     
   protected void processRequest(HttpServletRequest request, 
@@ -37,19 +29,10 @@ public class Controller extends HttpServlet {
           case "/presentation/cliente/cuentas/detalles":
               viewUrl = this.detalles(request);
               break;
-          case "/presentation/cliente/cuentas/vincularBuscar":
-              viewUrl = this.vincularBuscar(request);
-              break;
-          case "/presentation/cliente/cuentas/vincularshow":
-              viewUrl = this.vincularShow(request);
-          break;
-          case "/presentation/cliente/cuentas/vincular":
-              viewUrl = this.vincular(request);
-          break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
-    //CUENTAS---------------------------------------------------------------
+    //===================CUENTAS SHOW========================
     public String show(HttpServletRequest request) {
         return this.showAction(request);
     }
@@ -58,42 +41,24 @@ public class Controller extends HttpServlet {
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente;
-        try {
-            cliente = domainModel.clienteFind(usuario);
-        } catch (Exception ex) {
-            cliente=null;
-        }
-        try {        
-            model.setCuentas(domainModel.cuentasFind(cliente));
+try {        
+            model.setCuentas(domainModel.cuentasFind(new Cliente(usuario.getCedula(),usuario.toString(),usuario)));
             return "/presentation/cliente/cuentas/View.jsp";
         } catch (Exception ex) {
-            return "";
+            model.setCuentas(new ArrayList<>());
+            return "/presentation/cliente/cuentas/View.jsp";
         }
     }
-    //DETALLES DE CUENTAS------------------------------------------------------
+    //==================DETALLES DE CUENTAS=====================
     private String detalles(HttpServletRequest request) {
-       try{
-        Map<String,String> errores =  this.validar(request);
-        if(errores.isEmpty()){
-                this.cleanAction(request);
-                return this.detallesAction(request);
-        }
-            else{
-                request.setAttribute("errores", errores);
-                return "/presentation/cliente/datos/View.jsp"; 
-        }   
-       }catch(Exception e){
-            return "/presentation/Error.jsp";             
-       }    
+        this.cleanAction(request);
+        return this.detallesAction(request);
+   
     }
-    
-    
-    
     private void cleanAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         HttpSession session = request.getSession(true);
-        model.setCuentas(new ArrayList());    
+        model.setCuentas(new ArrayList<>());    
     }
     
     private String detallesAction(HttpServletRequest request) {
@@ -101,81 +66,6 @@ public class Controller extends HttpServlet {
         banca.logic.Model domainModel = banca.logic.Model.instance();
         model.setMovimientos(domainModel.MovimientosFind(Integer.parseInt(request.getParameter("numeroFld"))));
         return "/presentation/cliente/cuentas/View.jsp";
-    }
-   
-    //VINCULAR CUENTAS------------------------------------------------------
-    private String vincularShow(HttpServletRequest request) {
-         return this.VincularshowAction(request);
-    }
-     private String VincularshowAction(HttpServletRequest request) {
-       banca.presentation.cuentas.Model model= (banca.presentation.cuentas.Model) request.getAttribute("model");
-       model.setSeleccionado(new Cuenta());
-       model.getSeleccionado().setNumero(0);
-        return "/presentation/cliente/cuentas/vincular.jsp";
-     }
-
-      void updateModel(HttpServletRequest request){
-       Model model= (Model) request.getAttribute("model");
-       model.getSeleccionado().setNumero(Integer.parseInt(request.getParameter("cuenta_vincular")));  
-     }
-    
-    
-    private String vincularBuscar(HttpServletRequest request) {
-        try{
-        Map<String,String> errores =  this.validar(request);
-        if(errores.isEmpty()){
-                return this.VincularBuscarAction(request);
-        }
-        else{
-         request.setAttribute("errores", errores);
-         return "/presentation/cliente/cuentas/vincular.jsp"; 
-        }   
-       }catch(Exception e){
-            return "/presentation/cliente/cuentas/vincular.jsp";            
-       }    
-       
-     }
-     
-     private String VincularBuscarAction(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
-        banca.logic.Model domainModel = banca.logic.Model.instance();
-      try {
-          String n = request.getParameter("cuenta_vincular");
-          model.setSeleccionado(domainModel.CuentaFind(Integer.parseInt(n)));
-      } catch (Exception ex) {
-          model.setSeleccionado(null);
-      }
-        return "/presentation/cliente/cuentas/vincular.jsp";
-     }
-     
-     private String vincular(HttpServletRequest request) {
-       return this.vincularAction(request);
-    
-    }
-
-     private String vincularAction(HttpServletRequest request) {
-       banca.logic.Model domainModel = banca.logic.Model.instance();
-       HttpSession session = request.getSession(true);
-       Usuario user = (Usuario)session.getAttribute("usuario");
-       int n = (int) session.getAttribute("Ncuenta");
-      try {
-          domainModel.AgregarFavorita(n,user.getCedula());
-      } catch (Exception ex) {
-        return "/presentation/cliente/cuentas/vincular.jsp";  
-      }
-        return "/presentation/Index.jsp";
-     }
-     
-     
-     
-     
-     // COMPARTIDOS------------------------------------------------------------
-     Map<String,String> validar(HttpServletRequest request){
-        Map<String,String> errores = new HashMap<>();
-        if (request.getParameter("cuenta_vincular").isEmpty()){
-            errores.put("cuenta_vincular","Cuenta no valida");
-        }
-        return errores;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -216,22 +106,5 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
-
-   
-    
-
-    
-
-   
-
-    
-
-    
-
-    
-
-    
-    
+ 
 }
