@@ -35,7 +35,9 @@ header{
 }
 
 .fila{
+    text-align: left;
     width: 100%; 
+    
 }
 
 body{
@@ -64,15 +66,14 @@ body{
     width: 33%;
     height: auto;
     display:  inline-block;
-    position: relative;
-
-   
+    position: static;
+    text-align: left;
 }
 .EspacioLogin[id="loginP"]{
     border-radius:20px;
-    margin-top:30px;
+/*    margin-top:30px;*/
     background-color: gainsboro;
-   
+  text-align: left;
 }
 .login{
     
@@ -80,13 +81,23 @@ body{
     width:165px;
     top:-50px;
     height: 50px;
-    margin:31%;
+    text-align: center;
+    margin:20px;
+    font-family: "bookman old style";
 }
 .login[id="id"]{
     text-align:center;
     top:-130px;
+    width:50px;
+    height: 20px;
+    /*background-color: red;*/
+    text-align: left;
+    font-family: "Constantia";
+   color: darkgrey;
    
 }
+
+
 .Toolbar li {
     display: inline-block;
     text-align: center;
@@ -111,7 +122,7 @@ ul#menu {
 }
   
 ul#menu li {
- color: #58D68D;
+ color: lightcyan;
  float: left;
  list-style: none;
 }
@@ -125,7 +136,7 @@ ul#menu ul{
  display: none;
  position:absolute;
  background:#1F618D;
- color:#58D68D;
+ color:lightcyan;
  padding: 5px 0px 5px 5px;
  margin: 0;
  border-radius:5px;
@@ -141,10 +152,11 @@ ul#menu ul[id="User_ul"]{
 }
 ul#menu ul[id="Transferencia_ul"]{
  left:43%;
+ 
 } 
 ul#menu ul li{
  float: left;
- color: #58D68D;
+ color: lightcyan;
  width:100%;
  margin:5% 0%;
 }
@@ -168,6 +180,15 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
  display: block;
  cursor:pointer;
 }
+.fila > .Tabla-login{
+ margin:auto;
+ width:10%;
+ height:50%;
+ text-align: left;
+ background: url(../images/1.jpg);
+}
+
+
 .Tabla-cuentas{
  margin:auto;
  width:50%;
@@ -180,5 +201,6 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
     background-color: #EBF5FB;
 }
 .Tabla-in[id="cabeza"] td{
-    background-color: aqua;
+    background-color: red;
+    
 }

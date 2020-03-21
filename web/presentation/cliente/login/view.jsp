@@ -19,34 +19,64 @@
     <div class="hr"></div>
     </header>
    <body>
- 
+       
         <% Model model= (Model) request.getAttribute("model"); %>
         <% Map<String,String> errores = (Map<String,String>) request.getAttribute("errores"); %>
         <% Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();%>
-        <div class="fila">
-          <div class="EspacioLogin"></div>
-            <div class="EspacioLogin" id="loginP">
-                <div class="login">
-                     <img src="/BancoUNA/images/logoenlinea.png">
-                </div>
-                <div id="id" class="login">
+    
+          <tbody > 
+          <table>    
+               <div class="EspacioLogin" id="loginP">
+            <thead>
+            <TR >
+            <div class="login"> 
+                     <img src="/BancoUNA/images/logoenlinea.png"></th>
+                    </div>
+                </thead>
+               <TD WIDTH="250" 
+                        HEIGHT="180" align="left" bgcolor="#1F618D">
+          
+                <div  id="id" class="login">
                      <form action="/BancoUNA/presentation/login/login" method="post">
-                         <div class="fila encabezado"><b><p>Login</b></p></div>
+                        
+                         <br>
                          <div class="fila">
-                       <div class="etiqueta">Cedula</div>
-                       <div class="campo"><input class="<%=erroneo("cedula_login",errores)%>" placeholder="Cedula" type="text" name="cedula_login" value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login",errores)%>"></div>
-                        </div>
-                        <br />
-                         <div class="fila">
-                         <div class="etiqueta">Contraseña</div>
-                         <div class="campo"><input class="<%=erroneo("pass_login",errores)%>" placeholder="Contraseña" type="password" name="pass_login" value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login",errores)%>"></div>
+                             <div class="etiqueta">Cédula</div>
+                       <div class="campo">
+                        <input style=" border-radius: 8px "
+                               class="<%=erroneo("cedula_login",errores)%>"  
+                               placeholder="Cedula" type="text" name="cedula_login" 
+                               value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login", errores)%>"></div>
                          </div>
-                         <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
+                         <br/>
+                         <div class="fila">
+                             <div class="etiqueta">Contraseña</div>
+                             <div class="campo">
+                                 <input style=" border-radius: 8px"
+                                        class="<%=erroneo("pass_login", errores)%>" 
+                                        placeholder="Contraseña" type="password" name="pass_login" 
+                                        value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login", errores)%>"></div>
+                         </div>
+                         <p>
+                        <div class="fila encabezado">
+                            <button  style=" border-radius: 4px "  
+                                     style=" color: slategray" 
+                                     style="margin-bottom: 15px">
+                                <b>Ingresar</b></button> </div>
+                     </p>
                     </form>
-               </div> 
+                   </TD>
+               </div>          
+               <TD WIDTH="180" HEIGHT="180">
+                   <h2>
+                       <img  WIDTH="500" HEIGHT="300" src="/BancoUNA/images/fondo1.jpg">
+                   </h2></TD> 
+        </TR>
+        </tbody>
             </div>
-            <div class="EspacioLogin"></div>
-        </div>
+            <div class="EspacioLogin"></div>  </TR>
+    </table>
+            
     </body>
 </html>
 <%!

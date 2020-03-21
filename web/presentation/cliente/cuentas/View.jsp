@@ -21,7 +21,7 @@
     
         <table>
             <thead class="Tabla-in" id="cabeza">
-                <tr> <td>Cuenta Numero</td><td>Nombre</td><td>Saldo</td><td>Moneda</td><td>Estado</td><td>Detalle</td>   </tr>
+                <tr> <td> <b>Cuenta Número</b></td><td><b>Nombre</b></td><td><b>Saldo</b></td><td><b>Moneda</b></td><td><b>Estado</b></td><td><b>Detalle</b></td>   </tr>
             </thead>
             <tbody class="Tabla-in">
                         <% for(Cuenta c:cuentas){%>

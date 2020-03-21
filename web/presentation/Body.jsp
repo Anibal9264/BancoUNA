@@ -1,7 +1,7 @@
 <body>
     <% if(user==null){%>
     <div class="Anuncios"> 
-      <img src="/BancoUNA/images/2.jpg">
+      <img src="/BancoUNA/images/casa.jpg">
     </div> 
     <%}%>
     <% if (user!=null){ %>
