@@ -80,4 +80,60 @@ public class Model {
             return null;
         }
     }
+
+    public void AgregarMovimientoRetiro(Movimiento movimiento) {
+       int n= AgregarRetiro(movimiento.getRetiro());
+            movimiento.getRetiro().setId(n);
+
+        
+        try {
+            base.MovimientoAdd(movimiento);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void AgregarMovimientoDeposito(Movimiento movimiento) {
+       int n = AgregarDeposito(movimiento.getDeposito());
+            movimiento.getDeposito().setId(n);
+        try {
+            base.MovimientoAdd(movimiento);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public int AgregarRetiro(Retiro retiro){
+        retiro.setId(ContadorRetiros());
+        try {
+            base.Retiroadd(retiro);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return retiro.getId();
+    }
+    public int AgregarDeposito(Deposito deposito){
+        deposito.setId(ContadorDepositos());
+        try {
+            base.Depositoadd(deposito);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return deposito.getId();
+    }
+    public int ContadorRetiros() {
+       return base.ContadorRetiros();
+    }
+    public int ContadorDepositos() {
+       return base.ContadorDepositos();
+    }
+
+    public void CuentaUpdate(Cuenta cuenta) {
+        try {
+            base.CuentaUpdate(cuenta);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
 }

@@ -1,5 +1,5 @@
 
-package banca.presentation.cuentas;
+package banca.presentation.Cliente.cuentas;
 
 import banca.logic.Cuenta;
 import banca.logic.Movimiento;

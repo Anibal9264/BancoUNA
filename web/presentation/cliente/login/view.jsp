@@ -1,4 +1,4 @@
-<%@page import="banca.presentation.login.Model"%>
+<%@page import="banca.presentation.Cliente.login.Model"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,7 +26,6 @@
     
           <tbody > 
           <table>    
-               <div class="EspacioLogin" id="loginP">
             <thead>
             <TR >
             <div class="login"> 
@@ -38,15 +37,14 @@
           
                 <div  id="id" class="login">
                      <form action="/BancoUNA/presentation/login/login" method="post">
-                        
-                         <br>
+
                          <div class="fila">
-                             <div class="etiqueta">Cédula</div>
+                        <div class="etiqueta">Cédula</div>
                        <div class="campo">
                         <input style=" border-radius: 8px "
                                class="<%=erroneo("cedula_login",errores)%>"  
                                placeholder="Cedula" type="text" name="cedula_login" 
-                               value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login", errores)%>"></div>
+                               value="<%=form.get("cedula_login")[0]%>" title="<%=title("cedula_login", errores)%>"required></div>
                          </div>
                          <br/>
                          <div class="fila">
@@ -55,17 +53,17 @@
                                  <input style=" border-radius: 8px"
                                         class="<%=erroneo("pass_login", errores)%>" 
                                         placeholder="Contraseña" type="password" name="pass_login" 
-                                        value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login", errores)%>"></div>
-                         </div>
-                         <p>
+                                        value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login", errores)%>"required></div>
+                                  </div>
+
                         <div class="fila encabezado">
                             <button  style=" border-radius: 4px "  
                                      style=" color: slategray" 
                                      style="margin-bottom: 15px">
                                 <b>Ingresar</b></button> </div>
-                     </p>
+
                     </form>
-                   </TD>
+                   </TD>   
                </div>          
                <TD WIDTH="180" HEIGHT="180">
                    <h2>

@@ -18,7 +18,6 @@ public class Movimiento {
         this.cuenta = cuenta;
     }
    public Movimiento() {
-        this.id = NULL;
         this.fecha = "";
         this.detalle = "";
         this.deposito = new Deposito();

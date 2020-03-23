@@ -1,6 +1,7 @@
 package banca.logic;
 
 import static java.sql.Types.NULL;
+
 public class Retiro {
     private int id;
     private double monto;

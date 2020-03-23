@@ -1,4 +1,6 @@
-<%@page import="banca.presentation.cuentas.Model"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.math.RoundingMode"%>
+<%@page import="banca.presentation.Cliente.cuentas.Model"%>
 <%@page import="java.util.List"%>
 <%@page import="banca.logic.Cuenta"%>
 <%@page import="banca.logic.Movimiento"%>
@@ -26,8 +28,11 @@
                 <tr> <td> <b>Cuenta Número</b></td><td><b>Nombre</b></td><td><b>Saldo</b></td><td><b>Moneda</b></td><td><b>Estado</b></td><td><b>Detalle</b></td>   </tr>
             </thead>
             <tbody class="Tabla-in">
-                        <%for(Cuenta c:cuentas){%>
-                       <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=c.getSaldo()%></td>
+                        <%
+                          DecimalFormat df2 = new DecimalFormat("#.##");
+                          df2.setRoundingMode(RoundingMode.DOWN);  
+                    for(Cuenta c:cuentas){%>
+                       <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=df2.format(c.getSaldo())%></td>
                              <td><%=c.getMoneda().getId()%></td><td><%=c.getEstado()%></td>
                              <td><a href="/BancoUNA/presentation/cliente/cuentas/detalles?numeroFld=<%=c.getNumero()%>">
                              ver</a></td></tr>

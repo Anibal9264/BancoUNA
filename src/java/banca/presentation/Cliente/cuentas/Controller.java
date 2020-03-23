@@ -1,4 +1,4 @@
-package banca.presentation.cuentas;
+package banca.presentation.Cliente.cuentas;
 import banca.logic.Cliente;
 import banca.logic.Usuario;
 import java.io.IOException;

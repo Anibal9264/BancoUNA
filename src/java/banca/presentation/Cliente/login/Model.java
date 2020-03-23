@@ -1,4 +1,4 @@
-package banca.presentation.login;
+package banca.presentation.Cliente.login;
 import banca.logic.Usuario;
 public class Model {
     Usuario user;

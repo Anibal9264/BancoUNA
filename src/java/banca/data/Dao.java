@@ -46,16 +46,7 @@ public class Dao {
         }
      }
      
-     public void Depositoadd(Deposito d) throws Exception{
-        String sql="insert into Moneda (monto,motivo,fecha,nombreDepositante) "
-                + "values(%s,'%s','%s','%s')";
-        sql=String.format(sql,d.getMonto(),d.getMotivo(),
-                d.getNombreDepositante());
-        int count=db.executeUpdate(sql);
-        if (count==0){
-            throw new Exception("Deposito ya existe");
-        }
-    }
+    
      
     public void MonedaAdd(Moneda m) throws Exception{
         String sql="insert into Moneda (id,tipo_cambio,interes) "
@@ -67,17 +58,7 @@ public class Dao {
         }
     }
      
-     public void MovimientoAdd(Movimiento m) throws Exception{
-        String sql="insert into Movimiento (fecha,detalle,Deposito_id,"
-                + "Retiro_id,Cuenta_numero) "
-                + "values('%s','%s','%s','%s','%s')";
-        sql=String.format(sql,m.getFecha(),m.getDetalle(),m.getDeposito().getId(),
-                m.getRetiro().getId(),m.getCuenta().getNumero());
-        int count=db.executeUpdate(sql);
-        if (count==0){
-            throw new Exception("Movimiento ya existe");
-        }
-    }
+     
      
     public void CuentaFavoritadd(int numero, String cedula) throws Exception{
         String sql="insert into CuentaFavorita (Cuenta_numero,Usuario_cedula) "
@@ -89,13 +70,38 @@ public class Dao {
         }
     }
     
+    
+    
+     public void Depositoadd(Deposito d) throws Exception{
+        String sql="insert into Deposito (id,monto,motivo,fecha,nombreDepositante) "
+                + "values(%s,'%s','%s','%s','%s')";
+        sql=String.format(sql,d.getId(),d.getMonto(),d.getMotivo(),d.getFecha(),
+                d.getNombreDepositante());
+        int count=db.executeUpdate(sql);
+        if (count==0){
+            throw new Exception("Deposito ya existe");
+        }
+    }
+    
     public void Retiroadd(Retiro r) throws Exception{
-        String sql="insert into Moneda (monto,fecha) "
-                + "values('%s','%s')";
-        sql=String.format(sql,r.getMonto(),r.getFecha());
+        String sql="insert into Retiro (id,monto,fecha) "
+                + "values('%s','%s','%s')";
+        sql=String.format(sql,r.getId(),r.getMonto(),r.getFecha());
         int count=db.executeUpdate(sql);
         if (count==0){
             throw new Exception("Retiro ya existe");
+        }
+    }
+    
+    public void MovimientoAdd(Movimiento m) throws Exception{
+        String sql="insert into Movimiento (fecha,detalle,Deposito_id,"
+                + "Retiro_id,Cuenta_numero) "
+                + "values('%s','%s','%s','%s','%s')";
+        sql=String.format(sql,m.getFecha(),m.getDetalle(),m.getDeposito().getId(),
+                m.getRetiro().getId(),m.getCuenta().getNumero());
+        int count=db.executeUpdate(sql);
+        if (count==0){
+            throw new Exception("Movimiento ya existe");
         }
     }
     
@@ -104,10 +110,10 @@ public class Dao {
     // UDATES
      
      public void CuentaUpdate(Cuenta c) throws Exception{
-        String sql="update Cuenta set saldo='%s',estado='%s',descripcioin='%s',"
+        String sql="update Cuenta set saldo='%s',estado='%s',descripcion='%s',"
                 + "interesesG='%s',limite='%s',Usuario_cedula='%s',Moneda_id='%s' "
                 + "where numero='%s'";
-        sql=String.format(sql,c.getSaldo(),c.isEstado(),
+        sql=String.format(sql,c.getSaldo(),c.estado(),
                 c.getDescripcion(),c.getInteresesG(),c.getLimite(),
                 c.getUsuario().getCedula(),c.getMoneda().getId(),c.getNumero());
         
@@ -163,7 +169,33 @@ public class Dao {
         }
         return resultado;
      }
+ public int ContadorRetiros() {
+    List<Retiro> resultado = new ArrayList<Retiro>();
+        try {
+            String sql="select * from Retiro";
+            ResultSet rs =  db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(RetiroRender(rs));
+            }
+        } catch (SQLException ex) {
+          return 0;
+        }
+        return resultado.size();
+    }
 
+    public int ContadorDepositos() {
+    List<Deposito> resultado = new ArrayList<Deposito>();
+        try {
+            String sql="select * from Deposito";
+            ResultSet rs =  db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(DepositoRender(rs));
+            }
+        } catch (SQLException ex) {
+          return 0;
+        }
+        return resultado.size();
+    }
      
 // RENDER
     private Usuario UsuarioRender(ResultSet rs) {
@@ -360,6 +392,8 @@ public class Dao {
             return null;
         }
     }
+
+   
 
     
 

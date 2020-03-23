@@ -204,3 +204,13 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
     background-color: red;
     
 }
+TD[id="td1"]{
+    width: 300px ;
+    height: 180px;
+   
+    background-color: #1F618D;
+    border-radius:20px;
+}
+.login form div{
+    text-align:center;
+}

@@ -1,4 +1,7 @@
 package banca.logic;
+
+import static java.sql.Types.NULL;
+
 public class Cuenta {
 
     
@@ -22,7 +25,7 @@ public class Cuenta {
         this.moneda = moneda;
     }
     public Cuenta() {
-        this.numero = 0;
+        this.numero = NULL;
         this.saldo = 0.0;
         this.estado = false;
         this.descripcion = "";
@@ -112,4 +115,11 @@ public class Cuenta {
         }
         return String.valueOf(numero);
     }
+    public int estado() {
+        if(estado){
+        return 1;
+        }
+        return 0;
+    }
+    
     }

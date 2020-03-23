@@ -1,4 +1,5 @@
 package banca.logic;
+
 import static java.sql.Types.NULL;
 
 public class Deposito {
@@ -9,7 +10,7 @@ public class Deposito {
    private String NombreDepositante;
 
     public Deposito(int id, double monto, String motivo, String fecha, String NombreDepositante) {
-        this.id = NULL;
+        this.id =id;
         this.monto = monto;
         this.motivo = motivo;
         this.fecha = fecha;
@@ -17,7 +18,7 @@ public class Deposito {
 }
 
     public Deposito() {
-        this.id = 0;
+        this.id = NULL;
         this.monto = 0.0;
         this.motivo = "";
         this.fecha = "";

@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="banca.logic.Cuenta"%>
-<%@page import="banca.presentation.transferecias.Model"%>
+<%@page import="banca.presentation.Cliente.transferecias.Model"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,9 +37,9 @@
                     <div class="fila encabezado"><b><p>Transferencia</b></p></div>
                     <div class="fila">
                         <div class="etiqueta">Transferir desde :
-                        <select id="cuentasbox">
+                        <select name="Cuenta_S" id="Cuenta_S">
                            <%for(Cuenta c:cuentas){%>
-                                <option value="<%=c.getNumero()%>"><%=c.toString()%> <a href="/BancoUNA/presentation/cliente/cuentas/detalles?numeroFld=<%=c.getNumero()%>"></option>
+                                <option  value="<%=c.getNumero()%>"><%=c.toString()%> </option>
                             <%}%>          
                         </select>
                          </div>
@@ -49,35 +49,38 @@
                     <div class="fila">
                         <div class="etiqueta">Cedula</div>
                         <input id="chekCed" type="checkbox" onchange="document.getElementById('cedula_t').disabled = !this.checked,
-                                        document.getElementById('chekNum').disabled = this.checked;"/>
+                                        document.getElementById('chekNum').disabled = this.checked;"required/>
                         
                         <input type="text" placeholder="Cedula" name="cedula_t" id="cedula_t" disabled
                                class="<%=erroneo("cedula_t", errores)%>"
                                title="<%=title("cedula_t", errores)%>"
-                               >
+                              
+                               required>
                     </div>
                     <br>
                     <div class="fila">
                         <div class="etiqueta">numero</div>
                         <input id="chekNum" type="checkbox" onchange="document.getElementById('numero_t').disabled = !this.checked,
-                                        document.getElementById('chekCed').disabled = this.checked;"/>
+                                        document.getElementById('chekCed').disabled = this.checked;" required />
                         <input type="text" placeholder="numero" name="numero_t" id="numero_t" disabled
                                class="<%=erroneo("numero_t", errores)%>"
-                               title="<%=title("numero_t", errores)%>">
+                               title="<%=title("numero_t", errores)%>"
+                               
+                              required>
                     </div>     
                     <br />
                     <div class="fila">
                         <div class="etiqueta">Monto a trasferir</div>
-                        <div class="campo"><input  placeholder="Monto" type="text" name="monto_t" value="<%=form.get("monto_t")[0]%>" required></div>
+                        <div class="campo"><input  placeholder="Monto" type="text" name="monto_t" 
+                                                    value="<%=form.get("monto_t")[0]%>" 
+                                                    class="<%=erroneo("monto_t", errores)%>"
+                                                    title="<%=title("monto_t", errores)%>"required>
+                        </div>
                     </div>
                     <br />
                     <div class="fila">
-                        <div class="etiqueta">Nombre Depositante</div>
-                        <div class="campo"><input placeholder="Depositante" type="text" name="depocitante_t" value="<%=form.get("depocitante_t")[0]%>"required></div>
-                    </div>
-                    <div class="fila">
                         <div class="etiqueta">Motivo</div>
-                        <div class="campo"><input  placeholder="Motivo" type="text" name="motivo_t" value="<%=form.get("motivo_t")[0]%>"required></div>
+                        <div class="campo"><input  placeholder="Motivo" type="text" name="motivo_t"  value="<%=form.get("motivo_t")[0]%>"  required></div>
                     </div>
                     <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
                 </form>
@@ -103,10 +106,10 @@
 
     private Map<String,String[]> getForm(Model model){
        Map<String,String[]> values = new HashMap<>();
-       
-       values.put("monto_t", new String[]{String.valueOf(model.getM_destino().getDeposito().getMonto())});
+
+       values.put("cedula_t", new String[]{model.getDestino_C().getUsuario().getCedula()});
+       values.put("numero_t", new String[]{String.valueOf(model.getDestino_C().getNumero())});
        values.put("monto_t", new String[]{String.valueOf(model.getM_salida().getRetiro().getMonto())});
-       values.put("depocitante_t", new String[]{model.getM_destino().getDeposito().getNombreDepositante()});
        values.put("motivo_t", new String[]{model.getM_destino().getDeposito().getMotivo()});
        return values;
     }

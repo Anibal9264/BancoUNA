@@ -1,6 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="banca.presentation.vincular.Model"%>
+<%@page import="banca.presentation.Cliente.vincular.Model"%>
 <%@page import="banca.logic.Cuenta"%>
 <%
     Model model = (Model) request.getAttribute("model");

@@ -1,4 +1,4 @@
-package banca.presentation.vincular;
+package banca.presentation.Cliente.vincular;
 
 import banca.logic.Cuenta;
 import banca.logic.Usuario;
