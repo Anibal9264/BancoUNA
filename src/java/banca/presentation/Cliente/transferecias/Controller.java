@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,11 +41,11 @@ public class Controller extends HttpServlet {
   }
   
   //=====================SHOW==============================
-    public String show(HttpServletRequest request){
+    private String show(HttpServletRequest request){
         Cargar_Datos_de_Salida(request);
         return this.showAction(request);
     }
-    public String showAction(HttpServletRequest request){
+    private String showAction(HttpServletRequest request){
         return "/presentation/cliente/transferencia/view.jsp"; 
     }
     
@@ -58,11 +60,16 @@ public class Controller extends HttpServlet {
         } catch (Exception ex) {
             cliente=null;
         }
-        try {        
+        try {
            model.setC_salida(domainModel.cuentasFind(cliente));
         } catch (Exception ex) {
            model.setC_salida(new ArrayList<>());
         }
+      try {
+          model.setC_Favoritas(domainModel.favoritasFind(cliente));
+      } catch (Exception ex) {
+          model.setC_Favoritas(new ArrayList<>());
+      }
     }
   //========================TRANSFERENCIAS===========================
     private String transferencia(HttpServletRequest request) {
@@ -88,21 +95,6 @@ public class Controller extends HttpServlet {
        Usuario real = (Usuario) session.getAttribute("usuario");
        Cuenta cuenta = domainModel.CuentaFind(Integer.valueOf(request.getParameter("Cuenta_S")));
        double monto = Double.valueOf(request.getParameter("monto_t"));
- //=============Verificar cuentas y espacios en blanco de cuentas==============
-       if (request.getParameter("cedula_t")!= null){
-           if (!revisarFavoxced(request.getParameter("cedula_t"), real.getCedula())){
-               errores.put("cedula_t", "Cuenta No Vinculada");
-           }
-       }else if (request.getParameter("numero_t")!= null) {
-           if (!revisarFavoxNum(real.getCedula(), request.getParameter("numero_t"))){
-               errores.put("numero_t", "Cuenta No Vinculada");
-           }
-       }else if(request.getParameter("numero_t")==null&&request.getParameter("cedula_t")== null){
-               errores.put("cedula_t", "Espacio Requerido");
-               errores.put("numero_t", "Espacio Requerido");
-               request.setAttribute("cedula_t"," ");
-               request.setAttribute("numero_t"," ");
-       }
  //===================Verificar monto===================
        if (cuenta.getSaldo() < monto) {
            errores.put("monto_t", "No tienes saldo suficiente!!");
@@ -117,12 +109,9 @@ public class Controller extends HttpServlet {
       request.setAttribute("errores", errores);
       return errores;
    }
-   
-   
-   
-   
+
   //========================================================
-  //========================================================
+   
     private String transferenciaAction(HttpServletRequest request) {
        banca.logic.Model domainModel = banca.logic.Model.instance();
        HttpSession session = request.getSession(true);
@@ -132,27 +121,19 @@ public class Controller extends HttpServlet {
        double monto = Double.valueOf(request.getParameter("monto_t"));
        double tipoC = cuenta.getMoneda().getTipo_cambio();
        String motivo = request.getParameter("motivo_t");
-       String cedula_t = request.getParameter("cedula_t");
-       String numero_t = request.getParameter("numero_t");
+       Cuenta Favorita = domainModel.CuentaFind(Integer.valueOf(request.getParameter("Cuenta_F")));
       //Primero Un movimiento retiro de la cuenta
        domainModel.AgregarMovimientoRetiro(CrearMovimiento(cuenta,CrearRetiro(monto),new Deposito(),motivo));
        cuenta.setSaldo(cuenta.getSaldo()-monto);
        domainModel.CuentaUpdate(cuenta);
       //Segundo Un movimiento Deposito de la cuenta
-       if(cedula_t != null){
-          CuentaFavorita CF = domainModel.FavoritaFindxCed(cedula_t,user.getCedula());
-          cuenta =CF.getCuenta();
-         }else if(numero_t != null ){
-          cuenta = domainModel.CuentaFind(Integer.valueOf(numero_t));
-         }
-       domainModel.AgregarMovimientoDeposito(CrearMovimiento(cuenta,
+       domainModel.AgregarMovimientoDeposito(CrearMovimiento(Favorita,
        new Retiro(),CrearDeposito(GetFecha(),monto/tipoC,motivo,user.toString()),motivo));
-       cuenta.setSaldo(Cambio(cuenta,monto,tipoC));
-       domainModel.CuentaUpdate(cuenta);
+       Favorita.setSaldo(Cambio(Favorita,monto,tipoC));
+       domainModel.CuentaUpdate(Favorita);
         return "/presentation/cliente/cuentas/detalles?numeroFld="+Ncuenta;
     }
 
-    
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -192,33 +173,13 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean revisarFavoxced(String cedF,String cedC) {
-        banca.logic.Model domainModel = banca.logic.Model.instance();
-        if (domainModel.FavoritaFindxCed(cedF, cedC) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean revisarFavoxNum(String ced,String num) {
-        banca.logic.Model domainModel = banca.logic.Model.instance();
-        if (domainModel.FavoritaFind(ced, num) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private Movimiento CrearMovimiento( Cuenta cuenta,Retiro retiro,Deposito deposito,String detalle){
        return new Movimiento(0,GetFecha(),detalle,deposito, retiro, cuenta);
     }
 
     private Retiro CrearRetiro(double monto) {
-     
-     return new Retiro(1,monto,GetFecha());
+      return new Retiro(1,monto,GetFecha());
     }
-    
     private Deposito CrearDeposito(String fecha, double monto, String motivo, String nombre) {
      return new Deposito(1,monto, motivo, fecha, nombre);
     }

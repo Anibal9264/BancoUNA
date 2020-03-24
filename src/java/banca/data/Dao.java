@@ -1,4 +1,5 @@
 package banca.data;
+import banca.logic.Cliente;
 import banca.logic.Cuenta;
 import banca.logic.CuentaFavorita;
 import banca.logic.Deposito;
@@ -196,7 +197,21 @@ public class Dao {
         }
         return resultado.size();
     }
-     
+    
+ public List<CuentaFavorita> FavoritasList(Cliente cliente) {
+    List<CuentaFavorita> resultado = new ArrayList<CuentaFavorita>();
+        try {
+            String sql="select * from CuentaFavorita f where Usuario_cedula like '%%%s%%'";
+            sql=String.format(sql,cliente.getCedula());
+            ResultSet rs =  db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(CuentaFavoritaRender(rs));
+            }
+        } catch (SQLException ex) {
+          return resultado;
+        }
+        return resultado;
+    }   
 // RENDER
     private Usuario UsuarioRender(ResultSet rs) {
       Usuario user = new Usuario();
@@ -392,6 +407,7 @@ public class Dao {
             return null;
         }
     }
+
 
    
 

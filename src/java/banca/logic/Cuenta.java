@@ -1,6 +1,8 @@
 package banca.logic;
 
+import java.math.RoundingMode;
 import static java.sql.Types.NULL;
+import java.text.DecimalFormat;
 
 public class Cuenta {
 
@@ -107,7 +109,12 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return "Cuenta" + " Numero: " + numero + ", Saldo: "+moneda.getId()+" : "+ saldo ;
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        df2.setRoundingMode(RoundingMode.DOWN);  
+        return "Cuenta" + " Numero: " + numero + ", Saldo: "+moneda.getId()+" : "+ df2.format(saldo) ;
+    }
+     public String toStringFavorita() {
+        return "Numero: " + numero + ",Moneda: "+moneda.getId()+ " " +usuario.toString();
     }
     public String toStringValor0() {
         if(numero == 0){

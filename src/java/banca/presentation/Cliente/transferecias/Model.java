@@ -9,15 +9,15 @@ import java.util.List;
 
 public class Model {
     private List<Cuenta> C_salida;
-    private List<Cuenta> C_destino;
+    private List<Cuenta> C_Favoritas;
     private Cuenta destino_C;
     private Movimiento M_salida;
     private Movimiento M_destino;
     private Usuario U_Select;
 
-    public Model(List<Cuenta> C_salida, List<Cuenta> C_destino, Cuenta destino_C, Movimiento M_salida, Movimiento M_destino, Usuario U_Select) {
+    public Model(List<Cuenta> C_salida, List<Cuenta> C_Favoritas, Cuenta destino_C, Movimiento M_salida, Movimiento M_destino, Usuario U_Select) {
         this.C_salida = C_salida;
-        this.C_destino = C_destino;
+        this.C_Favoritas = C_Favoritas;
         this.destino_C = destino_C;
         this.M_salida = M_salida;
         this.M_destino = M_destino;
@@ -25,13 +25,20 @@ public class Model {
     }
  public Model() {
         this.C_salida =  new ArrayList<>();
-        this.C_destino =  new ArrayList<>();
+        this.C_Favoritas =  new ArrayList<>();
         this.M_salida = new Movimiento();
         this.M_destino = new Movimiento();
         this.U_Select =new Usuario();
         this.destino_C = new Cuenta();
     }
 
+    public List<Cuenta> getC_Favoritas() {
+        return C_Favoritas;
+    }
+
+    public void setC_Favoritas(List<Cuenta> C_Favoritas) {
+        this.C_Favoritas = C_Favoritas;
+    }
     public Cuenta getDestino_C() {
         return destino_C;
     }
@@ -48,13 +55,7 @@ public class Model {
         this.C_salida = C_salida;
     }
 
-    public List<Cuenta> getC_destino() {
-        return C_destino;
-    }
 
-    public void setC_destino(List<Cuenta> C_destino) {
-        this.C_destino = C_destino;
-    }
 
     public Movimiento getM_salida() {
         return M_salida;

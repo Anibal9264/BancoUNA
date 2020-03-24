@@ -39,9 +39,10 @@ public class Model {
 
     public List<Cuenta> favoritasFind(Cliente cliente) throws Exception{
         List<Cuenta> result = new ArrayList();
-//        for(String nc: favoritas.get(cliente.getCedula())){
-//                result.add(cuentas.get(nc));
-//        }
+        List<CuentaFavorita> favoritas = base.FavoritasList(cliente);
+        for(CuentaFavorita f: favoritas){
+                result.add(f.getCuenta());
+        }
         return result;
     } 
         
