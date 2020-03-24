@@ -1,4 +1,4 @@
-<%@page import="banca.presentation.Cliente.login.Model"%>
+<%@page import="banca.presentation.login.Model"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +12,9 @@
      <div class="columna">
          <div class="logo">
            <a href="/BancoUNA/presentation/Index.jsp">
-               <img src="/BancoUNA/images/logo.png">
+               
+               <img  src="/BancoUNA/images/logo.png">
+            
             </a>
          </div> 
     </div>
@@ -20,26 +22,28 @@
     </header>
    <body>
        
+       
         <% Model model= (Model) request.getAttribute("model"); %>
         <% Map<String,String> errores = (Map<String,String>) request.getAttribute("errores"); %>
         <% Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();%>
     
           <tbody > 
           <table>    
+               <div class="EspacioLogin" id="loginP">
             <thead>
             <TR >
             <div class="login"> 
-                     <img src="/BancoUNA/images/logoenlinea.png"></th>
+                     <img style=" margin: 25px" src="/BancoUNA/images/logoenlinea.png"></th>
                     </div>
                 </thead>
-               <TD WIDTH="250" 
-                        HEIGHT="180" align="left" bgcolor="#1F618D">
+               <TD id="td1" class="login">
           
                 <div  id="id" class="login">
                      <form action="/BancoUNA/presentation/login/login" method="post">
-
+                        
+                         <br>
                          <div class="fila">
-                        <div class="etiqueta">Cédula</div>
+                             <div class="etiqueta">Cédula</div>
                        <div class="campo">
                         <input style=" border-radius: 8px "
                                class="<%=erroneo("cedula_login",errores)%>"  
@@ -54,21 +58,16 @@
                                         class="<%=erroneo("pass_login", errores)%>" 
                                         placeholder="Contraseña" type="password" name="pass_login" 
                                         value="<%=form.get("pass_login")[0]%>" title="<%=title("pass_login", errores)%>"required></div>
-                                  </div>
-
+                         </div>
+                         <p>
                         <div class="fila encabezado">
-                            <button  style=" border-radius: 4px "  
-                                     style=" color: slategray" 
-                                     style="margin-bottom: 15px">
-                                <b>Ingresar</b></button> </div>
-
+                            <button id="ingresar">
+                                <b>Ingresar</b></button></div>
+                     </p>
                     </form>
-                   </TD>   
+                   </TD>
                </div>          
-               <TD WIDTH="180" HEIGHT="180">
-                   <h2>
-                       <img  WIDTH="500" HEIGHT="300" src="/BancoUNA/images/fondo1.jpg">
-                   </h2></TD> 
+               <TD id="td2" class="login"></TD> 
         </TR>
         </tbody>
             </div>
