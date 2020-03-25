@@ -1,7 +1,6 @@
 package banca.presentation.Cliente.transferecias;
 import banca.logic.Cliente;
 import banca.logic.Cuenta;
-import banca.logic.CuentaFavorita;
 import banca.logic.Deposito;
 import banca.logic.Movimiento;
 import banca.logic.Retiro;
@@ -53,7 +52,7 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("cliente");
         Cliente cliente;
         try {
             cliente = new Cliente(usuario.getCedula(),usuario.toString(),usuario);
@@ -92,7 +91,7 @@ public class Controller extends HttpServlet {
        Map<String, String> errores = new HashMap<>();
        banca.logic.Model domainModel = banca.logic.Model.instance();
        HttpSession session = request.getSession(true);
-       Usuario real = (Usuario) session.getAttribute("usuario");
+       Usuario real = (Usuario) session.getAttribute("cliente");
        Cuenta cuenta = domainModel.CuentaFind(Integer.valueOf(request.getParameter("Cuenta_S")));
        double monto = Double.valueOf(request.getParameter("monto_t"));
  //===================Verificar monto===================
@@ -115,7 +114,7 @@ public class Controller extends HttpServlet {
     private String transferenciaAction(HttpServletRequest request) {
        banca.logic.Model domainModel = banca.logic.Model.instance();
        HttpSession session = request.getSession(true);
-       Usuario user = (Usuario)session.getAttribute("usuario");
+       Usuario user = (Usuario)session.getAttribute("cliente");
        Cuenta cuenta = domainModel.CuentaFind(Integer.valueOf(request.getParameter("Cuenta_S")));
        String Ncuenta = String.valueOf(cuenta.getNumero());
        double monto = Double.valueOf(request.getParameter("monto_t"));

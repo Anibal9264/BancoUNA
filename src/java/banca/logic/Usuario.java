@@ -89,6 +89,11 @@ public class Usuario {
         return nombre +" "+ apellido1 +" "+ apellido2 ;
     }
     
-    
+    public int toIs() {
+        if(is){
+            return 1;
+        }
+        return 0;
+    }
    
 }

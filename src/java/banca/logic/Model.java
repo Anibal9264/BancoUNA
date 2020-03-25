@@ -18,6 +18,9 @@ public class Model {
        return uniqueInstance;
    }
    
+   
+ //========FINDS ================
+   
     public Usuario usuarioFind(String cedula,String clave) {
         Usuario u;
         try {
@@ -37,23 +40,9 @@ public class Model {
        
     }
 
-    public List<Cuenta> favoritasFind(Cliente cliente) throws Exception{
-        List<Cuenta> result = new ArrayList();
-        List<CuentaFavorita> favoritas = base.FavoritasList(cliente);
-        for(CuentaFavorita f: favoritas){
-                result.add(f.getCuenta());
-        }
-        return result;
-    } 
+    
         
-     public List<Cuenta> cuentasFind(Cliente cliente) throws Exception{
-        return base.ListaCuentas(cliente.getCedula());
-     }
-
-    public List<Movimiento> MovimientosFind(int c) {
-       return base.ListaMovimientos(c);
-    }
-
+   
     public Cuenta CuentaFind(int c){
         try {
             return base.GetCuenta(c);
@@ -61,7 +50,6 @@ public class Model {
           return null;
         }
     }
-
     public void AgregarFavorita(int numero, String cedula) throws Exception {
         base.CuentaFavoritadd(numero,cedula);    
     }
@@ -136,5 +124,37 @@ public class Model {
         }
     }
 
+    public void UsuarioAdd(Usuario cliente) {
+        try {
+            base.UsuarioAdd(cliente);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+  
+
+    // GEST LIST=========================================
     
+    public List<Cuenta> favoritasFind(Cliente cliente) throws Exception{
+        List<Cuenta> result = new ArrayList();
+        List<CuentaFavorita> favoritas = base.FavoritasList(cliente);
+        for(CuentaFavorita f: favoritas){
+                result.add(f.getCuenta());
+         }
+        return result;
+    } 
+    
+    public List<Cuenta> cuentasFind(Cliente cliente) {
+      return base.ListaCuentas(cliente.getCedula());
+     }
+
+    public List<Movimiento> MovimientosFind(int c) {
+       return base.ListaMovimientos(c);
+    }
+     
+    public List<Moneda> getMonedas() {
+       return base.MonedasList();
+    }
+
 }

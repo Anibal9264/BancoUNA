@@ -1,10 +1,10 @@
 <body>
-    <% if(user==null){%>
+    <% if(cliente==null){%>
     <div class="Anuncios"> 
       <img src="/BancoUNA/images/casa.jpg">
     </div> 
     <%}%>
-    <% if (user!=null){ %>
+    <% if (cliente!=null){ %>
      <div class="Anuncios"> 
          <img src="/BancoUNA/images/1.jpg">
      </div>

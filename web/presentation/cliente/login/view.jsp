@@ -1,4 +1,4 @@
-<%@page import="banca.presentation.login.Model"%>
+<%@page import="banca.presentation.Cliente.login.Model"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

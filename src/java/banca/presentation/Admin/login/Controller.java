@@ -1,4 +1,4 @@
-package banca.presentation.Cliente.login;
+package banca.presentation.Admin.login;
 import banca.logic.Usuario;
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show","/presentation/login/login","/presentation/login/logout"})
+@WebServlet(name = "LoginAdminController", urlPatterns = {"/presentation/admin/login/show","/presentation/admin/login/login","/presentation/admin/login/logout"})
 public class Controller extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
@@ -18,25 +18,24 @@ public class Controller extends HttpServlet {
         request.setAttribute("model",new Model()); 
         String viewUrl="";
         switch(request.getServletPath()){
-            case "/presentation/login/show":
+            case "/presentation/admin/login/show":
                 viewUrl=this.show(request);
                 break; 
-            case "/presentation/login/login":
+            case "/presentation/admin/login/login":
                 viewUrl=this.login(request);
                 break;               
-            case "/presentation/login/logout":
+            case "/presentation/admin/login/logout":
                 viewUrl=this.logout(request);
                 break;
         }
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
-  
-  //================= Show menu=================
+ //================= Show menu=================
    public String show(HttpServletRequest request){
         return this.showAction(request);
     }
     public String showAction(HttpServletRequest request){
-        return "/presentation/cliente/login/view.jsp"; 
+        return "/presentation/admin/login/view.jsp"; 
     } 
 // ==================MENU LOGIN================
     private String login(HttpServletRequest request) {
@@ -46,10 +45,10 @@ public class Controller extends HttpServlet {
                 this.updateModel(request);
                 return this.loginAction(request);
             } else {
-                return "/presentation/cliente/login/view.jsp";
+                return "/presentation/admin/login/view.jsp";
             }
         } catch (Exception e) {
-                return "/presentation/cliente/login/view.jsp";
+                return "/presentation/admin/login/view.jsp";
         }
     }
     
@@ -62,7 +61,10 @@ public class Controller extends HttpServlet {
             errores.put("cedula_login","Cliente no Existe");
             request.setAttribute("errores",errores);
         }
-
+        if (!real.getIs()){
+            errores.put("cedula_login","No tienes acceso");
+            request.setAttribute("errores",errores);
+        }
         if (real.getContraseña().isEmpty()){
             errores.put("pass_login","Clave Incorrecta");
             request.setAttribute("errores",errores);
@@ -81,7 +83,7 @@ public class Controller extends HttpServlet {
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
         Usuario real = domainModel.usuarioFind(model.getUser().getCedula(), model.getUser().getContraseña());
-        session.setAttribute("cliente",real);
+        session.setAttribute("admin",real);
         return "/presentation/Index.jsp";
     }   
 
@@ -91,9 +93,9 @@ public class Controller extends HttpServlet {
     
     public String logoutAction(HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        session.removeAttribute("cliente");
+        session.removeAttribute("admin");
         session.invalidate();
-        return "/presentation/Index.jsp";   
+        return "/presentation/admin/login/view.jsp";   
     }
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

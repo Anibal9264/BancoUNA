@@ -23,10 +23,10 @@ public class Dao {
     
      public void UsuarioAdd(Usuario u) throws Exception{
         String sql="insert into Usuario (cedula,nombre,apellido1,apellido2,"
-                + "contraseña,is,telefono) values('%s','%s','%s','%s','%s','%s',"
+                + "contraseña,`is`,telefono) values('%s','%s','%s','%s','%s','%s',"
                 + "'%s')";
         sql=String.format(sql,u.getCedula(),u.getNombre(),u.getApellido1(),
-                u.getApellido2(),u.getContraseña(),String.valueOf(u.getIs())
+                u.getApellido2(),u.getContraseña(),u.toIs()
                 ,u.getTelefono());
         int count=db.executeUpdate(sql);
         if (count==0){
@@ -139,7 +139,7 @@ public class Dao {
      
      // GETS LISTAS 
      
-     public List<Cuenta> ListaCuentas(String cedula) throws Exception{
+     public List<Cuenta> ListaCuentas(String cedula){
         List<Cuenta> resultado = new ArrayList<Cuenta>();
         try {
             String sql="select * from Cuenta c "+
@@ -150,7 +150,7 @@ public class Dao {
                 resultado.add(CuentaRender(rs));
             }
         } catch (SQLException ex) {
-        
+        return resultado;
         }
         return resultado;
     }
@@ -211,7 +211,20 @@ public class Dao {
           return resultado;
         }
         return resultado;
-    }   
+    } 
+ public List<Moneda> MonedasList() {
+    List<Moneda> resultado = new ArrayList<Moneda>();
+        try {
+            String sql="select * from Moneda";
+            ResultSet rs =  db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(MonedaRender(rs));
+            }
+        } catch (SQLException ex) {
+          return resultado;
+        }
+        return resultado;
+    } 
 // RENDER
     private Usuario UsuarioRender(ResultSet rs) {
       Usuario user = new Usuario();
@@ -317,8 +330,8 @@ public class Dao {
     
 //GETS   
     
-    
-    public Moneda GetMoneda(String id) throws Exception {
+
+  public Moneda GetMoneda(String id) throws Exception {
       String sql="select * from "+
                     "Moneda m where m.id like '%%%s%%'";
         sql = String.format(sql,id);
@@ -330,7 +343,7 @@ public class Dao {
             throw new Exception ("Moneda no Existe");
         }
     }
-
+  
     public Usuario GetUsuario(String cedula) throws Exception {
      String sql="select * from "+
                     "Usuario u where u.cedula like '%%%s%%'";

@@ -64,7 +64,7 @@ private  Map<String,String> validar(HttpServletRequest request){
         Map<String,String> errores = new HashMap<>();
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("cliente");
         Cuenta cuenta = domainModel.CuentaFind(Integer.valueOf(request.getParameter("cuenta_vincular")));
         if(cuenta== null){
               errores.put("cuenta_vincular","Cuenta no Existe");

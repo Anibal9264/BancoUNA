@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("cliente");
 try {        
             model.setCuentas(domainModel.cuentasFind(new Cliente(usuario.getCedula(),usuario.toString(),usuario)));
             return "/presentation/cliente/cuentas/View.jsp";
