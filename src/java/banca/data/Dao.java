@@ -35,10 +35,10 @@ public class Dao {
     }
      
      public void CuentaAdd(Cuenta c) throws Exception{
-        String sql="insert into Cuenta (saldo,estado,descripcioin,"
+        String sql="insert into Cuenta (saldo,estado,descripcion,"
                 + "interesesG,limite,Usuario_cedula,Moneda_id) "
                 + "values(%s,%s,'%s','%s',%s,%s,'%s')";
-        sql=String.format(sql,c.getSaldo(),c.isEstado(),
+        sql=String.format(sql,c.getSaldo(),c.estado(),
                 c.getDescripcion(),c.getInteresesG(),c.getLimite(),
                 c.getUsuario().getCedula(),c.getMoneda().getId());
         int count=db.executeUpdate(sql);

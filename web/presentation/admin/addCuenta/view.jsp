@@ -1,4 +1,6 @@
-<%@page import="banca.presentation.Admin.AddCuenta.Model"%>
+
+<%@page import="banca.presentation.Admin.addCuenta.Model"%>
+<%@page import="banca.logic.Moneda"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -24,8 +26,7 @@
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
-    
-<%if(!model.getCuenta().isEstado()){%>
+    <%if(!model.getCuenta().isEstado()){%>
     <div class="fila">
         <div class="EspacioLogin"></div>
         <div class="EspacioLogin" id="loginP">
@@ -48,8 +49,8 @@
                     <div class="fila">
                         <div class="etiqueta"> Moneda :
                         <select name="Moneda_C" id="Moneda_C">
-                           <%for(Cuenta f:Favoritas){%>
-                                <option  value="<%=f.getNumero()%>"><%=f.toStringFavorita()%> </option>
+                           <%for(Moneda m:model.getMonedas()){%>
+                                <option  value="<%=m.getId()%>"><%=m.getId()%> </option>
                             <%}%>          
                         </select>
                          </div>
@@ -57,48 +58,20 @@
                         <br>
                         
                     <div class="fila">
-                        <div class="etiqueta">Nombre :
-                        <div class="campo"><input  placeholder="Juan" type="text" name="Nombre_C" 
-                                                    value="<%=form.get("Nombre_C")[0]%>" required>
+                        <div class="etiqueta">Descripcion :
+                        <div class="campo"><input  placeholder="Cuenta Corriente" type="text" name="Descripcion_C" 
+                                                    value="<%=form.get("Descripcion_C")[0]%>" required>
                         </div>
                         </div>
                     </div>
                       <br>
                    
                     <div class="fila">
-                        <div class="etiqueta">Apellido 1 :
-                        <div class="campo"><input  placeholder="Solís" type="text" name="Apll1_C" 
-                                                    value="<%=form.get("Apll1_C")[0]%>" required>
+                        <div class="etiqueta">Limite Diario:
+                        <div class="campo"><input  placeholder="100" type="text" name="LimiteD_C" 
+                                                    value="<%=form.get("LimiteD_C")[0]%>" required>
                         </div>
                         </div>
-                    </div>
-                      <br>
-                      
-                      <div class="fila">
-                        <div class="etiqueta">Apellido 2 :
-                        <div class="campo"><input  placeholder="Solís" type="text" name="Apll2_C" 
-                                                    value="<%=form.get("Apll2_C")[0]%>" required>
-                        </div>
-                        </div>
-                    </div>
-                      <br>
-                      
-                    <div class="fila">
-                        <div class="etiqueta">Telefono :
-                        <div class="campo"><input  placeholder="88888888" type="text" name="Tel_C" 
-                                                    value="<%=form.get("Tel_C")[0]%>" required>
-                        </div>
-                        </div>
-                    </div>
-                      <br>
-                      
-                    <div class="fila">
-                        <div class="etiqueta"> Es :
-                        <select name="Is_C" id="Is_C">
-                           <option  value="Cliente">Cliente</option>
-                           <option  value="Admin">Admin</option>
-                        </select>
-                         </div>
                     </div>
                       <br>
                     <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
@@ -109,18 +82,17 @@
     </div>
 <%}else{%>
       ESTO TIENE QUE SALIR EN EL CENTRO Y MOSTRAR ESTOS DATOS :
-      <div class="fila encabezado"><b><p>Usuario se Agrego Correctamente</b></p></div>
+      <div class="fila encabezado"><b><p>Cuenta se Agrego Correctamente</b></p></div>
       <div class="fila">
-          <%=model.getUser().toString()%>
+        Cuenta Numero :<%=model.getCuenta().getNumero()%>
       </div>
       <div class="fila">
-          Cedula : <%=model.getUser().getCedula()%>
+          Moneda  : <%=model.getCuenta().getMoneda().getId()%>
       </div>
       <div class="fila">
-          Contraseña : <%=model.getUser().getContraseña()%>
-      </div>
-      <div class="fila">
-          <div onclick="/BancoUNA/presentation/admin/addCuenta/view" class="fila encabezado"><button  style="margin-bottom: 15px">Agregar Cuenta</button> </div>
+          <div class="fila encabezado">
+              <a href="/BancoUNA/presentation/admin/addCuenta/view" 
+                 <button  style="margin-bottom: 15px">Agregar Deposito</button> </div> </a>
       </div>
  <%}%>
 </html>
@@ -142,10 +114,8 @@
     private Map<String,String[]> getForm(Model model){
        Map<String,String[]> values = new HashMap<>();
        values.put("Cedula_C", new String[]{model.getUser().getCedula()});
-       values.put("Nombre_C", new String[]{model.getUser().getNombre()});
-       values.put("Apll1_C", new String[]{model.getUser().getApellido1()});
-       values.put("Apll2_C", new String[]{model.getUser().getApellido2()});
-       values.put("Tel_C", new String[]{model.getUser().getTelefono()});
+       values.put("Descripcion_C", new String[]{model.getCuenta().getDescripcion()});
+       values.put("LimiteD_C", new String[]{String.valueOf(model.getCuenta().getLimite())});
        return values;
     }   
 %> 

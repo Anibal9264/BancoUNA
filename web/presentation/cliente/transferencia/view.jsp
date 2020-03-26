@@ -21,6 +21,9 @@
         <div class="hr"></div>
     </header>
 
+         <%@ include file="/presentation/Toolbar.jsp" %>
+         <br><br>
+   
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>

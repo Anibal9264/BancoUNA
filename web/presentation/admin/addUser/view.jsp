@@ -110,7 +110,8 @@
       </div>
       <div class="fila">
           <div class="fila encabezado" >
-               <a href="/BancoUNA/presentation/admin/addCuenta/show"><button  style="margin-bottom: 15px">Agregar Cuenta</button> </a>
+               <a href="/BancoUNA/presentation/admin/addCuenta/show">
+                   <button  style="margin-bottom: 15px">Agregar Cuenta</button> </a>
           </div>
       </div>
  <%}%>

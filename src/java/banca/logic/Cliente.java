@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 public class Cliente {
-    String cedula;
-    String nombre;
-    Usuario usuario;
-    List<Cuenta> cuentas;
+    private String cedula;
+    private String nombre;
+    private Usuario usuario;
+    private List<Cuenta> cuentas;
 
     public Cliente(String cedula, String nombre, Usuario usuario) {
         this.cedula = cedula;
@@ -14,7 +14,13 @@ public class Cliente {
         this.usuario = usuario;
         this.cuentas = new ArrayList();
     }
-
+    
+   public Cliente() {
+        this.cedula = "";
+        this.nombre = "";
+        this.usuario = new Usuario();
+        this.cuentas = new ArrayList();
+    }
     
     public String getCedula() {
         return cedula;

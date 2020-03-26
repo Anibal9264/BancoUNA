@@ -92,6 +92,7 @@ public class Controller extends HttpServlet {
     public String logoutAction(HttpServletRequest request){
         HttpSession session = request.getSession(true);
         session.removeAttribute("cliente");
+        session.removeAttribute("admin");
         session.invalidate();
         return "/presentation/Index.jsp";   
     }

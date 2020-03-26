@@ -1,4 +1,4 @@
-package banca.presentation.Admin.AddCuenta;
+package banca.presentation.Admin.addCuenta;
 
 import banca.logic.Cuenta;
 import banca.logic.Moneda;

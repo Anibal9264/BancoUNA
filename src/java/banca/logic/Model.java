@@ -62,6 +62,14 @@ public class Model {
         }
     }
 
+    public void AddCuenta(Cuenta c) {
+        try {
+            base.CuentaAdd(c);
+        } catch (Exception ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public Object FavoritaFind(String ced, String num) {
      try {
             return base.GetFavorita(ced,num);
@@ -157,4 +165,5 @@ public class Model {
        return base.MonedasList();
     }
 
+    
 }
