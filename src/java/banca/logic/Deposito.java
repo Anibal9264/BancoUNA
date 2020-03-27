@@ -1,6 +1,5 @@
 package banca.logic;
 
-import static java.sql.Types.NULL;
 
 public class Deposito {
    private int id;
@@ -18,7 +17,7 @@ public class Deposito {
 }
 
     public Deposito() {
-        this.id = NULL;
+        this.id = 0;
         this.monto = 0.0;
         this.motivo = "";
         this.fecha = "";

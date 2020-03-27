@@ -1,25 +1,53 @@
 package banca.presentation.Admin.deposito;
 import banca.logic.Cliente;
+import banca.logic.Cuenta;
 import banca.logic.Deposito;
 import banca.logic.Moneda;
+import banca.logic.Movimiento;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    Cliente cliente;
-    List<Moneda> monedas;
-    Deposito deposito;
+    private Cliente cliente;
+    private Cuenta cuenta;
+    private List<Moneda> monedas;
+    private Deposito deposito;
+    private boolean listo;
+    private Movimiento movimiento;
 
-    public Model(Cliente cliente, List<Moneda> monedas, Deposito deposito) {
+    public Model(Cliente cliente, Cuenta cuenta, List<Moneda> monedas, Deposito deposito, boolean listo, Movimiento movimiento) {
         this.cliente = cliente;
+        this.cuenta = cuenta;
         this.monedas = monedas;
         this.deposito = deposito;
+        this.listo = listo;
+        this.movimiento = movimiento;
     }
+   
 
 public Model() {
         this.cliente = new Cliente();
         this.monedas = new ArrayList<>();
         this.deposito = new Deposito();
+        this.cuenta = new Cuenta();
+        this.listo = false;
+        this.movimiento = new Movimiento();
+    }
+
+    public Movimiento getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(Movimiento movimiento) {
+        this.movimiento = movimiento;
+    }
+
+    public boolean isListo() {
+        return listo;
+    }
+
+    public void setListo(boolean listo) {
+        this.listo = listo;
     }
 
     public Cliente getCliente() {
@@ -44,6 +72,14 @@ public Model() {
 
     public void setDeposito(Deposito deposito) {
         this.deposito = deposito;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
     

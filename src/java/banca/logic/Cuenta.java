@@ -1,7 +1,6 @@
 package banca.logic;
 
 import java.math.RoundingMode;
-import static java.sql.Types.NULL;
 import java.text.DecimalFormat;
 
 public class Cuenta {
@@ -27,7 +26,7 @@ public class Cuenta {
         this.moneda = moneda;
     }
     public Cuenta() {
-        this.numero = NULL;
+        this.numero = 0;
         this.saldo = 0.0;
         this.estado = false;
         this.descripcion = "";
