@@ -8,25 +8,12 @@
     <%@ include file="/presentation/Head.jsp" %>
      <title>Login</title>
     </head>
-    <header>
-     <div class="columna">
-         <div class="logo">
-           <a href="/BancoUNA/presentation/Index.jsp">
-               
-               <img  src="/BancoUNA/images/logo.png">
-            
-            </a>
-         </div> 
-    </div>
-    <div class="hr"></div>
-    </header>
+   
    <body>
-       
-       
         <% Model model= (Model) request.getAttribute("model"); %>
         <% Map<String,String> errores = (Map<String,String>) request.getAttribute("errores"); %>
         <% Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();%>
-    
+      <%@ include file="/presentation/Header.jsp" %>
           <tbody > 
           <table>    
                <div class="EspacioLogin" id="loginP">

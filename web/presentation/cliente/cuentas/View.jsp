@@ -1,3 +1,4 @@
+
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.math.RoundingMode"%>
 <%@page import="banca.presentation.Cliente.cuentas.Model"%>
@@ -18,6 +19,7 @@
     </head>
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>
+<%if(cliente!=null){%>
 <%if(!model.getCuentas().isEmpty()){%>
 <body>
      <div class="Tabla-cuentas">
@@ -69,5 +71,6 @@
     </div>
      <%@ include file="/presentation/Footer.jsp" %>
 </body>
+<%}%>
 <%}%>
 </html>

@@ -1,11 +1,10 @@
-
 <%@page import="java.math.RoundingMode"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="banca.logic.Moneda"%>
 <%@page import="banca.logic.Cuenta"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="banca.presentation.Admin.deposito.Model"%>
+<%@page import="banca.presentation.Admin.Retiro.Model"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,7 @@
      <div class="FormT">
      <div class="fila encabezado"><b><p>Menu Deposito</b></p></div>
         <%if(model.getCliente().getCuentas().isEmpty() && !model.getCuenta().isEstado()){%>
-      <form action="/BancoUNA/presentation/admin/deposito/show" method="post">
+      <form action="/BancoUNA/presentation/admin/retiro/show" method="post">
         <div class="fila">
                         <div class="etiqueta">Cedula Cliente</div>
                         <input id="chekCed" type="checkbox"  onchange="document.getElementById('Cedula_C').disabled = !this.checked,
@@ -67,14 +66,15 @@
        <div class="fila encabezado"><button    id="Butonbuscar"  style="margin-bottom: 15px">Buscar</button> </div>
  </form>
 <%}else if(!model.isListo()){%>      
-   <form action="/BancoUNA/presentation/admin/deposito/add" method="post">
+   <form action="/BancoUNA/presentation/admin/retiro/add" method="post">
      
-     <%if(!model.getCliente().getCuentas().isEmpty()){%>                      
+     <%if(!model.getCliente().getCuentas().isEmpty()){%>   
+     <div class="fila encabezado"><b><p><%=model.getCliente().getNombre()%></b></p></div>
      <div class="fila">
-              <div class="etiqueta"> Cuenta destino :
+              <div class="etiqueta"> Selecione Cuenta al retirar :
                   <select name="Numero_C" id="Numero_C" required>
                            <%for(Cuenta f:model.getCliente().getCuentas()){%>
-                                <option  value="<%=f.getNumero()%>"><%=f.toStringFavorita()%> </option>
+                                <option  value="<%=f.getNumero()%>"><%=f.toString()%> </option>
                             <%}%>          
                    </select>
                </div>               
@@ -82,20 +82,20 @@
           <br>
       <%}else if(model.getCuenta().isEstado()){%>
          <div class="fila">
-              <div class="etiqueta"> Cuenta :
+              <div class="etiqueta"> Cuenta al retirar:
                   <select name="Numero_C" id="Numero_C" required>
-                       <option  value="<%=model.getCuenta().getNumero()%>"><%=model.getCuenta().toStringFavorita()%></option>
+                       <option  value="<%=model.getCuenta().getNumero()%>"><%=model.getCuenta().toString()%></option>
                   </select>
                </div>               
           </div>
           <br>
       <%}%>
                     <div class="fila">
-                        <div class="etiqueta">Monto</div>
-                        <div class="campo"><input  placeholder="Monto" type="text" name="Monto_D" 
-                                                    class="<%=erroneo("Monto_D", errores)%>"
-                                                    title="<%=title("Monto_D", errores)%>"
-                                                    value="<%=form.get("Monto_D")[0]%>"
+                        <div class="etiqueta">Monto a retirar</div>
+                        <div class="campo"><input  placeholder="Monto" type="text" name="Monto_R" 
+                                                    class="<%=erroneo("Monto_R", errores)%>"
+                                                    title="<%=title("Monto_R", errores)%>"
+                                                    value="<%=form.get("Monto_R")[0]%>"
                                                     required>
                         </div>
                    <select name="Moneda_C" id="Moneda_C" required>
@@ -104,42 +104,25 @@
                             <%}%>          
                    </select>
                     </div>
-                    <br />
-                    <div class="fila">
-                        <div class="etiqueta">Motivo</div>
-                        <div class="campo"><input  placeholder="Motivo" type="text" name="Motivo_D"  
-                                                   value="<%=form.get("Motivo_D")[0]%>" 
-                                                   required></div>
-                    </div>
-                    <br />
-                    <div class="fila">
-                        <div class="etiqueta">Nombre Del Depositante</div>
-                        <div class="campo"><input  placeholder="Nombre" type="text" name="NombreD_D"  
-                                                   value="<%=form.get("NombreD_D")[0]%>" 
-                                                   required></div>
-                    </div>
-                    <br />
+                     <br />
                     <div class="fila encabezado"><button  style="margin-bottom: 15px">Realizar</button> </div>
-  
     </form>
 <%}else{%> 
  <%
                           DecimalFormat df2 = new DecimalFormat("#.##");
                           df2.setRoundingMode(RoundingMode.DOWN);  
 %>
- <div class="fila encabezado"><b><p>Deposito Realizado </b></p></div>   
+ <div class="fila encabezado"><b><p>Retiro Realizado </b></p></div>   
  <div class="fila"> Fecha :  <%=model.getMovimiento().getFecha()%></div>
- <div class="fila"> Depositante :  <%=model.getMovimiento().getDeposito().getNombreDepositante()%></div>
- <div class="fila"> Motivo :  <%=model.getMovimiento().getDeposito().getMotivo()%></div>
- <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getDeposito().getMonto())%>  Colones</div>
+ <div class="fila"> Nombre :  <%=model.getCuenta().getUsuario().toString()%></div>
+ <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getRetiro().getMonto())%>  Colones</div>
 
  
 <%}%>   
 </div>
 </div> 
         <div class="EspacioLogin"></div>
- <%}%>   
-
+<%}%>   
 </html>
 <%!
     private String erroneo(String campo, Map<String,String> errores){
@@ -158,9 +141,7 @@
 
     private Map<String,String[]> getForm(Model model){
        Map<String,String[]> values = new HashMap<>();
-       values.put("Monto_D", new String[]{String.valueOf(model.getDeposito().getMonto())});
-       values.put("Motivo_D", new String[]{model.getDeposito().getMotivo()});
-       values.put("NombreD_D", new String[]{model.getDeposito().getNombreDepositante()});
+       values.put("Monto_R", new String[]{String.valueOf(model.getRetiro().getMonto())});
        return values;
     }
     

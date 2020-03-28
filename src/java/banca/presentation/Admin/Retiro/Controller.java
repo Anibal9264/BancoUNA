@@ -1,4 +1,4 @@
-package banca.presentation.Admin.deposito;
+package banca.presentation.Admin.Retiro;
 import banca.logic.Cliente;
 import banca.logic.Cuenta;
 import banca.logic.Deposito;
@@ -19,24 +19,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
- @WebServlet(name = "DepositoController", urlPatterns = {"/presentation/admin/deposito/show","/presentation/admin/deposito/add"})
+ @WebServlet(name = "RetiroController", urlPatterns = {"/presentation/admin/retiro/show","/presentation/admin/retiro/add"})
 public class Controller extends HttpServlet {
    protected void processRequest(HttpServletRequest request,HttpServletResponse response)
         throws ServletException, IOException {
-         request.setAttribute("model",new Model());
+        request.setAttribute("model",new Model());
         HttpSession session = request.getSession(true);
         Usuario real = (Usuario) session.getAttribute("admin");
         String viewUrl="";
         if(real!= null){
         switch(request.getServletPath()){
-            case "/presentation/admin/deposito/show":
+            case "/presentation/admin/retiro/show":
                 viewUrl=this.show(request);
                 break; 
-            case "/presentation/admin/deposito/add":
+            case "/presentation/admin/retiro/add":
                 viewUrl=this.add(request);
                 break; 
         } 
-         }else{viewUrl="/presentation/sesionCaducada.jsp";} 
+         }else{viewUrl="/presentation/sesionCaducada.jsp";}   
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
    
@@ -46,7 +46,7 @@ public class Controller extends HttpServlet {
            return this.showAction(request);
        }
         public String showAction(HttpServletRequest request){
-        return "/presentation/admin/deposito/view.jsp"; 
+        return "/presentation/admin/retiro/view.jsp"; 
         }
        private void CargarDatos(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
@@ -62,22 +62,24 @@ public class Controller extends HttpServlet {
         try{
         Map<String,String> errores =  this.validar(request);
         if(errores.isEmpty()){
-                return DepositoAction(request);  
+                return RetiroAction(request);  
         }else{
              CargarDatos(request);
-            return "/presentation/admin/deposito/view.jsp"; 
+            return "/presentation/admin/retiro/view.jsp"; 
         }   
        }catch(Exception e){
             CargarDatos(request);
-           return "/presentation/admin/deposito/view.jsp"; 
+           return "/presentation/admin/retiro/view.jsp"; 
        }  
     } 
         private Map<String,String> validar(HttpServletRequest request){
         Map<String,String> errores = new HashMap<>();
         banca.logic.Model domainModel = banca.logic.Model.instance();
         Model model = (Model) request.getAttribute("model");
+        Cuenta cuenta = null;
+         Usuario real;
         if(request.getParameter("Cedula_C") != null){
-        Usuario real = domainModel.usuarioFind(request.getParameter("Cedula_C"),"");
+        real = domainModel.usuarioFind(request.getParameter("Cedula_C"),"");
         if (real == null){
             errores.put("Cedula_C","Usuario NO Existe");
             errores.put("Cedula_C2",request.getParameter("Cedula_C"));
@@ -87,7 +89,7 @@ public class Controller extends HttpServlet {
              model.getCliente().setCuentas(domainModel.cuentasFind(model.getCliente()));
         }
         }else if(request.getParameter("Numero_C") != null){
-          Cuenta cuenta = domainModel.CuentaFind(Integer.parseInt(request.getParameter("Numero_C")));
+           cuenta = domainModel.CuentaFind(Integer.parseInt(request.getParameter("Numero_C")));
           if (cuenta == null){
             errores.put("Numero_C","Cuenta NO Existe");
             errores.put("Numero_C2",request.getParameter("Numero_C"));
@@ -97,12 +99,17 @@ public class Controller extends HttpServlet {
           }
         }
         try{
-         double monto = Double.valueOf(request.getParameter("Monto_D"));
+         double monto = Double.valueOf(request.getParameter("Monto_R"));
          if (monto == 0.0) {
-           errores.put("Monto_D","Ingrese un Monto");
+           errores.put("Monto_R","Ingrese un Monto");
+           request.setAttribute("errores",errores);
+           return errores;
+         }else if(cuenta.getSaldo()<CambioMoneda(request,model)) {
+           errores.put("Monto_R","Saldo Insuficiente");
            request.setAttribute("errores",errores);
            return errores;
          }
+         
        }catch(Exception e){
         return errores;
        }
@@ -147,26 +154,25 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>   
 
-    private String DepositoAction(HttpServletRequest request) {
+    private String RetiroAction(HttpServletRequest request) {
         banca.logic.Model domainModel = banca.logic.Model.instance();
         Model model = (Model) request.getAttribute("model");
         model.setCuenta(domainModel.CuentaFind(Integer.parseInt(request.getParameter("Numero_C"))));
         model.setMovimiento(CrearMovimiento(model.getCuenta(),
-       new Retiro(),CrearDeposito(GetFecha(),CambioMoneda(request,model),
-        request.getParameter("Motivo_D"),request.getParameter("NombreD_D")),request.getParameter("Motivo_D")));
-       domainModel.AgregarMovimientoDeposito(model.getMovimiento());
-       model.getCuenta().setSaldo(model.getCuenta().getSaldo()+CambioMoneda(request,model));
+       CrearRetiro(CambioMoneda(request,model)),new Deposito(),request.getParameter("Retiro")));
+       domainModel.AgregarMovimientoRetiro(model.getMovimiento());
+       model.getCuenta().setSaldo(model.getCuenta().getSaldo()-CambioMoneda(request,model));
        domainModel.CuentaUpdate(model.getCuenta());
        model.setListo(true);
-     return "/presentation/admin/deposito/view.jsp"; 
+     return "/presentation/admin/retiro/view.jsp"; 
     }
     
     private Movimiento CrearMovimiento( Cuenta cuenta,Retiro retiro,Deposito deposito,String detalle){
        return new Movimiento(0,GetFecha(),detalle,deposito, retiro, cuenta);
     }
     
-   private Deposito CrearDeposito(String fecha, double monto, String motivo, String nombre) {
-     return new Deposito(1,monto, motivo, fecha, nombre);
+    private Retiro CrearRetiro(double monto) {
+      return new Retiro(1,monto,GetFecha());
     }
    
     private String GetFecha(){
@@ -176,11 +182,12 @@ public class Controller extends HttpServlet {
    }
     
     private double CambioMoneda(HttpServletRequest request,Model model){
-        double monto = Double.valueOf(request.getParameter("Monto_D"));
+        double monto = Double.valueOf(request.getParameter("Monto_R"));
         double Tmoneda = Double.parseDouble(request.getParameter("Moneda_C"));
         double tipoC = model.getCuenta().getMoneda().getTipo_cambio();
         return (monto/Tmoneda)*tipoC;
     }
+
 
  
 

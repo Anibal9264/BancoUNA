@@ -2,12 +2,6 @@
 <%@page import="java.util.Map"%>
 <%@page import="banca.presentation.Cliente.vincular.Model"%>
 <%@page import="banca.logic.Cuenta"%>
-<%
-    Model model = (Model) request.getAttribute("model");
-    Cuenta cuenta = model.getSeleccionado();
-    Map<String,String> errores = (Map<String,String>) request.getAttribute("errores");
-    Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();
-%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +11,13 @@
     </head>
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>
+<%if(cliente!=null){%>
+    <%
+    Model model = (Model) request.getAttribute("model");
+    Cuenta cuenta = model.getSeleccionado();
+    Map<String,String> errores = (Map<String,String>) request.getAttribute("errores");
+    Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();
+%>
 <%if(cuenta != null){%>
 
         <div class="fila encabezado"><b><p>Detales de Cuenta</b></p></div>
@@ -43,6 +44,7 @@
     </form>
 </div>
 
+<%}%>
 <%}%>
 </html>
 <%!

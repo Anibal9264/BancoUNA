@@ -1,5 +1,5 @@
-<%@page import="banca.logic.Usuario"%>
-<% Usuario cliente = (Usuario)session.getAttribute("cliente"); %>
+<%@include file="/presentation/Model.jsp" %>
+<%@page import="javax.servlet.ServletException"%>
 <header>
     <div class="columna">
          <div class="logo">
@@ -8,15 +8,16 @@
             </a>
          </div> 
     </div>
+    
     <div class="columnadoble">
         <div class="tipoCambio">Tipo de cambio de dolar</div> 
     </div>
-    <div class="columna">
-        <%if(cliente==null){ %>
+     <%if(cliente==null&&admin == null){ %>
+        <div class="columna">
         <a href="/BancoUNA/presentation/login/show">
         <img id="online" src="/BancoUNA/images/logoenlinea.png">
         </a>
-        <%}%>
-    </div>
+       </div>
+     <%}else{}%>
+    
 </header>            
-

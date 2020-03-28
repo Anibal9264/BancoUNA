@@ -23,7 +23,10 @@ public class Controller extends HttpServlet {
          throws ServletException, IOException {
 
         request.setAttribute("model",new Model());
-        String viewUrl="";     
+        HttpSession session = request.getSession(true);
+        Usuario real = (Usuario) session.getAttribute("cliente");
+        String viewUrl="";
+        if(real!= null){
         switch (request.getServletPath()) {
           case "/presentation/cliente/vincular/show":
               viewUrl = this.vincularShow(request);
@@ -34,7 +37,8 @@ public class Controller extends HttpServlet {
           case "/presentation/cliente/vincular/vincular":
               viewUrl = this.vincular(request);
           break;
-        }          
+        } 
+        }else{viewUrl="/presentation/sesionCaducada.jsp";}        
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
   //========================SHOW==================================

@@ -9,18 +9,10 @@
         <%@ include file="/presentation/Head.jsp" %>
         <title>AddUser</title>
     </head>
-    <header>
-        <div class="columna">
-            <div class="logo">
-                <a href="/BancoUNA/presentation/Index.jsp">
-                    <img src="/BancoUNA/images/logo.png">
-                </a>
-            </div> 
-        </div>
-        <div class="hr"></div>
-    </header>
+    <%@ include file="/presentation/Header.jsp" %>
     <%@include file="/presentation/Toolbar.jsp" %>
     <br>
+    <%if(admin!=null){%>
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
@@ -115,6 +107,7 @@
           </div>
       </div>
  <%}%>
+<%}%>
 </html>
 <%!
     private String erroneo(String campo, Map<String,String> errores){

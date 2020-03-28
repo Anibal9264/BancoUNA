@@ -26,8 +26,12 @@ public class Controller extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
          throws ServletException, IOException {
-        request.setAttribute("model",new Model()); 
+        request.setAttribute("model",new Model());
+        HttpSession session = request.getSession(true);
+        Usuario real = (Usuario) session.getAttribute("cliente");
         String viewUrl="";
+        if(real!= null){
+       
         switch(request.getServletPath()){
             case "/presentation/transferencia/show":
                 viewUrl=this.show(request);
@@ -36,6 +40,7 @@ public class Controller extends HttpServlet {
                 viewUrl=this.transferencia(request);
                 break;               
         }
+        }else{viewUrl="/presentation/sesionCaducada.jsp";}
         request.getRequestDispatcher(viewUrl).forward(request, response); 
   }
   

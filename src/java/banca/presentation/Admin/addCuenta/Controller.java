@@ -9,14 +9,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "addCuentaController", urlPatterns = {"/presentation/admin/addCuenta/show",
     "/presentation/admin/addCuenta/add"})
 public class Controller extends HttpServlet {
 protected void processRequest(HttpServletRequest request,HttpServletResponse response)
         throws ServletException,IOException {
-        request.setAttribute("model",new Model());  
+         request.setAttribute("model",new Model());
+        HttpSession session = request.getSession(true);
+        Usuario real = (Usuario) session.getAttribute("admin");
         String viewUrl="";
+        if(real!= null){
         switch(request.getServletPath()){
             case "/presentation/admin/addCuenta/show":
                 viewUrl=this.show(request);
@@ -25,6 +29,7 @@ protected void processRequest(HttpServletRequest request,HttpServletResponse res
                 viewUrl=this.add(request);
                 break; 
         }
+         }else{viewUrl="/presentation/sesionCaducada.jsp";} 
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
  //================= Show menu=================

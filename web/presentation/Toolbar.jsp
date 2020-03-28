@@ -1,10 +1,9 @@
-<%@page import="banca.logic.Usuario"%>
-<% Usuario admin = (Usuario)session.getAttribute("admin"); %>
-<% Usuario client = (Usuario)session.getAttribute("cliente"); %>
+
 <div class="Toolbar">
-    <% if (client!=null && admin == null ){ %>
+    <%if(cliente != null){
+    if (!cliente.getCedula().equals("null") && admin == null){ %>
     <ul id="menu">
-        <li><%=client.toString()%>
+        <li><%=cliente.toString()%>
             <ul id="User_ul">
                 <li>Actualizar datos</li>
                 <li>ver datos</li>
@@ -31,9 +30,12 @@
         <a href="/BancoUNA/presentation/login/logout">
           <li>Logout</li></a>
         
-    </ul>    
+    </ul>
+    <% } %>
    <% } %>
-       <% if (admin!=null  && client == null){ %>
+   
+   <%if(admin != null){ 
+     if (!admin.getCedula().equals("null") && cliente == null){ %>
     <ul id="menu">
         <li><%=admin.toString()%>
             <ul id="Admin_ul">
@@ -56,7 +58,7 @@
                <a href="/BancoUNA/presentation/admin/deposito/show">
                     <li>Deposito</li>
                 </a>
-               <a href="/BancoUNA/presentation/admin/Retiro/show">
+               <a href="/BancoUNA/presentation/admin/retiro/show">
                <li>Retiro</li>
           </a>
             </ul>
@@ -65,10 +67,13 @@
           <li>Logout</li></a>
         
     </ul>    
-   <% } %>
-   <% if (admin!=null  && client != null){ %>
+   <% }
+   }%>
+  <%
+      if(admin != null && cliente !=null){
+      if (!admin.getCedula().equals("null")  &&!cliente.getCedula().equals("null") ){ %>
                     Tienes Una Sección Abierta ya deseas cerrarla ?
                     <a href="/BancoUNA/presentation/login/logout"><button>SI</button></a>
-   <% } %>
+   <% }} %>
 </div>
 

@@ -36,6 +36,8 @@ public class Controller extends HttpServlet {
         return this.showAction(request);
     }
     public String showAction(HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        session.setAttribute("cliente",new Usuario());
         return "/presentation/cliente/login/view.jsp"; 
     } 
 // ==================MENU LOGIN================

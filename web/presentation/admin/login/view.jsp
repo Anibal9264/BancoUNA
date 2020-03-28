@@ -8,21 +8,11 @@
     <%@ include file="/presentation/Head.jsp" %>
      <title>LoginAdmin</title>
     </head>
-    <header>
-     <div class="columna">
-         <div class="logo">
-           <a href="/BancoUNA/presentation/Index.jsp">
-               
-               <img  src="/BancoUNA/images/logo.png">
-            
-            </a>
-         </div> 
-    </div>
-    <div class="hr"></div>
-    <% Model model = (Model) request.getAttribute("model"); %>
+   
+    <% Model model = (Model) request.getAttribute("model");%>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
-    </header>
+    <%@ include file="/presentation/Header.jsp" %>
     <body>
         <table>    
         <div class="EspacioLogin" id="loginP">
