@@ -308,6 +308,7 @@ public class Dao {
             movimiento.setDetalle(rs.getString("detalle"));
             movimiento.setDeposito(GetDeposito(rs.getInt("Deposito_id")));
             movimiento.setRetiro(GetRetiro(rs.getInt("Retiro_id")));
+            movimiento.setCuenta(GetCuenta(rs.getInt("Cuenta_numero")));
             return movimiento;
         } catch (Exception ex) {
            return null;

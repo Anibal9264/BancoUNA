@@ -77,7 +77,7 @@ public class Controller extends HttpServlet {
         banca.logic.Model domainModel = banca.logic.Model.instance();
         Model model = (Model) request.getAttribute("model");
         Cuenta cuenta = null;
-         Usuario real;
+        Usuario real;
         if(request.getParameter("Cedula_C") != null){
         real = domainModel.usuarioFind(request.getParameter("Cedula_C"),"");
         if (real == null){
@@ -95,7 +95,8 @@ public class Controller extends HttpServlet {
             errores.put("Numero_C2",request.getParameter("Numero_C"));
             request.setAttribute("errores",errores);
           }else{
-            model.setCuenta(cuenta);
+            model.setCliente(new Cliente(cuenta.getUsuario().getCedula(),cuenta.getUsuario().toString(),cuenta.getUsuario()));
+            model.getCliente().getCuentas().add(cuenta);
           }
         }
         try{

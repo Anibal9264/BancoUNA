@@ -10,7 +10,7 @@
 <html>
     <head>
         <%@ include file="/presentation/Head.jsp" %>
-        <title>Login</title>
+        <title>Admin Retiro</title>
     </head>
     <%@ include file="/presentation/Header.jsp" %>
     <%@include file="/presentation/Toolbar.jsp" %>
@@ -80,15 +80,6 @@
                </div>               
           </div>
           <br>
-      <%}else if(model.getCuenta().isEstado()){%>
-         <div class="fila">
-              <div class="etiqueta"> Cuenta al retirar:
-                  <select name="Numero_C" id="Numero_C" required>
-                       <option  value="<%=model.getCuenta().getNumero()%>"><%=model.getCuenta().toString()%></option>
-                  </select>
-               </div>               
-          </div>
-          <br>
       <%}%>
                     <div class="fila">
                         <div class="etiqueta">Monto a retirar</div>
@@ -115,7 +106,8 @@
  <div class="fila encabezado"><b><p>Retiro Realizado </b></p></div>   
  <div class="fila"> Fecha :  <%=model.getMovimiento().getFecha()%></div>
  <div class="fila"> Nombre :  <%=model.getCuenta().getUsuario().toString()%></div>
- <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getRetiro().getMonto())%>  Colones</div>
+ <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getRetiro().getMonto())%>
+     <%=model.getMovimiento().getCuenta().getMoneda().getId()%></div>
 
  
 <%}%>   

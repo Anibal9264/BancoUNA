@@ -55,16 +55,9 @@ try {
     }
     //==================DETALLES DE CUENTAS=====================
     private String detalles(HttpServletRequest request) {
-        this.cleanAction(request);
         return this.detallesAction(request);
    
-    }
-    private void cleanAction(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
-        HttpSession session = request.getSession(true);
-        model.setCuentas(new ArrayList<>());    
-    }
-    
+    }    
     private String detallesAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();

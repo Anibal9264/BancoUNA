@@ -9,15 +9,13 @@ import java.util.List;
 
 public class Model {
     private Cliente cliente;
-    private Cuenta cuenta;
     private List<Moneda> monedas;
     private Deposito deposito;
     private boolean listo;
     private Movimiento movimiento;
 
-    public Model(Cliente cliente, Cuenta cuenta, List<Moneda> monedas, Deposito deposito, boolean listo, Movimiento movimiento) {
+    public Model(Cliente cliente, List<Moneda> monedas, Deposito deposito, boolean listo, Movimiento movimiento) {
         this.cliente = cliente;
-        this.cuenta = cuenta;
         this.monedas = monedas;
         this.deposito = deposito;
         this.listo = listo;
@@ -29,7 +27,6 @@ public Model() {
         this.cliente = new Cliente();
         this.monedas = new ArrayList<>();
         this.deposito = new Deposito();
-        this.cuenta = new Cuenta();
         this.listo = false;
         this.movimiento = new Movimiento();
     }
@@ -73,15 +70,5 @@ public Model() {
     public void setDeposito(Deposito deposito) {
         this.deposito = deposito;
     }
-
-    public Cuenta getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
-    }
-
-    
-    
+ 
 }

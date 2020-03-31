@@ -12,21 +12,19 @@
     <%@ include file="/presentation/Header.jsp" %>
     <%@include file="/presentation/Toolbar.jsp" %>
     <br>
-    <%if(admin!=null){%>
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
-    
+    <%if(admin!=null){%>
+  <div class="EspacioLogin"></div>
+  <div class="EspacioLogin" id="loginP">
+  <div class="FormT">  
 <%if(model.getUser().getContraseña().isEmpty()){%>
-    <div class="fila">
-        <div class="EspacioLogin"></div>
-        <div class="EspacioLogin" id="loginP">
-           
-            <div class="FormAdd">
+       
+
+               <div class="fila encabezado"><b><p>Agregar Usuario</b></p></div>
                 <form action="/BancoUNA/presentation/admin/addUser/add" method="post" >
-                    <div class="fila encabezado"><b><p>Agregar Usuario</b></p></div>
-                    
-                    <div class="fila">
+                   <div class="fila">
                         <div class="etiqueta">Cedula :
                         <div class="campo"><input  placeholder="601230123" type="text" name="Cedula_C" 
                                                     value="<%=form.get("Cedula_C")[0]%>" 
@@ -84,12 +82,11 @@
                       <br>
                     <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
                 </form>
-            </div> 
-        </div>
+            
+        
         <div class="EspacioLogin"></div>
-    </div>
+    
 <%}else{%>
-      ESTO TIENE QUE SALIR EN EL CENTRO Y MOSTRAR ESTOS DATOS :
       <div class="fila encabezado"><b><p>Usuario se Agrego Correctamente</b></p></div>
       <div class="fila">
           <%=model.getUser().toString()%>
@@ -107,6 +104,8 @@
           </div>
       </div>
  <%}%>
+ </div> 
+ </div>
 <%}%>
 </html>
 <%!

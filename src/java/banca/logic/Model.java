@@ -81,8 +81,6 @@ public class Model {
     public void AgregarMovimientoRetiro(Movimiento movimiento) {
        int n= AgregarRetiro(movimiento.getRetiro());
             movimiento.getRetiro().setId(n);
-
-        
         try {
             base.MovimientoAdd(movimiento);
         } catch (Exception ex) {

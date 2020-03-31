@@ -9,6 +9,8 @@
     Model model = (Model) request.getAttribute("model");
     List<Cuenta> cuentas = model.getCuentas();
     List<Movimiento> movimientos = model.getMovimientos();
+    DecimalFormat df2 = new DecimalFormat("#.##");
+    df2.setRoundingMode(RoundingMode.DOWN);  
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,53 +24,54 @@
 <%if(cliente!=null){%>
 <%if(!model.getCuentas().isEmpty()){%>
 <body>
-     <div class="Tabla-cuentas">
+     
         <h1>Listado de Cuentas del Cliente</h1>     
-    
-        <table>
-            <thead class="Tabla-in" id="cabeza">
-                <tr> <td> <b>Cuenta Número</b></td><td><b>Nombre</b></td><td><b>Saldo</b></td><td><b>Moneda</b></td><td><b>Estado</b></td><td><b>Detalle</b></td>   </tr>
-            </thead>
-            <tbody class="Tabla-in">
-                        <%
-                          DecimalFormat df2 = new DecimalFormat("#.##");
-                          df2.setRoundingMode(RoundingMode.DOWN);  
-                    for(Cuenta c:cuentas){%>
+        <div class="Tabla-Campo" id="cuenta">
+ <table class="Tabla-in" id="cabeza">
+             <tr> <td> <b>Cuenta Número</b></td>
+                 <td><b>Nombre</b></td>
+                 <td><b>Saldo</b></td>
+                 <td><b>Moneda</b></td>
+                 <td><b>Estado</b></td>
+                 <td><b>Detalle</b></td>   </tr>
+ </table>
+ <table  class="Tabla-in" id="cuerpo">
+                        
+                    <%for(Cuenta c:cuentas){%>
                        <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=df2.format(c.getSaldo())%></td>
                              <td><%=c.getMoneda().getId()%></td><td><%=c.getEstado()%></td>
                              <td><a href="/BancoUNA/presentation/cliente/cuentas/detalles?numeroFld=<%=c.getNumero()%>">
                              ver</a></td></tr>
                         <%}%>                     
-            </tbody>
+ </table>
         </table>          
     </div>
      <%@ include file="/presentation/Footer.jsp" %>
-</body>
 <%}else{%>
-<body>
-     <div class="Tabla-cuentas">
-         <h1>Detalles de Cuenta</h1>     
+       <div class="fila encabezado"><b><p>Detalles De Cuenta </b></p></div>
        <%if(!model.getMovimientos().isEmpty()){%>
-        <table>
-            <thead class="Tabla-in" id="cabeza">
-                <tr> <td>Fecha</td><td>Tipo</td><td>Detalle</td><td>Monto</td></tr>
-            </thead>
-            <tbody class="Tabla-in">
+<div class="Tabla-Campo">
+    <table class="Tabla-in" id="cabeza">
+                <tr> <td>Fecha</td><td>Tipo</td><td>Detalle</td><td>Monto</td><td>Moneda</td></tr>
+    </table>
+    <table  class="Tabla-in" id="cuerpo">
                         <% for(Movimiento m:movimientos){%>
                         <tr> <td><%=m.getFecha()%> </td><td><%=m.toStringTipo()%></td><td><%=m.getDetalle()%></td>
                         <td><%if(m.getDeposito().getId()!=0){%>
-                            <%=m.getDeposito().getMonto()%>
+                            <%=df2.format(m.getDeposito().getMonto())%>
                         <%}else if(m.getRetiro().getId()!=0){%>
-                            <%=m.getRetiro().getMonto()%>
+                            <%=df2.format(m.getRetiro().getMonto())%>
                         <%}%>
-                        </td></tr>
+                        </td>
+                        <td><%=m.getCuenta().getMoneda().getId()%></td>
+                        </tr>
                         <%}%>
-            </tbody>
-        </table>
+     </table>
+       
+</div>
        <%}else{%> 
        <div>NO TIENE MOVIMIENTOS!!</div>
         <%}%>
-    </div>
      <%@ include file="/presentation/Footer.jsp" %>
 </body>
 <%}%>

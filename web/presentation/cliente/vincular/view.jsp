@@ -7,7 +7,7 @@
 <html>
     <head>
     <%@ include file="/presentation/Head.jsp" %>
-     <title>Vincular</title>
+     <title> Cliente Vincular</title>
     </head>
      <%@ include file="/presentation/Header.jsp" %>
      <%@ include file="/presentation/Toolbar.jsp" %>
@@ -18,6 +18,9 @@
     Map<String,String> errores = (Map<String,String>) request.getAttribute("errores");
     Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();
 %>
+<div class="EspacioLogin"></div>
+<div class="EspacioLogin" id="loginP">
+<div class="FormT">  
 <%if(cuenta != null){%>
 
         <div class="fila encabezado"><b><p>Detales de Cuenta</b></p></div>
@@ -37,7 +40,10 @@
         <div class="fila encabezado"><b><p>Vincular Cuenta</b></p></div>
         <div class="fila">
             <div class="etiqueta">Numero de cuenta a vincular</div>
-            <div class="campo"><input class="<%=erroneo("cuenta_vincular", errores)%>" placeholder="Numero de cuenta" type="text" name="cuenta_vincular" value="<%=form.get("cuenta_vincular")[0]%>" title="<%=title("cuenta_vincular", errores)%>"required></div>
+            <div class="campo"><input class="<%=erroneo("cuenta_vincular", errores)%>"
+                                      placeholder="Numero de cuenta" type="text" name="cuenta_vincular" 
+                                      value="<%=form.get("cuenta_vincular")[0]%>"
+                                      title="<%=title("cuenta_vincular", errores)%>"required></div>
         </div>
         <br />
         <div class="fila encabezado"><button  style="margin-bottom: 15px">Buscar</button> </div>
@@ -45,6 +51,8 @@
 </div>
 
 <%}%>
+</div>
+</div>
 <%}%>
 </html>
 <%!

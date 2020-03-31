@@ -24,7 +24,7 @@
 <div class="EspacioLogin" id="loginP">
      <div class="FormT">
      <div class="fila encabezado"><b><p>Menu Deposito</b></p></div>
-        <%if(model.getCliente().getCuentas().isEmpty() && !model.getCuenta().isEstado()){%>
+        <%if(model.getCliente().getCuentas().isEmpty()){%>
       <form action="/BancoUNA/presentation/admin/deposito/show" method="post">
         <div class="fila">
                         <div class="etiqueta">Cedula Cliente</div>
@@ -68,9 +68,7 @@
  </form>
 <%}else if(!model.isListo()){%>      
    <form action="/BancoUNA/presentation/admin/deposito/add" method="post">
-     
-     <%if(!model.getCliente().getCuentas().isEmpty()){%>                      
-     <div class="fila">
+         <div class="fila">
               <div class="etiqueta"> Cuenta destino :
                   <select name="Numero_C" id="Numero_C" required>
                            <%for(Cuenta f:model.getCliente().getCuentas()){%>
@@ -80,16 +78,6 @@
                </div>               
           </div>
           <br>
-      <%}else if(model.getCuenta().isEstado()){%>
-         <div class="fila">
-              <div class="etiqueta"> Cuenta :
-                  <select name="Numero_C" id="Numero_C" required>
-                       <option  value="<%=model.getCuenta().getNumero()%>"><%=model.getCuenta().toStringFavorita()%></option>
-                  </select>
-               </div>               
-          </div>
-          <br>
-      <%}%>
                     <div class="fila">
                         <div class="etiqueta">Monto</div>
                         <div class="campo"><input  placeholder="Monto" type="text" name="Monto_D" 
@@ -131,7 +119,8 @@
  <div class="fila"> Fecha :  <%=model.getMovimiento().getFecha()%></div>
  <div class="fila"> Depositante :  <%=model.getMovimiento().getDeposito().getNombreDepositante()%></div>
  <div class="fila"> Motivo :  <%=model.getMovimiento().getDeposito().getMotivo()%></div>
- <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getDeposito().getMonto())%>  Colones</div>
+ <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getDeposito().getMonto())%>
+     <%=model.getMovimiento().getCuenta().getMoneda().getId()%> </div>
 
  
 <%}%>   

@@ -8,7 +8,7 @@
 <html>
     <head>
         <%@ include file="/presentation/Head.jsp" %>
-        <title>Login</title>
+        <title>Cliente Transferencias</title>
     </head>
     <%@ include file="/presentation/Header.jsp" %>
     <%@ include file="/presentation/Toolbar.jsp" %>
@@ -31,7 +31,7 @@
                     <div class="fila encabezado"><b><p>Transferencia</b></p></div>
                     <div class="fila">
                         <div class="etiqueta">Cuenta de Salida :
-                        <select name="Cuenta_S" id="Cuenta_S">
+                        <select name="Cuenta_S" id="Cuenta_S" required>
                            <%for(Cuenta c:cuentas){%>
                                 <option  value="<%=c.getNumero()%>"><%=c.toString()%> </option>
                             <%}%>          
@@ -41,7 +41,7 @@
                       <br />
                     <div class="fila">
                         <div class="etiqueta"> Cuenta destino :
-                        <select name="Cuenta_F" id="Cuenta_F">
+                        <select name="Cuenta_F" id="Cuenta_F" required>
                            <%for(Cuenta f:Favoritas){%>
                                 <option  value="<%=f.getNumero()%>"><%=f.toStringFavorita()%> </option>
                             <%}%>          

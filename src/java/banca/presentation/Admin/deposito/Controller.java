@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
- @WebServlet(name = "DepositoController", urlPatterns = {"/presentation/admin/deposito/show","/presentation/admin/deposito/add"})
+@WebServlet(name = "DepositoController", urlPatterns = {"/presentation/admin/deposito/show","/presentation/admin/deposito/add"})
 public class Controller extends HttpServlet {
    protected void processRequest(HttpServletRequest request,HttpServletResponse response)
         throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
                 break; 
         } 
          }else{viewUrl="/presentation/sesionCaducada.jsp";} 
-        request.getRequestDispatcher(viewUrl).forward( request, response); 
+        request.getRequestDispatcher(viewUrl).forward( request,response); 
   }
    
    
@@ -93,7 +93,8 @@ public class Controller extends HttpServlet {
             errores.put("Numero_C2",request.getParameter("Numero_C"));
             request.setAttribute("errores",errores);
           }else{
-            model.setCuenta(cuenta);
+           model.setCliente(new Cliente(cuenta.getUsuario().getCedula(),cuenta.getUsuario().toString(),cuenta.getUsuario()));
+           model.getCliente().getCuentas().add(cuenta);
           }
         }
         try{
@@ -108,7 +109,44 @@ public class Controller extends HttpServlet {
        }
         return errores;
     }  
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
+
+    private String DepositoAction(HttpServletRequest request) {
+        banca.logic.Model domainModel = banca.logic.Model.instance();
+        Model model = (Model) request.getAttribute("model");
+        Cuenta cuenta = model.getCliente().getCuentas().get(0);
+       model.setMovimiento(CrearMovimiento(cuenta,
+       new Retiro(),CrearDeposito(GetFecha(),CambioMoneda(request,model),
+        request.getParameter("Motivo_D"),request.getParameter("NombreD_D")),request.getParameter("Motivo_D")));
+       domainModel.AgregarMovimientoDeposito(model.getMovimiento());
+       cuenta.setSaldo(cuenta.getSaldo()+CambioMoneda(request,model));
+       domainModel.CuentaUpdate(cuenta);
+       model.setListo(true);
+     return "/presentation/admin/deposito/view.jsp"; 
+    }
+    
+    private Movimiento CrearMovimiento( Cuenta cuenta,Retiro retiro,Deposito deposito,String detalle){
+       return new Movimiento(0,GetFecha(),detalle,deposito, retiro, cuenta);
+    }
+    
+   private Deposito CrearDeposito(String fecha, double monto, String motivo, String nombre) {
+     return new Deposito(1,monto, motivo, fecha, nombre);
+    }
+   
+    private String GetFecha(){
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+        return dateFormat.format(date);
+   }
+    
+    private double CambioMoneda(HttpServletRequest request,Model model){
+        double monto = Double.valueOf(request.getParameter("Monto_D"));
+        double Tmoneda = Double.parseDouble(request.getParameter("Moneda_C"));
+        double tipoC = model.getCliente().getCuentas().get(0).getMoneda().getTipo_cambio();
+        return (monto/Tmoneda)*tipoC;
+    }
+
+  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -146,43 +184,6 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>   
-
-    private String DepositoAction(HttpServletRequest request) {
-        banca.logic.Model domainModel = banca.logic.Model.instance();
-        Model model = (Model) request.getAttribute("model");
-        model.setCuenta(domainModel.CuentaFind(Integer.parseInt(request.getParameter("Numero_C"))));
-        model.setMovimiento(CrearMovimiento(model.getCuenta(),
-       new Retiro(),CrearDeposito(GetFecha(),CambioMoneda(request,model),
-        request.getParameter("Motivo_D"),request.getParameter("NombreD_D")),request.getParameter("Motivo_D")));
-       domainModel.AgregarMovimientoDeposito(model.getMovimiento());
-       model.getCuenta().setSaldo(model.getCuenta().getSaldo()+CambioMoneda(request,model));
-       domainModel.CuentaUpdate(model.getCuenta());
-       model.setListo(true);
-     return "/presentation/admin/deposito/view.jsp"; 
-    }
-    
-    private Movimiento CrearMovimiento( Cuenta cuenta,Retiro retiro,Deposito deposito,String detalle){
-       return new Movimiento(0,GetFecha(),detalle,deposito, retiro, cuenta);
-    }
-    
-   private Deposito CrearDeposito(String fecha, double monto, String motivo, String nombre) {
-     return new Deposito(1,monto, motivo, fecha, nombre);
-    }
-   
-    private String GetFecha(){
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
-        return dateFormat.format(date);
-   }
-    
-    private double CambioMoneda(HttpServletRequest request,Model model){
-        double monto = Double.valueOf(request.getParameter("Monto_D"));
-        double Tmoneda = Double.parseDouble(request.getParameter("Moneda_C"));
-        double tipoC = model.getCuenta().getMoneda().getTipo_cambio();
-        return (monto/Tmoneda)*tipoC;
-    }
-
- 
 
  
 }

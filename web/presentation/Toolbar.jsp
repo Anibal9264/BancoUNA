@@ -5,8 +5,7 @@
     <ul id="menu">
         <li><%=cliente.toString()%>
             <ul id="User_ul">
-                <li>Actualizar datos</li>
-                <li>ver datos</li>
+                <li>Actualizar Mis datos</li>
             </ul>
         </li>
         <li>Cuentas
@@ -39,8 +38,7 @@
     <ul id="menu">
         <li><%=admin.toString()%>
             <ul id="Admin_ul">
-                <li>Actualizar datos</li>
-                <li>ver datos</li>
+                <li>Actualizar datos de Un Cliente</li>
             </ul>
         </li>
         <li>Menu Agregar
@@ -60,7 +58,13 @@
                 </a>
                <a href="/BancoUNA/presentation/admin/retiro/show">
                <li>Retiro</li>
-          </a>
+               </a>
+               <a href="/BancoUNA/presentation/admin/transferencia/show">
+               <li>Transferencia</li>
+               </a>
+                <a href="/BancoUNA/presentation/admin/acreditar/show">
+               <li>Acreditar Intereses</li>
+               </a>
             </ul>
         </li>
         <a href="/BancoUNA/presentation/admin/login/logout">
