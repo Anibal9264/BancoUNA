@@ -10,8 +10,8 @@
         <%@ include file="/presentation/Head.jsp" %>
         <title>Acreditar</title>
     </head>
-    <%@ include file="/presentation/Header.jsp" %>
-    <%@include file="/presentation/Toolbar.jsp" %>
+    <%@ include file="/presentation/admin/Header.jsp" %>
+    <%@include file="/presentation/admin/Toolbar.jsp" %>
     <br>
     <% Model model = (Model) request.getAttribute("model"); %>
 <div class="EspacioLogin"></div>

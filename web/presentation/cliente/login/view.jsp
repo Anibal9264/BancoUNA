@@ -17,12 +17,6 @@
           <tbody > 
           <table>    
                <div class="EspacioLogin" id="loginP">
-            <thead>
-            <TR >
-            <div class="login"> 
-                     <img style=" margin: 25px" src="/BancoUNA/images/logoenlinea.png"></th>
-                    </div>
-                </thead>
                <TD id="td1" class="login">
           
                 <div  id="id" class="login">

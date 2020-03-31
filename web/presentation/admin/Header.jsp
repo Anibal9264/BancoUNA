@@ -3,7 +3,7 @@
 <header>
     <div class="columna">
          <div class="logo">
-           <a href="/BancoUNA/presentation/Index.jsp">
+           <a href="/BancoUNA/presentation/admin/Index.jsp">
                <img src="/BancoUNA/images/logo.png">
             </a>
          </div> 
@@ -11,12 +11,11 @@
     
     <div class="columnadoble">
     </div>
-     <%if(cliente==null){ %>
+     <%if(admin == null){ %>
         <div class="columna">
-        <a href="/BancoUNA/presentation/login/show">
+        <a href="/BancoUNA/presentation/admin/login/show">
         <img id="online" src="/BancoUNA/images/logoenlinea.png">
         </a>
        </div>
      <%}%>
-    
-</header>            
+    </header>            

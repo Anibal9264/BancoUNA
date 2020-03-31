@@ -35,8 +35,6 @@ public class Controller extends HttpServlet {
         return this.showAction(request);
     }
     public String showAction(HttpServletRequest request){
-        HttpSession session = request.getSession(true);
-        session.setAttribute("admin",new Usuario());
         return "/presentation/admin/login/view.jsp"; 
     } 
 // ==================MENU LOGIN================
@@ -86,7 +84,7 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         Usuario real = domainModel.usuarioFind(model.getUser().getCedula(), model.getUser().getContraseña());
         session.setAttribute("admin",real);
-        return "/presentation/Index.jsp";
+        return "/presentation/admin/Index.jsp";
     }   
 
     public String logout(HttpServletRequest request){

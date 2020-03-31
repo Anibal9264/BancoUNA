@@ -11,8 +11,8 @@
         <%@ include file="/presentation/Head.jsp" %>
         <title>AddCuenta</title>
     </head>
-    <%@ include file="/presentation/Header.jsp" %>
-    <%@include file="/presentation/Toolbar.jsp" %>
+    <%@ include file="/presentation/admin/Header.jsp" %>
+    <%@include file="/presentation/admin/Toolbar.jsp" %>
     <br>
     <%if(admin!=null){%>
     <% Model model = (Model) request.getAttribute("model"); %>

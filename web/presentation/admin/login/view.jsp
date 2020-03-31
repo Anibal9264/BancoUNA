@@ -12,7 +12,8 @@
     <% Model model = (Model) request.getAttribute("model");%>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
-    <%@ include file="/presentation/Header.jsp" %>
+    <%@ include file="/presentation/admin/Header.jsp" %>
+    <%@include file="/presentation/admin/Toolbar.jsp" %>
     <body>
         <table>    
         <div class="EspacioLogin" id="loginP">
