@@ -78,7 +78,7 @@
       </div>
       <div class="fila">
           <div class="fila encabezado">
-              <a href="/BancoUNA/presentation/admin/addCuenta/view" 
+              <a href="/BancoUNA/presentation/admin/deposito/view" 
                  <button  style="margin-bottom: 15px">Agregar Deposito</button> </div> </a>
       </div>
  <%}%>
