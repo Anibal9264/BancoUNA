@@ -1,4 +1,7 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.math.RoundingMode"%>
 <%@page import="banca.presentation.Cliente.cuentas.Model"%>
@@ -24,7 +27,6 @@
 <%if(cliente!=null){%>
 <%if(!model.getCuentas().isEmpty()){%>
 <body>
-     
         <h1>Listado de Cuentas del Cliente</h1>     
         <div class="Tabla-Campo" id="cuenta">
  <table class="Tabla-in" id="cabeza">
@@ -36,8 +38,7 @@
                  <td><b>Detalle</b></td>   </tr>
  </table>
  <table  class="Tabla-in" id="cuerpo">
-                        
-                    <%for(Cuenta c:cuentas){%>
+                        <%for(Cuenta c:cuentas){%>
                        <tr> <td><%=c.getNumero()%> </td><td><%=c.getDescripcion()%></td><td><%=df2.format(c.getSaldo())%></td>
                              <td><%=c.getMoneda().getId()%></td><td><%=c.getEstado()%></td>
                              <td><a href="/BancoUNA/presentation/cliente/cuentas/detalles?numeroFld=<%=c.getNumero()%>">
@@ -50,6 +51,13 @@
 <%}else{%>
        <div class="fila encabezado"><b><p>Detalles De Cuenta </b></p></div>
        <%if(!model.getMovimientos().isEmpty()){%>
+<div class="fila encabezado">
+    <form action="/BancoUNA/presentation/cliente/cuentas/acomodo?numeroFld=<%=model.getMovimientos().get(0).getCuenta().getNumero()%>"method="post">
+        Desde: <input type="date" name="fecha1" required step="1" min="2018-01-01"  value=<%=GetFecha()%>>
+Hasta: <input type="date" name="fecha2" step="1" required min="2018-01-01"  value=<%=GetFecha()%>>
+<button    id="Butonbuscar"  style="margin-bottom: 15px">Buscar</button>
+</div>
+
 <div class="Tabla-Campo">
     <table class="Tabla-in" id="cabeza">
                 <tr> <td>Fecha</td><td>Tipo</td><td>Detalle</td><td>Monto</td><td>Moneda</td></tr>
@@ -77,3 +85,10 @@
 <%}%>
 <%}%>
 </html>
+<%!
+String GetFecha(){
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
+   }
+%>

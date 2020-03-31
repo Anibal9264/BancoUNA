@@ -13,14 +13,14 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ClienteCuentasController", urlPatterns = {
     "/presentation/cliente/cuentas/show",
-    "/presentation/cliente/cuentas/detalles"})
+    "/presentation/cliente/cuentas/detalles",
+    "/presentation/cliente/cuentas/acomodo"})
 public class Controller extends HttpServlet {
     
   protected void processRequest(HttpServletRequest request, 
                                 HttpServletResponse response)
-         throws ServletException, IOException {
-
-         request.setAttribute("model",new Model());
+         throws ServletException, IOException { 
+        request.setAttribute("model",new Model());
         HttpSession session = request.getSession(true);
         Usuario real = (Usuario) session.getAttribute("cliente");
         String viewUrl="";
@@ -31,6 +31,9 @@ public class Controller extends HttpServlet {
               break;
           case "/presentation/cliente/cuentas/detalles":
               viewUrl = this.detalles(request);
+              break;
+          case  "/presentation/cliente/cuentas/acomodo":
+              viewUrl = this.detalleRango(request);
               break;
         }   
         }else{viewUrl="/presentation/sesionCaducada.jsp";}
@@ -64,6 +67,24 @@ try {
         model.setMovimientos(domainModel.MovimientosFind(Integer.parseInt(request.getParameter("numeroFld"))));
         return "/presentation/cliente/cuentas/View.jsp";
     }
+    
+     //==================DETALLES DE CUENTAS RANGO=====================
+    private String detalleRango(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        banca.logic.Model domainModel = banca.logic.Model.instance();
+        
+        String f1= request.getParameter("fecha1");
+        
+        model.setMovimientos(domainModel.MovimientosRangoFind(
+                Integer.parseInt(request.getParameter("numeroFld")),
+                request.getParameter("fecha1"),
+                request.getParameter("fecha2")
+                ));
+        
+        return "/presentation/cliente/cuentas/View.jsp";
+    }
+    
+    
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -103,5 +124,7 @@ try {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
  
 }

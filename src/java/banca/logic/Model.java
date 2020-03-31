@@ -163,5 +163,9 @@ public class Model {
        return base.MonedasList();
     }
 
+    public List<Movimiento> MovimientosRangoFind(int c,String F1,String F2) {
+     return base.ListaMovimientosRango(c,F1,F2);
+    }
+
     
 }

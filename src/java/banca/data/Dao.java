@@ -170,6 +170,27 @@ public class Dao {
         }
         return resultado;
      }
+     
+    public List<Movimiento> ListaMovimientosRango(int c, String F1, String F2) {
+     List<Movimiento> resultado = new ArrayList<Movimiento>();
+        try {
+            String sql="select * from Movimiento m "+
+                    "where m.fecha <='%s 23:59:59' AND "
+                    + "m.fecha >= '%s 00:00:00'  and "
+                    + "m.Cuenta_numero = '%s'";
+            sql=String.format(sql,F2,F1,c);
+            ResultSet rs =  db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(MovimientoRender(rs));
+            }
+        } catch (SQLException ex) {
+          return resultado;
+        }
+        return resultado;
+    }
+     
+     
+     
  public int ContadorRetiros() {
     List<Retiro> resultado = new ArrayList<Retiro>();
         try {
@@ -421,6 +442,8 @@ public class Dao {
             return null;
         }
     }
+
+   
 
 
    
