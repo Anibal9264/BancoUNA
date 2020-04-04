@@ -14,9 +14,10 @@
         <% Map<String,String> errores = (Map<String,String>) request.getAttribute("errores"); %>
         <% Map<String,String[]> form = (errores==null)? this.getForm(model):request.getParameterMap();%>
       <%@ include file="/presentation/Header.jsp" %>
+      
           <tbody > 
-          <table>    
-               <div class="EspacioLogin" id="loginP">
+          <TABLE style=" margin-top: 30px">    
+              
                <TD id="td1" class="login">
           
                 <div  id="id" class="login">
@@ -44,7 +45,7 @@
                         <div class="fila encabezado">
                             <button id="ingresar">
                                 <b>Ingresar</b></button></div>
-                     </p>
+                      </p>
                     </form>
                    </TD>
                </div>          
@@ -53,7 +54,7 @@
         </tbody>
             </div>
             <div class="EspacioLogin"></div>  </TR>
-    </table>
+    </TABLE>
             
     </body>
 </html>

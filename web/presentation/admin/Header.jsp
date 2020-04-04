@@ -4,7 +4,7 @@
     <div class="columna">
          <div class="logo">
            <a href="/BancoUNA/presentation/admin/Index.jsp">
-               <img src="/BancoUNA/images/logo.png">
+               <img style=" margin: 10px" src="/BancoUNA/images/logo.png">
             </a>
          </div> 
     </div>
@@ -14,7 +14,7 @@
      <%if(admin == null){ %>
         <div class="columna">
         <a href="/BancoUNA/presentation/admin/login/show">
-        <img id="online" src="/BancoUNA/images/logoenlinea.png">
+        <img style=" margin: 30px" id="online" src="/BancoUNA/images/logoenlinea.png">
         </a>
        </div>
      <%}%>
