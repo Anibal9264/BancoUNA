@@ -39,11 +39,21 @@ header{
     width: 100%; 
    
 }
+.cuadro{
+    text-align: center;
+    width: 10%;
+    position: relative;
+   
+}
 div[id="linea"]{
     background-color: silver;
     opacity:0.9;
     color: black;
     
+}
+
+.fila[id="vincular"]{
+    background-color: aqua;
 }
 
 body{
@@ -76,12 +86,26 @@ body{
     text-align: center;
     
 }
+
 .EspacioLogin[id="loginP"]{
    
     border-radius:20px;
-/*    margin-top:30px;*/
+    margin-top:50px;
     background-color: gainsboro;
   text-align: center;
+}
+.Espacio{
+   width: 50%;
+   height: 30%;
+    border-radius:20px;
+    margin-top:60px;
+    text-align: center;
+    position: relative;
+}
+
+.Espacio[id="vin"]{
+    
+    background-color: aqua;
 }
 
 .EspacioLogin[id="favoritas"]{
@@ -129,6 +153,7 @@ TD[id="td3"]{
 
     font-family: "monotype corsiva";
 }
+
 .login[id="id"]{
     text-align:center;
     top:-130px;
@@ -147,6 +172,7 @@ button[id="ingresar"]{
     font-family: "constantia";
     font-size: 15px;
 }
+
 .Toolbar li {
     display: inline-block;
     text-align: center;
@@ -262,5 +288,11 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
  display: inline-block; 
  overflow: auto;
  height:500px;
+}
+
+.FormT{
+border-radius: 8px;
+    
+    
 }
 

@@ -11,29 +11,29 @@
         <title>Cliente Transferencias</title>
     </head>
     <%@ include file="/presentation/Header.jsp" %>
+      
     <%@ include file="/presentation/Toolbar.jsp" %>
+    
          <br><br>
-   <%if(cliente!=null){%>
+   <% if(cliente!=null){ %>
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
     <% List<Cuenta> cuentas = model.getC_salida(); %>
     <% List<Cuenta>Favoritas = model.getC_Favoritas(); %>
-
+  
     <div class="fila">
-        <div class="EspacioLogin"></div>
         <div class="EspacioLogin" id="loginP">
-            <div class="login">
-                <img src="/BancoUNA/images/transferencia.png">
-            </div>
-            <div class="FormT">
-                <form action="/BancoUNA/presentation/transferencia/transferencia" method="post">
-                    <div class="fila encabezado"><b><p>Transferencia</b></p></div>
-                    <div class="fila">
+                 <br>
+            <img src="/BancoUNA/images/transferencia.png">
+            <form action="/BancoUNA/presentation/transferencia/transferencia" method="post">
+                <br>
+                <div class="fila encabezado"><b>Transferencia</b></div>
+                <div class="fila">
                         <div class="etiqueta">Cuenta de Salida :
                         <select name="Cuenta_S" id="Cuenta_S" required>
                            <%for(Cuenta c:cuentas){%>
-                                <option  value="<%=c.getNumero()%>"><%=c.toString()%> </option>
+                                <option value="<%=c.getNumero()%>"><%=c.toString()%> </option>
                             <%}%>          
                         </select>
                          </div>
@@ -55,7 +55,7 @@
                         <div class="campo"><input  placeholder="Monto" type="text" name="monto_t" 
                                                     value="<%=form.get("monto_t")[0]%>" 
                                                     class="<%=erroneo("monto_t", errores)%>"
-                                                    title="<%=title("monto_t", errores)%>"required>
+                                                    title="<%=title("monto_t", errores)%>" required>
                         </div>
                     </div>
                     <br />
@@ -64,12 +64,13 @@
                         <div class="campo"><input  placeholder="Motivo" type="text" name="motivo_t"  
                                                    value="<%=form.get("motivo_t")[0]%>"  required></div>
                     </div>
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
+                    <br>
+                    <div class="fila encabezado"><button id="ingresar" style="margin-bottom: 15px">Ingresar</button> </div>
                 </form>
             </div> 
         </div>
         <div class="EspacioLogin"></div>
-    </div>
+    
 <%}%>
 </html>
 <%!
