@@ -18,15 +18,17 @@
     <% Model model = (Model) request.getAttribute("model"); %>
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
-   <div class="EspacioLogin"></div>
+   
+    <div style=" background-color:#943126">
+    <div class="EspacioLogin"></div>
     <div class="EspacioLogin" id="loginP">
     <div class="FormAdd">
     <%if(!model.getCuenta().isEstado()){%>
-        <div class="fila encabezado"><b><p>Agregar Cuenta</b></p></div>
+        <div class="fila encabezado"><p><b>Agregar Cuenta</b></p></div>
                 <form action="/BancoUNA/presentation/admin/addCuenta/add" method="post" >
                    <div class="fila">
                         <div class="etiqueta">Cedula :
-                        <div class="campo"><input  placeholder="601230123" type="text" name="Cedula_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="601230123" type="text" name="Cedula_C" 
                                                     value="<%=form.get("Cedula_C")[0]%>" 
                                                     class="<%=erroneo("Cedula_C", errores)%>"
                                                     title="<%=title("Cedula_C", errores)%>"required>
@@ -48,7 +50,7 @@
                         
                     <div class="fila">
                         <div class="etiqueta">Descripcion :
-                        <div class="campo"><input  placeholder="Cuenta Corriente" type="text" name="Descripcion_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="Cuenta Corriente" type="text" name="Descripcion_C" 
                                                     value="<%=form.get("Descripcion_C")[0]%>" required>
                         </div>
                         </div>
@@ -57,19 +59,22 @@
                    
                     <div class="fila">
                         <div class="etiqueta">Limite Diario:
-                        <div class="campo"><input  placeholder="100" type="text" name="LimiteD_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="100" type="text" name="LimiteD_C" 
                                                     value="<%=form.get("LimiteD_C")[0]%>" required>
                         </div>
                         </div>
                     </div>
                       <br>
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
+                    <div class="fila encabezado"><button id="ingresar" style="margin-bottom: 15px">Ingresar</button> </div>
                 </form>
   
        <div class="EspacioLogin"></div>
+    </div>
+    </div>
+    </div>
 <%}else{%>
-      ESTO TIENE QUE SALIR EN EL CENTRO Y MOSTRAR ESTOS DATOS :
-      <div class="fila encabezado"><b><p>Cuenta se Agrego Correctamente</b></p></div>
+    <div style=" text-align: center">
+      <div  class="fila encabezado"><b><p>Cuenta se Agrego Correctamente</p></b></div>
       <div class="fila">
         Cuenta Numero :<%=model.getCuenta().getNumero()%>
       </div>
@@ -79,7 +84,7 @@
       <div class="fila">
           <div class="fila encabezado">
               <a href="/BancoUNA/presentation/admin/deposito/view" 
-                 <button  style="margin-bottom: 15px">Agregar Deposito</button> </div> </a>
+                 <button id="ingresar" style="margin-bottom: 15px">Agregar Depósito</button> </div> </a>
       </div>
  <%}%>
  </div>

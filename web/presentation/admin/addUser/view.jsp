@@ -16,17 +16,21 @@
     <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores"); %>
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
     <%if(admin!=null){%>
-  <div class="EspacioLogin"></div>
-  <div class="EspacioLogin" id="loginP">
-  <div class="FormT">  
+    
+    <div style=" background-color:#943126">
+     <div class="EspacioLogin"></div>
+  <div  class="EspacioLogin" id="loginP">
+
 <%if(model.getUser().getContraseña().isEmpty()){%>
        
 
-               <div class="fila encabezado"><b><p>Agregar Usuario</b></p></div>
-                <form action="/BancoUNA/presentation/admin/addUser/add" method="post" >
+               <div class="fila encabezado"><p><b>Agregar Usuario</b></p></div>
+
+               <form  action="/BancoUNA/presentation/admin/addUser/add" method="post" >
                    <div class="fila">
                         <div class="etiqueta">Cedula :
-                        <div class="campo"><input  placeholder="601230123" type="text" name="Cedula_C" 
+                        <div class="campo"><input   style=" border-radius: 6px"
+                                                    placeholder="601230123" type="text" name="Cedula_C" 
                                                     value="<%=form.get("Cedula_C")[0]%>" 
                                                     class="<%=erroneo("Cedula_C", errores)%>"
                                                     title="<%=title("Cedula_C", errores)%>"required>
@@ -37,7 +41,7 @@
                     
                     <div class="fila">
                         <div class="etiqueta">Nombre :
-                        <div class="campo"><input  placeholder="Juan" type="text" name="Nombre_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="Juan" type="text" name="Nombre_C" 
                                                     value="<%=form.get("Nombre_C")[0]%>" required>
                         </div>
                         </div>
@@ -46,7 +50,7 @@
                    
                     <div class="fila">
                         <div class="etiqueta">Apellido 1 :
-                        <div class="campo"><input  placeholder="Solís" type="text" name="Apll1_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="Solís" type="text" name="Apll1_C" 
                                                     value="<%=form.get("Apll1_C")[0]%>" required>
                         </div>
                         </div>
@@ -55,7 +59,7 @@
                       
                       <div class="fila">
                         <div class="etiqueta">Apellido 2 :
-                        <div class="campo"><input  placeholder="Solís" type="text" name="Apll2_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="Solís" type="text" name="Apll2_C" 
                                                     value="<%=form.get("Apll2_C")[0]%>" required>
                         </div>
                         </div>
@@ -64,7 +68,7 @@
                       
                     <div class="fila">
                         <div class="etiqueta">Telefono :
-                        <div class="campo"><input  placeholder="88888888" type="text" name="Tel_C" 
+                        <div class="campo"><input style=" border-radius: 6px" placeholder="88888888" type="text" name="Tel_C" 
                                                     value="<%=form.get("Tel_C")[0]%>" required>
                         </div>
                         </div>
@@ -73,21 +77,25 @@
                       
                     <div class="fila">
                         <div class="etiqueta"> Es :
-                        <select name="Is_C" id="Is_C">
+                            <select style=" border-radius: 6px" name="Is_C" id="Is_C">
                            <option  value="Cliente">Cliente</option>
                            <option  value="Admin">Admin</option>
                         </select>
                          </div>
                     </div>
                       <br>
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
+                    <div class="fila encabezado"><button id="ingresar" >Ingresar</button> </div>
+                    <br>
                 </form>
             
-        
-        <div class="EspacioLogin"></div>
+    <div class="EspacioLogin"></div>
+    
+</div> 
+</div>
     
 <%}else{%>
-      <div class="fila encabezado"><b><p>Usuario se Agrego Correctamente</b></p></div>
+
+      <div class="fila encabezado"><p><b>Usuario se agregó correctamente</b></p></div>
       <div class="fila">
           <%=model.getUser().toString()%>
       </div>
@@ -100,12 +108,13 @@
       <div class="fila">
           <div class="fila encabezado" >
                <a href="/BancoUNA/presentation/admin/addCuenta/show">
-                   <button  style="margin-bottom: 15px">Agregar Cuenta</button> </a>
+                   <button id="ingresar" style="margin-bottom: 15px">Agregar Cuenta</button> </a>
           </div>
+          
       </div>
+
  <%}%>
- </div> 
- </div>
+ 
 <%}%>
 </html>
 <%!

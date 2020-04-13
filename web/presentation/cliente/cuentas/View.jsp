@@ -45,14 +45,14 @@
                              ver</a></td></tr>
                         <%}%>                     
  </table>
-        </table>          
+                 
     </div>
      <%@ include file="/presentation/Footer.jsp" %>
 <%}else{%>
-       <div class="fila encabezado"><b><p>Detalles De Cuenta </b></p></div>
+       <div class="fila encabezado"><p><b>Detalles de Cuenta </b></p></div>
        <%if(!model.getMovimientos().isEmpty()){%>
 <div class="fila encabezado">
-    <form action="/BancoUNA/presentation/cliente/cuentas/acomodo?numeroFld=<%=model.getMovimientos().get(0).getCuenta().getNumero()%>"method="post">
+    <form action="/BancoUNA/presentation/cliente/cuentas/acomodo?numeroFld=<%=model.getMovimientos().get(0).getCuenta().getNumero()%>" method="post">
         Desde: <input type="date" name="fecha1" required step="1" min="2018-01-01"  value=<%=GetFecha()%>>
 Hasta: <input type="date" name="fecha2" step="1" required min="2018-01-01"  value=<%=GetFecha()%>>
 <button    id="Butonbuscar"  style="margin-bottom: 15px">Buscar</button>
@@ -78,7 +78,8 @@ Hasta: <input type="date" name="fecha2" step="1" required min="2018-01-01"  valu
        
 </div>
        <%}else{%> 
-       <div>NO TIENE MOVIMIENTOS!!</div>
+       <br>
+       <div style="text-align: center">NO TIENE MOVIMIENTOS</div>
         <%}%>
      <%@ include file="/presentation/Footer.jsp" %>
 </body>

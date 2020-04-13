@@ -14,17 +14,19 @@
     <%@include file="/presentation/admin/Toolbar.jsp" %>
     <br>
     <% Model model = (Model) request.getAttribute("model"); %>
-<div class="EspacioLogin"></div>
-<div class="EspacioLogin" id="loginP">
+<div  class="EspacioLogin"></div>
+<div style="background-color: #943126" class="EspacioLogin" id="loginP">
 <%if(model.getMovimientos().isEmpty()){%> 
- <div class="fila encabezado"><b><p>Acredirar intereses</b></p></div>
- <div class="etiqueta">Total de cuentas: <%=model.getCuentas().size()%></div>
+<div style=" color: lightgray">
+ <div  class="fila encabezado"><p><b>Acreditar intereses</b></p></div>
+ <div class="etiqueta">Total de cuentas: <%=model.getCuentas().size()%></div> <br>
   <div class="fila encabezado">
       <a href="/BancoUNA/presentation/admin/acreditar/action" >
-          <button    id="Butonbuscar"  style="margin-bottom: 15px">Acreditar</button> </div>
+          <button    id="ingresar"  style="margin-bottom: 15px">Acreditar</button> </div>
       </a>
+  </div>
     <%}else{%>
-              <div class="fila encabezado"><b><p>Acreditaciones Realizadas</b></p></div>   
+              <div class="fila encabezado"><p><b>Acreditaciones Realizadas</b></p></div>   
         <table>
             <thead class="Tabla-in" id="cabeza">
                 <tr> <td> <b>Cuenta Número</b></td>

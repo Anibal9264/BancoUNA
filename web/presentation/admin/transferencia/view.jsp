@@ -22,52 +22,53 @@
 
  <div class="EspacioLogin"></div>
 <div class="EspacioLogin" id="loginP">
-     <div class="FormT">
-     <div class="fila encabezado"><b><p>Menu Transferencia</b></p></div>
+    <div style=" background-color: #1F618D">
+        
+        <div style=" color: lightgray" class="fila encabezado"><p><b> <br> Menú Transferencia</b></p></div>
         <%if(model.getCliente_S().getCuentas().isEmpty() || model.getCliente_D().getCuentas().isEmpty()){%>
       <form action="/BancoUNA/presentation/admin/transferencia/show" method="post">
          
-          <div class="fila encabezado"><b><p>Cliente De Salida</b></p></div>
-        <div class="fila">
-                        <div class="etiqueta">Cedula Cliente</div>
+          <div class="fila encabezado"><p><b>Cliente de salida</b></p></div>
+        <div style=" color: lightgray" class="fila">
+                        <div class="etiqueta">Cédula Cliente</div>
                         <input id="chekCed_S" type="checkbox"  onchange="document.getElementById('Cedula_S').disabled = !this.checked,
                                         document.getElementById('Numero_S').value = '',
                                         document.getElementById('Cedula_S').value = '',
                                         document.getElementById('Numero_S').disabled = this.checked,
                                         document.getElementById('chekNum_S').checked = !this.checked;"
                                         checked />
-                       <input type="text" placeholder="102340567" name="Cedula_S" id="Cedula_S"
+                       <input style=" border-radius: 6px" type="text" placeholder="102340567" name="Cedula_S" id="Cedula_S"
                                class="<%=erroneo("Cedula_S", errores)%>"
                                title="<%=title("Cedula_S", errores)%>"
                               value="<%=title("Valor_S1", errores)%>" 
                       required>
         </div>
          <br>
-       <div class="fila">
-                        <div class="etiqueta">Numero De Cuenta</div>
+       <div style=" color: lightgray" class="fila">
+                        <div class="etiqueta">Número de cuenta</div>
                         <input id="chekNum_S" type="checkbox" onchange="document.getElementById('Numero_S').disabled = !this.checked,
                                         document.getElementById('Numero_S').value = '', 
                                          document.getElementById('Cedula_S').value = '',
                                         document.getElementById('Cedula_S').disabled = this.checked,
                                         document.getElementById('chekCed_S').checked = !this.checked;" 
                                          />
-                        <input type="text" placeholder="numero" name="Numero_S" id="Numero_S" disabled
+                        <input style=" border-radius: 6px" type="text" placeholder="numero" name="Numero_S" id="Numero_S" disabled
                                class="<%=erroneo("Numero_S", errores)%>"
                                title="<%=title("Numero_S", errores)%>"
                                value="<%=title("Valor_S2", errores)%>" 
                                required>             
          </div>
        <br>
-       <div class="fila encabezado"><b><p>Cliente De Destino</b></p></div>
-        <div class="fila">
-                        <div class="etiqueta">Cedula Cliente</div>
+       <div class="fila encabezado"><p><b>Cliente de destino</b></p></div>
+        <div style=" color: lightgray" class="fila">
+                        <div class="etiqueta">Cédula Cliente</div>
                         <input id="chekCed_D" type="checkbox"  onchange="document.getElementById('Cedula_D').disabled = !this.checked,
                                         document.getElementById('Numero_D').value = '',
                                         document.getElementById('Cedula_D').value = '',
                                         document.getElementById('Numero_D').disabled = this.checked,
                                         document.getElementById('chekNum_D').checked = !this.checked;"
                                         checked />
-                       <input type="text" placeholder="102340567" name="Cedula_D" id="Cedula_D"
+                       <input style=" border-radius: 6px" type="text" placeholder="102340567" name="Cedula_D" id="Cedula_D"
                                class="<%=erroneo("Cedula_D", errores)%>"
                                title="<%=title("Cedula_D", errores)%>"
                               value="<%=title("Valor_D1", errores)%>" 
@@ -75,26 +76,26 @@
 
         </div>
          <br>
-       <div class="fila">
-                        <div class="etiqueta">Numero De Cuenta</div>
+       <div style=" color: lightgray" class="fila">
+                        <div class="etiqueta">Número De Cuenta</div>
                         <input id="chekNum_D" type="checkbox" onchange="document.getElementById('Numero_D').disabled = !this.checked,
                                         document.getElementById('Numero_D').value = '', 
                                          document.getElementById('Cedula_D').value = '',
                                         document.getElementById('Cedula_D').disabled = this.checked,
                                         document.getElementById('chekCed_D').checked = !this.checked;" 
                                          />
-                        <input type="text" placeholder="numero" name="Numero_D" id="Numero_D" disabled
+                        <input style=" border-radius: 6px" type="text" placeholder="numero" name="Numero_D" id="Numero_D" disabled
                                class="<%=erroneo("Numero_D", errores)%>"
                                title="<%=title("Numero_D", errores)%>"
                                value="<%=title("Valor_D2", errores)%>" 
                                required>         
          </div>
        <br>
-       <div class="fila encabezado"><button    id="Butonbuscar"  style="margin-bottom: 15px">Buscar</button> </div>
+       <div class="fila encabezado"><button    id="ingresar"  style="margin-bottom: 15px">Buscar</button> </div>
  </form>
 <%}else if (!model.isListo()){%>   
 <form action="/BancoUNA/presentation/admin/transferencia/add" method="post">
-<div class="fila encabezado"><b><p><%=model.getCliente_S().getNombre()%></b></p></div>
+<div class="fila encabezado"><p><b><%=model.getCliente_S().getNombre()%></b></p></div>
      <div class="fila">
               <div class="etiqueta"> Selecione Cuenta al retirar :
                   <select name="Numero_C1" id="Numero_C1" required>
@@ -120,7 +121,7 @@
      </select>
 </div>
 <br>
-<div class="fila encabezado"><b><p><%=model.getCliente_D().getNombre()%></b></p></div>
+<div class="fila encabezado"><p><b><%=model.getCliente_D().getNombre()%></b></p></div>
      <div class="fila">
               <div class="etiqueta"> Selecione Cuenta a Transferir :
                   <select name="Numero_C2" id="Numero_C2" required>

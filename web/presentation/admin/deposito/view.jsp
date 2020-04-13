@@ -21,13 +21,13 @@
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
 <%if(admin!=null){%>
  <div class="EspacioLogin"></div>
-<div class="EspacioLogin" id="loginP">
-     <div class="FormT">
-     <div class="fila encabezado"><b><p>Menu Deposito</b></p></div>
+<div style=" background-color: #943126" class="EspacioLogin" id="loginP">
+     <div >
+     <div style="color: silver" class="fila encabezado"><p><b>Depósito</b></p></div>
         <%if(model.getCliente().getCuentas().isEmpty()){%>
-      <form action="/BancoUNA/presentation/admin/deposito/show" method="post">
+      <form style=" color: silver" action="/BancoUNA/presentation/admin/deposito/show" method="post">
         <div class="fila">
-                        <div class="etiqueta">Cedula Cliente</div>
+                        <div class="etiqueta">Cédula Cliente</div>
                         <input id="chekCed" type="checkbox"  onchange="document.getElementById('Cedula_C').disabled = !this.checked,
                                         document.getElementById('Numero_C').value = '',
                                         document.getElementById('Cedula_C').value = '',
@@ -46,7 +46,7 @@
         </div>
          <br>
        <div class="fila">
-                        <div class="etiqueta">Numero De Cuenta</div>
+                        <div class="etiqueta">Número de cuenta</div>
                         <input id="chekNum" type="checkbox" onchange="document.getElementById('Numero_C').disabled = !this.checked,
                                         document.getElementById('Numero_C').value = '', 
                                          document.getElementById('Cedula_C').value = '',
@@ -64,7 +64,7 @@
                   <%}%>               
          </div>
        <br>
-       <div class="fila encabezado"><button    id="Butonbuscar"  style="margin-bottom: 15px">Buscar</button> </div>
+       <div class="fila encabezado"><button    id="ingresar"  style="margin-bottom: 15px">Buscar</button> </div>
  </form>
 <%}else if(!model.isListo()){%>      
    <form action="/BancoUNA/presentation/admin/deposito/add" method="post">
@@ -101,13 +101,13 @@
                     </div>
                     <br />
                     <div class="fila">
-                        <div class="etiqueta">Nombre Del Depositante</div>
+                        <div class="etiqueta">Nombre del Depositante</div>
                         <div class="campo"><input  placeholder="Nombre" type="text" name="NombreD_D"  
                                                    value="<%=form.get("NombreD_D")[0]%>" 
                                                    required></div>
                     </div>
                     <br />
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Realizar</button> </div>
+                    <div class="fila encabezado"><button id="ingresar"  style="margin-bottom: 15px">Realizar</button> </div>
   
     </form>
 <%}else{%> 

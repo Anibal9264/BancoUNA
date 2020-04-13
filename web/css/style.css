@@ -12,7 +12,10 @@ body {
    position: relative;
    width: 100%;
 }
-
+.borde{
+    
+    border-radius: 6px;
+}
 header{
    position: relative;
    width: 100%;
@@ -88,7 +91,6 @@ body{
 }
 
 .EspacioLogin[id="loginP"]{
-   
     border-radius:20px;
     margin-top:50px;
     background-color: gainsboro;
@@ -153,6 +155,8 @@ TD[id="td3"]{
 
     font-family: "monotype corsiva";
 }
+
+
 
 .login[id="id"]{
     text-align:center;
@@ -281,7 +285,7 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
 }
 
 .Tabla-in[id="cabeza"] td{
-    background-color: red;
+    background-color:silver;
 }
 .Tabla-in[id="cuerpo"]{
  margin-top:5px;
@@ -292,7 +296,6 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
 
 .FormT{
 border-radius: 8px;
-    
-    
+   
 }
 

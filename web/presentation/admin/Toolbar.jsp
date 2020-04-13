@@ -4,23 +4,23 @@
     <ul id="menu">
         <li><%=admin.toString()%>
             <ul id="Admin_ul">
-                <li>Actualizar datos de Un Cliente</li>
+                <li>Actualizar datos de un cliente</li>
             </ul>
         </li>
         <li>Menu Agregar
             <ul id="addU_ul">
                 <a href="/BancoUNA/presentation/admin/addUser/show">
-                    <li>Agergar Usuario</li>
+                    <li>Agregar Usuario</li>
                 </a>
                 <a href="/BancoUNA/presentation/admin/addCuenta/show">
-                    <li>Agergar Cuenta</li>
+                    <li>Agregar Cuenta</li>
                 </a>
             </ul>
         </li>
         <li>Transferencia
             <ul id="AdminT_ul">
                <a href="/BancoUNA/presentation/admin/deposito/show">
-                    <li>Deposito</li>
+                    <li>Depósito</li>
                 </a>
                <a href="/BancoUNA/presentation/admin/retiro/show">
                <li>Retiro</li>

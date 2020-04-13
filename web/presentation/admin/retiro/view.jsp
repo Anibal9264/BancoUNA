@@ -20,20 +20,20 @@
     <% Map<String, String[]> form = (errores == null) ? this.getForm(model) : request.getParameterMap();%>
 <%if(admin!=null){%>
  <div class="EspacioLogin"></div>
-<div class="EspacioLogin" id="loginP">
-     <div class="FormT">
-     <div class="fila encabezado"><b><p>Menu Deposito</b></p></div>
+<div style="background-color: #1F618D" class="EspacioLogin" id="loginP">
+    <div style=" color: lightgray">
+     <div class="fila encabezado"><p><b>Retiro </b></p></div>
         <%if(model.getCliente().getCuentas().isEmpty() && !model.getCuenta().isEstado()){%>
       <form action="/BancoUNA/presentation/admin/retiro/show" method="post">
         <div class="fila">
-                        <div class="etiqueta">Cedula Cliente</div>
+                        <div class="etiqueta">Cédula Cliente</div>
                         <input id="chekCed" type="checkbox"  onchange="document.getElementById('Cedula_C').disabled = !this.checked,
                                         document.getElementById('Numero_C').value = '',
                                         document.getElementById('Cedula_C').value = '',
                                         document.getElementById('Numero_C').disabled = this.checked,
                                         document.getElementById('chekNum').checked = !this.checked;"
                                         checked />
-                       <input type="text" placeholder="102340567" name="Cedula_C" id="Cedula_C"
+                       <input style=" border-radius: 6px" type="text" placeholder="102340567" name="Cedula_C" id="Cedula_C"
                                onclick="document.getElementById('ouput1').value ='' "
                                class="<%=erroneo("Cedula_C", errores)%>"
                                title="<%=title("Cedula_C", errores)%>"
@@ -45,14 +45,14 @@
         </div>
          <br>
        <div class="fila">
-                        <div class="etiqueta">Numero De Cuenta</div>
+                        <div class="etiqueta">Número De Cuenta</div>
                         <input id="chekNum" type="checkbox" onchange="document.getElementById('Numero_C').disabled = !this.checked,
                                         document.getElementById('Numero_C').value = '', 
                                          document.getElementById('Cedula_C').value = '',
                                         document.getElementById('Cedula_C').disabled = this.checked,
                                         document.getElementById('chekCed').checked = !this.checked;" 
                                          />
-                        <input type="text" placeholder="numero" name="Numero_C" id="Numero_C" disabled
+                        <input style=" border-radius: 6px" type="text" placeholder="numero" name="Numero_C" id="Numero_C" disabled
                                onclick="document.getElementById('ouput2').value ='' "
                                class="<%=erroneo("Numero_C", errores)%>"
                                title="<%=title("Numero_C", errores)%>"
@@ -63,7 +63,7 @@
                   <%}%>               
          </div>
        <br>
-       <div class="fila encabezado"><button    id="Butonbuscar"  style="margin-bottom: 15px">Buscar</button> </div>
+       <div class="fila encabezado"><button id="ingresar"  style="margin-bottom: 15px">Buscar</button> </div>
  </form>
 <%}else if(!model.isListo()){%>      
    <form action="/BancoUNA/presentation/admin/retiro/add" method="post">
@@ -71,8 +71,9 @@
      <%if(!model.getCliente().getCuentas().isEmpty()){%>   
      <div class="fila encabezado"><b><p><%=model.getCliente().getNombre()%></b></p></div>
      <div class="fila">
-              <div class="etiqueta"> Selecione Cuenta al retirar :
-                  <select name="Numero_C" id="Numero_C" required>
+              <div class="etiqueta"> Selecione la cuenta a retirar :
+                  <br>
+                  <select style=" border-radius: 6px" name="Numero_C" id="Numero_C" required>
                            <%for(Cuenta f:model.getCliente().getCuentas()){%>
                                 <option  value="<%=f.getNumero()%>"><%=f.toString()%> </option>
                             <%}%>          
@@ -82,21 +83,21 @@
           <br>
       <%}%>
                     <div class="fila">
-                        <div class="etiqueta">Monto a retirar</div>
-                        <div class="campo"><input  placeholder="Monto" type="text" name="Monto_R" 
+                        <div class="etiqueta">Monto a retirar : </div>
+                        <div class="campo"><input style=" border-radius: 6px"  placeholder="Monto" type="text" name="Monto_R" 
                                                     class="<%=erroneo("Monto_R", errores)%>"
                                                     title="<%=title("Monto_R", errores)%>"
                                                     value="<%=form.get("Monto_R")[0]%>"
                                                     required>
-                        </div>
-                   <select name="Moneda_C" id="Moneda_C" required>
+                       
+                   <select style=" border-radius: 6px" name="Moneda_C" id="Moneda_C" required>
                            <%for(Moneda m:model.getMonedas()){%>
                                 <option  value="<%=m.getTipo_cambio()%>"><%=m.getId()%> </option>
                             <%}%>          
-                   </select>
+                   </select> </div>
                     </div>
                      <br />
-                    <div class="fila encabezado"><button  style="margin-bottom: 15px">Realizar</button> </div>
+                    <div class="fila encabezado"><button id="ingresar" style="margin-bottom: 15px">Realizar</button> </div>
     </form>
 <%}else{%> 
  <%
@@ -107,7 +108,9 @@
  <div class="fila"> Fecha :  <%=model.getMovimiento().getFecha()%></div>
  <div class="fila"> Nombre :  <%=model.getCuenta().getUsuario().toString()%></div>
  <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getRetiro().getMonto())%>
+     
      <%=model.getMovimiento().getCuenta().getMoneda().getId()%></div>
+     <br>
 
  
 <%}%>   
