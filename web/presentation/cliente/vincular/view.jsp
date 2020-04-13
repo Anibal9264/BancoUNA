@@ -37,7 +37,7 @@
         %> > 
         <button  id="ingresar" class="button" >Vincular</button></a>
             
-        <a href="/BancoUNA/presentation/cliente/vincular/Cancelar" > 
+        <a href="/BancoUNA/presentation/cliente/vincular/show" > 
            <button style=" align-content:center" id="ingresar"  >Cancelar</button></a></div>
 </div>
 </div>
