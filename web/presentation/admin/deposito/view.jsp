@@ -34,7 +34,7 @@
                                         document.getElementById('Numero_C').disabled = this.checked,
                                         document.getElementById('chekNum').checked = !this.checked;"
                                         checked />
-                       <input type="text" placeholder="102340567" name="Cedula_C" id="Cedula_C"
+                       <input style=" border-radius: 6px" type="text" placeholder="102340567" name="Cedula_C" id="Cedula_C"
                                onclick="document.getElementById('ouput1').value ='' "
                                class="<%=erroneo("Cedula_C", errores)%>"
                                title="<%=title("Cedula_C", errores)%>"
@@ -53,7 +53,7 @@
                                         document.getElementById('Cedula_C').disabled = this.checked,
                                         document.getElementById('chekCed').checked = !this.checked;" 
                                          />
-                        <input type="text" placeholder="numero" name="Numero_C" id="Numero_C" disabled
+                        <input style=" border-radius: 6px" type="text" placeholder="numero" name="Numero_C" id="Numero_C" disabled
                                onclick="document.getElementById('ouput2').value ='' "
                                class="<%=erroneo("Numero_C", errores)%>"
                                title="<%=title("Numero_C", errores)%>"
