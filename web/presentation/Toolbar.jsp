@@ -3,7 +3,9 @@
     <ul id="menu">
         <li><%=cliente.toString()%>
             <ul id="User_ul">
-                <li>Actualizar mis datos </li>
+                <a href="/BancoUNA/presentation/cliente/actualizar/show">
+                    <li>Actualizar mis datos </li>
+                </a>
             </ul>
         </li>
         <li>Cuentas
@@ -17,9 +19,11 @@
             </ul>
         </li>
         <li>Transferencia
-            <ul id="Transferencia_ul">
+             <ul id="Transferencia_ul">
+            <a href="/BancoUNA/presentation/transferencia/propia/show">
                <li>Cuenta propia</li>
-          <a href="/BancoUNA/presentation/transferencia/show">
+            </a>
+            <a href="/BancoUNA/presentation/transferencia/show">
                <li>Cuentas favoritas</li>
           </a>
             </ul>

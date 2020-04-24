@@ -109,7 +109,16 @@ public class Dao {
     
     
     // UDATES
-     
+   public void UsuarioUpdate(Usuario cliente) {
+   String sql="update Usuario set nombre='%s',apellido1='%s',apellido2='%s',"
+                + "contraseña='%s',`is`='%s',telefono='%s' "
+                +"where cedula='%s'";
+        sql=String.format(sql,cliente.getNombre(),cliente.getApellido1(),
+                cliente.getApellido2(),cliente.getContraseña(),cliente.toIs()
+                ,cliente.getTelefono(),cliente.getCedula());
+         db.executeUpdate(sql);
+   }
+
      public void CuentaUpdate(Cuenta c) throws Exception{
         String sql="update Cuenta set saldo='%s',estado='%s',descripcion='%s',"
                 + "interesesG='%s',limite='%s',Usuario_cedula='%s',Moneda_id='%s' "
@@ -443,6 +452,8 @@ public class Dao {
         }
     }
 
+
+ 
    
 
 

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "TransferenciasController", urlPatterns = {"/presentation/transferencia/show","/presentation/transferencia/transferencia"})
+@WebServlet(name = "TransferenciasController", urlPatterns = {"/presentation/transferencia/show","/presentation/transferencia/propia/show","/presentation/transferencia/transferencia"})
 public class Controller extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
@@ -36,6 +36,9 @@ public class Controller extends HttpServlet {
             case "/presentation/transferencia/show":
                 viewUrl=this.show(request);
                 break; 
+            case "/presentation/transferencia/propia/show":
+                viewUrl=this.showPropias(request);
+                break; 
             case "/presentation/transferencia/transferencia":
                 viewUrl=this.transferencia(request);
                 break;               
@@ -46,14 +49,18 @@ public class Controller extends HttpServlet {
   
   //=====================SHOW==============================
     private String show(HttpServletRequest request){
-        Cargar_Datos_de_Salida(request);
+        Cargar_Datos_de_Salida(request,false);
+        return this.showAction(request);
+    }
+    private String showPropias(HttpServletRequest request) {
+        Cargar_Datos_de_Salida(request,true);
         return this.showAction(request);
     }
     private String showAction(HttpServletRequest request){
         return "/presentation/cliente/transferencia/view.jsp"; 
     }
     
-    private void Cargar_Datos_de_Salida(HttpServletRequest request) {
+    private void Cargar_Datos_de_Salida(HttpServletRequest request,boolean propia) {
         Model model = (Model) request.getAttribute("model");
         banca.logic.Model domainModel = banca.logic.Model.instance();
         HttpSession session = request.getSession(true);
@@ -70,7 +77,12 @@ public class Controller extends HttpServlet {
            model.setC_salida(new ArrayList<>());
         }
       try {
-          model.setC_Favoritas(domainModel.favoritasFind(cliente));
+          if(!propia){
+               model.setC_Favoritas(domainModel.favoritasFind(cliente));
+          }else{
+               model.setC_Favoritas(domainModel.cuentasFind(cliente));
+          }
+         
       } catch (Exception ex) {
           model.setC_Favoritas(new ArrayList<>());
       }
@@ -99,6 +111,7 @@ public class Controller extends HttpServlet {
        Usuario real = (Usuario) session.getAttribute("cliente");
        Cuenta cuenta = domainModel.CuentaFind(Integer.valueOf(request.getParameter("Cuenta_S")));
        double monto = Double.valueOf(request.getParameter("monto_t"));
+       Cuenta Favorita = domainModel.CuentaFind(Integer.valueOf(request.getParameter("Cuenta_F")));
  //===================Verificar monto===================
        if (cuenta.getSaldo() < monto) {
            errores.put("monto_t", "No tienes saldo suficiente!!");
@@ -109,7 +122,12 @@ public class Controller extends HttpServlet {
        if(monto>cuenta.getLimite()){
            errores.put("monto_t","Monto sobrepasa el limite diario");
        }
-      Cargar_Datos_de_Salida(request);
+     if(Favorita.getUsuario().getCedula().equals(real.getCedula())){
+         Cargar_Datos_de_Salida(request,true);
+     }else{
+         Cargar_Datos_de_Salida(request,false);
+     }
+      
       request.setAttribute("errores", errores);
       return errores;
    }
@@ -200,4 +218,6 @@ public class Controller extends HttpServlet {
        saldo += Resul;
        return saldo;
    }
+
+   
 }  

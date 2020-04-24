@@ -115,10 +115,14 @@
                           DecimalFormat df2 = new DecimalFormat("#.##");
                           df2.setRoundingMode(RoundingMode.DOWN);  
 %>
- <div class="fila encabezado"><b><p>Deposito Realizado </b></p></div>   
+ <div class="fila encabezado"><b><p>Deposito Realizado </b></p></div> 
+<br> 
  <div class="fila"> Fecha :  <%=model.getMovimiento().getFecha()%></div>
+ <br>
  <div class="fila"> Depositante :  <%=model.getMovimiento().getDeposito().getNombreDepositante()%></div>
+ <br>
  <div class="fila"> Motivo :  <%=model.getMovimiento().getDeposito().getMotivo()%></div>
+ <br>
  <div class="fila"> Monto :  <%=df2.format(model.getMovimiento().getDeposito().getMonto())%>
      <%=model.getMovimiento().getCuenta().getMoneda().getId()%> </div>
 

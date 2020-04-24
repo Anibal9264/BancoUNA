@@ -78,13 +78,15 @@
       <div class="fila">
         Cuenta Numero :<%=model.getCuenta().getNumero()%>
       </div>
+      <br>
       <div class="fila">
           Moneda  : <%=model.getCuenta().getMoneda().getId()%>
       </div>
+      <br>
       <div class="fila">
           <div class="fila encabezado">
-              <a href="/BancoUNA/presentation/admin/deposito/view" 
-                 <button id="ingresar" style="margin-bottom: 15px">Agregar Depósito</button> </div> </a>
+              <a href="/BancoUNA/presentation/admin/deposito/show" >
+                 <button id="ingresar" style="margin-bottom: 15px">Agregar Depósito</button> </a></div>
       </div>
  <%}%>
  </div>

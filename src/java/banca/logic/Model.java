@@ -167,5 +167,9 @@ public class Model {
      return base.ListaMovimientosRango(c,F1,F2);
     }
 
+    public void UsuarioUpdate(Usuario cliente) {
+      base.UsuarioUpdate(cliente);
+    }
+
     
 }
